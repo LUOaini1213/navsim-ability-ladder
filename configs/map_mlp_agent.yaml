@@ -1,0 +1,11 @@
+_target_: navsim.agents.map_mlp_agent.MapMLPAgent
+_convert_: 'all'
+
+trajectory_sampling:
+  _target_: nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling
+  _convert_: 'all'
+  time_horizon: 4
+  interval_length: 0.5
+
+checkpoint_path: ${oc.env:NAVSIM_EXP_ROOT}/map_mlp/map_mlp.pt
+norm_path: ${oc.env:NAVSIM_EXP_ROOT}/map_mlp/norm.json

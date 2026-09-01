@@ -1,0 +1,3 @@
+_target_: navsim.agents.kinematic_agent.KinematicAgent
+_convert_: "all"
+yaw_rate_cmd: 0.20

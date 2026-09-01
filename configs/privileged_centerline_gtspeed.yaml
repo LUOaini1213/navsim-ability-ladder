@@ -1,0 +1,5 @@
+_target_: navsim.agents.privileged_centerline_agent.PrivilegedCenterlineAgent
+_convert_: "all"
+path_mode: centerline
+speed_mode: human
+use_idm: false

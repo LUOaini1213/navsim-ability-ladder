@@ -1,0 +1,3 @@
+_target_: navsim.agents.privileged_centerline_agent.PrivilegedCenterlineAgent
+_convert_: "all"
+use_idm: true
