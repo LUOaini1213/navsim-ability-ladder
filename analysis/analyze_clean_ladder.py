@@ -32,8 +32,11 @@ AGENTS = [
     ('PrivBrake', 'privileged_brake_mini', 'GT boxes, no map', 'no'),
     ('MLP (learned)', 'mlp_agent_mini', 'learned kinematics, blind', 'yes'),
     ('MapMLP (learned+map)', 'map_mlp_mini', 'learned, sees centerline', 'no'),
+    ('MapMLP-reg (learned+map)', 'map_mlp_reg_mini', 'learned, sees centerline, regularized', 'no'),
     ('PrivMap(IDM)', 'privileged_centerline_mini', 'map centerline + IDM', 'no'),
     ('PrivMapKin', 'privileged_centerline_kin', 'map centerline + kinematic', 'no'),
+    ('SpeedMLP (hand path+learned speed)', 'speed_mlp_mini', 'map centerline + LEARNED arc-length', 'no'),
+    ('SpeedMLP-e200', 'speed_mlp_e200_mini', 'same, 200 epochs', 'no'),
     ('PrivGTPathKin', 'privileged_gtpath_kin', 'logged path + kinematic', 'no'),
     ('PrivMapGTSpd', 'privileged_centerline_gtspeed', 'map centerline + human speed', 'no'),
     ('Human', 'human_agent_mini', 'logged future', 'no'),
@@ -113,7 +116,7 @@ def main():
     L.append('# Clean ladder — held-out val logs only\n')
     L.append('The mini dataset has 64 logs; **62 of them are the warmup_test_e2e logs**. '
              'Training on `mini` therefore contaminates the full 563-scene evaluation for the '
-             'one learned agent, and retraining on "mini minus warmup" is not possible — only '
+             'learned agents, and retraining on "mini minus warmup" is not possible — only '
              '2 logs would remain. So instead of dropping the learned row, every agent is '
              'scored on the same held-out val logs.\n')
     L.append('- train logs %d / val logs %d (`available_mini_logs.yaml`)' % (len(train_logs), len(val_logs)))
@@ -148,6 +151,11 @@ def main():
         ('PrivMapGTSpd', 'Human', 'Remaining gap to Human'),
         ('MLP (learned)', 'MapMLP (learned+map)', 'Give the LEARNED model the centerline too'),
         ('MapMLP (learned+map)', 'PrivMapKin', 'Same centerline: hand rule vs learned'),
+        ('MapMLP (learned+map)', 'MapMLP-reg (learned+map)', 'Regularize the learned map model'),
+        ('MapMLP-reg (learned+map)', 'PrivMapKin', 'Regularized learned vs hand rule (same centerline)'),
+        ('PrivMapKin', 'SpeedMLP (hand path+learned speed)', 'Hand path: LEARNED speed vs hand kinematic speed'),
+        ('SpeedMLP (hand path+learned speed)', 'PrivMapGTSpd', 'Learned speed vs human speed (same path, upper bound)'),
+        ('SpeedMLP (hand path+learned speed)', 'SpeedMLP-e200', 'Speed model: 80 vs 200 epochs'),
     ]
     for a, b, label in PAIRS:
         diffs = [data[b][t]['score'] - data[a][t]['score'] for t in val_tok]

@@ -27,8 +27,11 @@ AGENTS = [
     ('PrivBrake', 'privileged_brake_mini', 'GT boxes, no map'),
     ('MLP', 'mlp_agent_mini', 'learned kinematics (blind)'),
     ('MapMLP (learned+map)', 'map_mlp_mini', 'learned, sees centerline'),
+    ('MapMLP-reg (learned+map)', 'map_mlp_reg_mini', 'learned, sees centerline; h128 / drop 0.2 / wd 1e-3'),
     ('PrivMap(IDM)', 'privileged_centerline_mini', 'map centerline + IDM'),
     ('PrivMapKin', 'privileged_centerline_kin', 'map centerline + kinematic'),
+    ('SpeedMLP (hand path+learned speed)', 'speed_mlp_mini', 'map centerline + LEARNED arc-length'),
+    ('SpeedMLP-e200', 'speed_mlp_e200_mini', 'same, 200 epochs'),
     ('PrivGTPathKin', 'privileged_gtpath_kin', 'logged path + kinematic'),
     ('PrivMapGTSpd', 'privileged_centerline_gtspeed', 'map centerline + human arc-length'),
     ('Human', 'human_agent_mini', 'logged future'),
@@ -45,6 +48,11 @@ PAIRS = [
     ('PrivMapGTSpd', 'Human', 'Remaining gap to Human'),
     ('MLP', 'MapMLP (learned+map)', 'Give the LEARNED model the centerline too'),
     ('MapMLP (learned+map)', 'PrivMapKin', 'Same centerline: hand rule vs learned'),
+    ('MapMLP (learned+map)', 'MapMLP-reg (learned+map)', 'Regularize the learned map model'),
+    ('MapMLP-reg (learned+map)', 'PrivMapKin', 'Regularized learned vs hand rule (same centerline)'),
+    ('PrivMapKin', 'SpeedMLP (hand path+learned speed)', 'Hand path: LEARNED speed vs hand kinematic speed'),
+    ('SpeedMLP (hand path+learned speed)', 'PrivMapGTSpd', 'Learned speed vs human speed (same path, upper bound)'),
+    ('SpeedMLP (hand path+learned speed)', 'SpeedMLP-e200', 'Speed model: 80 vs 200 epochs'),
 ]
 
 
@@ -137,12 +145,12 @@ def main():
              '(12:52 PDMS 0.602 / DAC 0.766; 12:55 PDMS 0.593 / DAC 0.785). '
              'This report and `pdm_report.md` both use the first. '
              'The gap is unexplained and should be pinned down before the number is quoted.')
-    L.append('- MLP and MapMLP are the two learned agents; on this split both scores are '
+    L.append('- MLP, MapMLP(-reg) and SpeedMLP are learned; on this split their scores are '
              'contaminated (428 of 563 scenes were training logs). '
              'The clean comparison is the held-out 135 (MLP 0.475 vs CV 0.181).')
     L.append('- Priv* and Human consume ground truth or map privilege and are **not '
              'deployable** — they are upper bounds, not results.')
-    L.append('- Ten comparisons were made; no multiplicity correction is applied. '
+    L.append('- Multiple comparisons were made; no multiplicity correction is applied. '
              'The two smallest effects (drop-IDM, logged-path) would not survive a '
              'strict Bonferroni threshold and should be reported as suggestive.')
     L.append('- `warmup_test_e2e` is not the official navtest leaderboard.')

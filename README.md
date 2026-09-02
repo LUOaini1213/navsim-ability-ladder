@@ -1,13 +1,14 @@
 # NAVSIM ability ladder — what actually caps open-loop planning scores?
 
 An ablation study on NAVSIM's `warmup_test_e2e` split. Instead of training one
-planner and reporting a number, this builds a **ladder of ten agents where each
-rung adds exactly one piece of information**, scores them all on the same metric
-cache, and attributes the score gaps.
+planner and reporting a number, this builds a **ladder of agents where each rung
+adds exactly one piece of information**, scores them all on the same metric
+cache, attributes the score gaps — and then tries three ways of putting a
+learned component back in, to see which slot it can actually fill.
 
-Every number below comes from `results/pdm_summary.csv`, which is produced by
-NAVSIM's own `run_pdm_score.py`. The analysis scripts only read those CSVs — they
-never re-run an evaluation, so nothing here can drift from the raw output.
+Every number below comes from per-scene CSVs written by NAVSIM's own
+`run_pdm_score.py`. The analysis scripts only read those CSVs — they never
+re-run an evaluation, so nothing here can drift from the raw output.
 
 ## The ladder (563 scenes, same metric cache)
 
@@ -17,15 +18,18 @@ never re-run an evaluation, so nothing here can drift from the raw output.
 | Kinematic | v, a, driving command | yes | 0.580 | 0.737 |
 | PrivBrake | GT boxes, no map | no | 0.602 | 0.766 |
 | EgoStatusMLP | learned, blind | yes | 0.640 | 0.806 |
-| **MapMLP** | **learned, sees centerline** | no | **0.548** | 0.798 |
+| MapMLP | learned, sees centerline | no | 0.548 | 0.798 |
 | PrivMap | map centerline + IDM | no | 0.786 | 0.934 |
 | PrivMapKin | map centerline + kinematic | no | 0.802 | 0.950 |
+| **SpeedMLP** | **map centerline + learned speed** | no | **0.806** | **0.964** |
 | PrivGTPathKin | logged path + kinematic | no | 0.833 | 0.973 |
 | PrivMapGTSpd | map centerline + human speed | no | 0.866 | 0.950 |
 | Human | logged future | no | 0.945 | 0.998 |
 
 `Priv*` and `Human` consume ground truth or map privilege. They are **upper
-bounds, not results** — none of them is a deployable planner.
+bounds, not results** — none of them is a deployable planner. Learned rows on
+this split are contaminated (see below); their clean numbers are in the next
+table.
 
 ## What the ladder says
 
@@ -39,20 +43,51 @@ Swapping in the on-route lane centerline moves DAC 0.737 → 0.950.
 
 **3. Giving a learned model the map is not the same as it using the map.**
 `MapMLP` is trained on the *identical* centerline features the hand-written
-follower consumes. On the clean held-out split it scores 0.527 against the hand
-rule's 0.730 — a gap of **+0.203, 95% CI [+0.118, +0.291]** in favour of the hand
-rule, while the learned model's own gain over the blind baseline (+0.051) has a
-CI that spans zero. With 3000 training scenes the model overfits (train L1 0.20,
-val L1 1.4) rather than learning to follow the lane. The information is in the
-features; the bottleneck is sample efficiency and inductive bias.
+follower consumes, and asked to regress the whole trajectory. On the clean split
+it scores 0.527 against the hand rule's 0.730 — **+0.203, 95% CI [+0.118,
++0.291]** in favour of the hand rule. The information is in the features; the
+bottleneck is sample efficiency and inductive bias.
 
 **4. Open-loop imitation quality is not closed-loop safety.**
 The blind MLP has a low open-loop L1 and still gets zeroed by DAC on 90 of 563
 scenes. A multiplicative safety metric does not care how close your trajectory
 looked.
 
-See `results/lab_notes.md` for the full write-up and
-`results/ci_report.md` / `results/clean_ladder.md` for the statistics.
+## Putting a learned part back in: three attempts
+
+Three ways of fixing `MapMLP`, all trained on the same 51 train logs and scored
+on the same 135 held-out scenes (`results/clean_ladder.md`).
+
+| variant | what the model predicts | open-loop val L1 | PDMS, clean n=135 | vs hand rule PrivMapKin (0.730) |
+|---|---|---:|---:|---|
+| MapMLP | whole xyθ trajectory | 0.99 | 0.527 | −0.203 [−0.291, −0.118] |
+| MapMLP-reg (h128, dropout 0.2, wd 1e-3) | whole xyθ trajectory | 0.65 | 0.425 | −0.305 [−0.396, −0.215] |
+| **SpeedMLP** | **only progress along the hand-drawn centerline** | 0.76 | **0.763** | **+0.033 [−0.016, +0.083]** |
+| SpeedMLP, 200 epochs | same | 0.65 | 0.747 | +0.017 |
+| PrivMapGTSpd (human speed, upper bound) | — | — | 0.809 | +0.079 |
+
+**5. The decomposition works; more capacity and more regularisation do not.**
+Asked to draw the whole line, the learned model loses to the hand rule by 0.2.
+Asked only to *pace* a line the rule has drawn, it matches the rule (0.763 vs
+0.730, CI spans zero; 0.806 vs 0.802 on the full split) with fewer drivable-area
+failures (3.6% vs 5.0%). A learned component earns its place in the slot where
+the hand rule is weakest — the speed profile — not in the slot the rule already
+handles.
+
+**6. Lower open-loop loss made closed-loop worse, twice.**
+Regularising `MapMLP` cut its open-loop val L1 from 0.99 to 0.65 and cut its
+PDMS from 0.527 to 0.425 (−0.102, CI [−0.182, −0.024]). Training `SpeedMLP` for
+200 epochs instead of 80 cut L1 from 0.76 to 0.65 and moved PDMS from 0.763 to
+0.747 (CI spans zero). Selecting models by open-loop L1 would have picked the
+wrong one both times. Finding 4, from the other direction.
+
+**7. Learned speed recovers part of the gap, not all of it.**
+Hand speed 0.730 → learned speed 0.763 → human speed 0.809 on the clean split.
+The learned profile is still +0.047 [+0.005, +0.091] short of the human one; the
+remaining headroom is in how fast to go, not where to go.
+
+See `results/lab_notes.md` for the original write-up and
+`results/ci_report.md` / `results/clean_ladder.md` for every CI.
 
 ## Contamination, and how it is handled
 
@@ -63,8 +98,8 @@ remain.
 
 So rather than quietly reporting a contaminated number, every agent is
 re-scored on the same held-out val logs (`results/clean_ladder.md`, n=135). The
-eight non-learned agents have no training set, so this only changes what the two
-learned rows mean — and it makes them directly comparable to the rest.
+non-learned agents have no training set, so this only changes what the learned
+rows mean — and it makes them directly comparable to the rest.
 
 **The cost is stated honestly.** At n=135 several effects that separated on 563
 scenes no longer do: GT boxes (+0.020), dropping IDM (+0.012), swapping in the
@@ -82,10 +117,10 @@ before that row is quoted anywhere.
 ## Layout
 
 ```
-agents/     custom NAVSIM agents (kinematic, privileged brake/centerline, MapMLP)
-configs/    matching hydra configs
-analysis/   analyze_ci.py, analyze_clean_ladder.py, analyze_pdm.py, train_map_mlp.py
-scripts/    PowerShell runners for each evaluation
+agents/     kinematic, privileged brake / centerline, MapMLP, SpeedMLP, centerline_util
+configs/    matching hydra configs (paths via ${oc.env:NAVSIM_EXP_ROOT})
+analysis/   train_map_mlp.py, train_speed_mlp.py, analyze_ci.py, analyze_clean_ladder.py, analyze_pdm.py
+scripts/    PowerShell runners for the evaluations
 results/    generated reports, pdm_summary.csv, failure trajectories
 ```
 
@@ -100,12 +135,14 @@ upstream and separately licensed, and the dataset alone is ~3.8 GB.
    `navsim/navsim/planning/script/config/common/agent/`.
 3. Set `NAVSIM_WORKSPACE`, `NAVSIM_EXP_ROOT`, `NAVSIM_DEVKIT_ROOT`,
    `OPENSCENE_DATA_ROOT`, `NUPLAN_MAPS_ROOT`; optionally `NAVSIM_PYTHON`.
-4. Build the metric cache, then run `scripts/run_*.ps1` for each agent.
-5. `python analysis/analyze_ci.py` and `python analysis/analyze_clean_ladder.py`
+4. Build the metric cache, then run `scripts/run_*.ps1` for each hand-written agent.
+5. Train the learned agents (CPU is fine — 3-layer MLPs on ~3000 samples):
+   `python analysis/train_map_mlp.py --epochs 80`
+   `python analysis/train_map_mlp.py --epochs 80 --hidden 128 --dropout 0.2 --wd 1e-3 --tag reg`
+   `python analysis/train_speed_mlp.py --epochs 80 --hidden 128 --dropout 0.2 --wd 1e-3`
+   then score them with `run_pdm_score.py agent=map_mlp_agent|map_mlp_reg_agent|speed_mlp_agent`.
+6. `python analysis/analyze_ci.py` and `python analysis/analyze_clean_ladder.py`
    regenerate the reports from the per-scene CSVs.
-
-To retrain the map-aware model: `python analysis/train_map_mlp.py --epochs 80`
-(CPU is fine — it is a 3-layer MLP on 3000 samples).
 
 ## Scope
 

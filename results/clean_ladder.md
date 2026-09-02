@@ -1,6 +1,6 @@
 # Clean ladder — held-out val logs only
 
-The mini dataset has 64 logs; **62 of them are the warmup_test_e2e logs**. Training on `mini` therefore contaminates the full 563-scene evaluation for the one learned agent, and retraining on "mini minus warmup" is not possible — only 2 logs would remain. So instead of dropping the learned row, every agent is scored on the same held-out val logs.
+The mini dataset has 64 logs; **62 of them are the warmup_test_e2e logs**. Training on `mini` therefore contaminates the full 563-scene evaluation for the learned agents, and retraining on "mini minus warmup" is not possible — only 2 logs would remain. So instead of dropping the learned row, every agent is scored on the same held-out val logs.
 
 - train logs 51 / val logs 13 (`available_mini_logs.yaml`)
 - scenes: **135 held-out val** vs 428 train-overlap (563 total)
@@ -15,8 +15,11 @@ The mini dataset has 64 logs; **62 of them are the warmup_test_e2e logs**. Train
 | PrivBrake | GT boxes, no map | no | **0.330** | 0.688 | +0.358 |
 | MLP (learned) | learned kinematics, blind | yes | **0.475** | 0.692 | +0.216 |
 | MapMLP (learned+map) | learned, sees centerline | no | **0.527** | 0.555 | +0.028 |
+| MapMLP-reg (learned+map) | learned, sees centerline, regularized | no | **0.425** | 0.674 | +0.249 |
 | PrivMap(IDM) | map centerline + IDM | no | **0.718** | 0.807 | +0.089 |
 | PrivMapKin | map centerline + kinematic | no | **0.730** | 0.824 | +0.095 |
+| SpeedMLP (hand path+learned speed) | map centerline + LEARNED arc-length | no | **0.763** | 0.819 | +0.057 |
+| SpeedMLP-e200 | same, 200 epochs | no | **0.747** | 0.828 | +0.081 |
 | PrivGTPathKin | logged path + kinematic | no | **0.769** | 0.854 | +0.085 |
 | PrivMapGTSpd | map centerline + human speed | no | **0.809** | 0.883 | +0.074 |
 | Human | logged future | no | **0.914** | 0.954 | +0.040 |
@@ -38,6 +41,11 @@ Only the learned row should show a systematic train-overlap advantage; the eight
 | Remaining gap to Human | +0.1047 | [+0.0580, +0.1568] | CI excludes 0 |
 | Give the LEARNED model the centerline too | +0.0513 | [-0.0197, +0.1239] | CI spans 0 |
 | Same centerline: hand rule vs learned | +0.2030 | [+0.1176, +0.2905] | CI excludes 0 |
+| Regularize the learned map model | -0.1019 | [-0.1815, -0.0243] | CI excludes 0 |
+| Regularized learned vs hand rule (same centerline) | +0.3049 | [+0.2145, +0.3960] | CI excludes 0 |
+| Hand path: LEARNED speed vs hand kinematic speed | +0.0330 | [-0.0163, +0.0834] | CI spans 0 |
+| Learned speed vs human speed (same path, upper bound) | +0.0465 | [+0.0049, +0.0910] | CI excludes 0 |
+| Speed model: 80 vs 200 epochs | -0.0156 | [-0.0395, +0.0032] | CI spans 0 |
 
 ## Speed vs geometry on the clean val scenes
 
