@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
-"""Recompute the whole 9-agent ladder on the CLEAN held-out val logs only.
+"""Recompute the whole ladder on the CLEAN held-out val logs only.
 
 Why: the mini dataset has 64 logs and 62 of them are the warmup_test_e2e logs,
 so an MLP trained on `mini` cannot be evaluated cleanly on the full 563 scenes —
 428 of them were in its training set. Retraining on "mini minus warmup" is
 impossible (only 2 logs would remain). The correct fix is therefore to score
-*every* agent on the same held-out val logs, which makes the learned row
-directly comparable to the eight non-learned ones.
+*every* agent on the same held-out val logs, which makes the learned rows
+directly comparable to the non-learned ones.
 
-Reads only existing per-scene CSVs + the metric cache layout. Nothing is re-run.
-Writes exp/analysis/clean_ladder.md.
+Reads only existing per-scene CSVs + the token-to-log map. Nothing is re-run.
+Runs from the NAVSIM workspace or from results/per_scene/ (ladder_io).
+
+Usage:  python analysis/analyze_clean_ladder.py [--csv-root DIR] [--out FILE]
 """
-import csv
-import glob
+import argparse
 import io
 import os
-import random
 import sys
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-EXP = os.path.join(ROOT, 'exp')
-LOGS_YAML = os.path.join(ROOT, 'navsim', 'navsim', 'planning', 'script',
-                         'config', 'training', 'available_mini_logs.yaml')
-OUT = os.path.join(EXP, 'analysis', 'clean_ladder.md')
-B = 10000
-SEED = 12345
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ladder_io import (REPO, bootstrap, is_per_scene, load_scores,  # noqa: E402
+                       resolve_csv_root, split_logs, token_to_log)
 
 AGENTS = [
     ('CV', 'cv_agent_mini', 'speed only', 'yes'),
@@ -42,68 +38,29 @@ AGENTS = [
     ('Human', 'human_agent_mini', 'logged future', 'no'),
 ]
 
-
-def split_logs():
-    train, val, sec = set(), set(), None
-    for raw in io.open(LOGS_YAML, encoding='utf-8').read().splitlines():
-        line = raw.strip()
-        if line.startswith('train_logs:'):
-            sec = 't'
-            continue
-        if line.startswith('val_logs:'):
-            sec = 'v'
-            continue
-        if line.startswith('- ') and sec:
-            name = line[2:].strip().strip('"').strip("'")
-            (train if sec == 't' else val).add(name)
-    return train, val
-
-
-def token2log():
-    root = os.path.join(EXP, 'metric_cache')
-    m = {}
-    for log in os.listdir(root):
-        p = os.path.join(root, log, 'unknown')
-        if os.path.isdir(p):
-            for tok in os.listdir(p):
-                m[tok] = log
-    return m
+PAIRS = [
+    ('CV', 'Kinematic', 'Add kinematics'),
+    ('Kinematic', 'MLP (learned)', 'Learned blind planner vs hand rule'),
+    ('Kinematic', 'PrivBrake', 'Add GT boxes + brake'),
+    ('MLP (learned)', 'PrivMapKin', 'Add on-route map centerline'),
+    ('PrivMap(IDM)', 'PrivMapKin', 'Drop IDM on the centerline'),
+    ('PrivMapKin', 'PrivMapGTSpd', 'Swap in human speed (geometry fixed)'),
+    ('PrivMapKin', 'PrivGTPathKin', 'Swap in logged path (speed fixed)'),
+    ('PrivMapGTSpd', 'Human', 'Remaining gap to Human'),
+    ('MLP (learned)', 'MapMLP (learned+map)', 'Give the LEARNED model the centerline too'),
+    ('MapMLP (learned+map)', 'PrivMapKin', 'Same centerline: hand rule vs learned'),
+    ('MapMLP (learned+map)', 'MapMLP-reg (learned+map)', 'Regularize the learned map model'),
+    ('MapMLP-reg (learned+map)', 'PrivMapKin', 'Regularized learned vs hand rule (same centerline)'),
+    ('PrivMapKin', 'SpeedMLP (hand path+learned speed)', 'Hand path: LEARNED speed vs hand kinematic speed'),
+    ('SpeedMLP (hand path+learned speed)', 'PrivMapGTSpd', 'Learned speed vs human speed (same path, upper bound)'),
+    ('SpeedMLP (hand path+learned speed)', 'SpeedMLP-e200', 'Speed model: 80 vs 200 epochs'),
+]
 
 
-def load(subdir):
-    files = sorted(glob.glob(os.path.join(EXP, subdir, '*', '*.csv')))
-    rows = {}
-    with io.open(files[0], encoding='utf-8') as f:
-        for r in csv.DictReader(f):
-            tok = (r.get('token') or '').strip()
-            if not tok or tok.lower() == 'average':
-                continue
-            try:
-                rows[tok] = {'score': float(r['score']),
-                             'dac': float(r['drivable_area_compliance'])}
-            except (ValueError, KeyError):
-                continue
-    return rows
-
-
-def boot(diffs, seed=SEED):
-    n = len(diffs)
-    mean = sum(diffs) / n
-    rnd = random.Random(seed)
-    ms = []
-    for _ in range(B):
-        s = 0.0
-        for _ in range(n):
-            s += diffs[rnd.randrange(n)]
-        ms.append(s / n)
-    ms.sort()
-    return mean, ms[int(0.025 * B)], ms[int(0.975 * B)]
-
-
-def main():
-    train_logs, val_logs = split_logs()
-    t2l = token2log()
-    data = {name: load(sub) for name, sub, _, _ in AGENTS}
+def render(root):
+    train_logs, val_logs = split_logs(root)
+    t2l = token_to_log(root)
+    data = {name: load_scores(root, sub) for name, sub, _, _ in AGENTS}
 
     common = set(data[AGENTS[0][0]])
     for name, _, _, _ in AGENTS[1:]:
@@ -140,33 +97,16 @@ def main():
     L.append('\n## Paired deltas on the clean val scenes\n')
     L.append('| comparison | dPDMS | 95% CI | verdict |')
     L.append('|---|---:|---|---|')
-    PAIRS = [
-        ('CV', 'Kinematic', 'Add kinematics'),
-        ('Kinematic', 'MLP (learned)', 'Learned blind planner vs hand rule'),
-        ('Kinematic', 'PrivBrake', 'Add GT boxes + brake'),
-        ('MLP (learned)', 'PrivMapKin', 'Add on-route map centerline'),
-        ('PrivMap(IDM)', 'PrivMapKin', 'Drop IDM on the centerline'),
-        ('PrivMapKin', 'PrivMapGTSpd', 'Swap in human speed (geometry fixed)'),
-        ('PrivMapKin', 'PrivGTPathKin', 'Swap in logged path (speed fixed)'),
-        ('PrivMapGTSpd', 'Human', 'Remaining gap to Human'),
-        ('MLP (learned)', 'MapMLP (learned+map)', 'Give the LEARNED model the centerline too'),
-        ('MapMLP (learned+map)', 'PrivMapKin', 'Same centerline: hand rule vs learned'),
-        ('MapMLP (learned+map)', 'MapMLP-reg (learned+map)', 'Regularize the learned map model'),
-        ('MapMLP-reg (learned+map)', 'PrivMapKin', 'Regularized learned vs hand rule (same centerline)'),
-        ('PrivMapKin', 'SpeedMLP (hand path+learned speed)', 'Hand path: LEARNED speed vs hand kinematic speed'),
-        ('SpeedMLP (hand path+learned speed)', 'PrivMapGTSpd', 'Learned speed vs human speed (same path, upper bound)'),
-        ('SpeedMLP (hand path+learned speed)', 'SpeedMLP-e200', 'Speed model: 80 vs 200 epochs'),
-    ]
     for a, b, label in PAIRS:
         diffs = [data[b][t]['score'] - data[a][t]['score'] for t in val_tok]
-        m, lo, hi = boot(diffs)
+        m, lo, hi = bootstrap(diffs)
         L.append('| %s | %+.4f | [%+.4f, %+.4f] | %s |'
                  % (label, m, lo, hi, 'CI excludes 0' if (lo > 0 or hi < 0) else 'CI spans 0'))
 
     base, spd, geo = data['PrivMapKin'], data['PrivMapGTSpd'], data['PrivGTPathKin']
     dd = [(spd[t]['score'] - base[t]['score']) - (geo[t]['score'] - base[t]['score'])
           for t in val_tok]
-    m, lo, hi = boot(dd, seed=7)
+    m, lo, hi = bootstrap(dd, seed=7)
     L.append('\n## Speed vs geometry on the clean val scenes\n')
     L.append('- %+.4f, 95%% CI [%+.4f, %+.4f] — %s\n'
              % (m, lo, hi, 'speed worth more' if lo > 0
@@ -180,11 +120,22 @@ def main():
     L.append('- `privileged_brake_mini` has two runs (0.602 / 0.593 on the full split); '
              'the first is used everywhere for consistency and the discrepancy is unexplained.')
     L.append('- `warmup_test_e2e` is not the official navtest leaderboard.')
+    return '\n'.join(L) + '\n', len(val_tok), len(tr_tok)
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    io.open(OUT, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
-    print('wrote', OUT)
-    print('val scenes = %d, train-overlap = %d' % (len(val_tok), len(tr_tok)))
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--csv-root', help='workspace exp/ or results/per_scene (auto-detected)')
+    ap.add_argument('--out', help='report path')
+    a = ap.parse_args(argv)
+    root = resolve_csv_root(a.csv_root)
+    out = a.out or (os.path.join(REPO, 'results', 'clean_ladder.md') if is_per_scene(root)
+                    else os.path.join(root, 'analysis', 'clean_ladder.md'))
+    text, n_val, n_tr = render(root)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    io.open(out, 'w', encoding='utf-8', newline='\n').write(text)
+    print('wrote', out)
+    print('val scenes = %d, train-overlap = %d' % (n_val, n_tr))
 
 
 if __name__ == '__main__':

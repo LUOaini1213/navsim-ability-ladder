@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
-"""Paired bootstrap confidence intervals over the 9-agent ladder.
+"""Paired bootstrap confidence intervals over the agent ladder.
 
 Reads the per-scene CSVs already produced by run_pdm_score.py — does NOT
-re-run any evaluation. Writes exp/analysis/ci_report.md.
+re-run any evaluation. Runs from the NAVSIM workspace (`exp/`) or from the
+CSVs committed under `results/per_scene/` (see ladder_io.resolve_csv_root).
 
-Usage:  python analyze_ci.py
+Usage:  python analysis/analyze_ci.py [--csv-root DIR] [--out FILE]
+        default output: results/ci_report.md (repo) or <exp>/analysis/ci_report.md
 """
-import csv
-import glob
+import argparse
 import io
 import os
-import random
 import sys
 
-EXP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exp')
-OUT = os.path.join(EXP, 'analysis', 'ci_report.md')
-B = 10000
-SEED = 12345
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ladder_io import (B, REPO, SEED, bootstrap, is_per_scene, load_scores,  # noqa: E402
+                       resolve_csv_root)
 
 # Canonical run = the FIRST csv per agent, matching exp/analysis/pdm_report.md.
 # NOTE: privileged_brake_mini has two runs (12:52 PDMS 0.602 / 12:55 PDMS 0.593).
@@ -56,44 +55,8 @@ PAIRS = [
 ]
 
 
-def load(subdir):
-    files = sorted(glob.glob(os.path.join(EXP, subdir, '*', '*.csv')))
-    if not files:
-        raise SystemExit('no csv under ' + subdir)
-    rows = {}
-    with io.open(files[0], encoding='utf-8') as f:
-        for r in csv.DictReader(f):
-            tok = (r.get('token') or '').strip()
-            if not tok or tok.lower() == 'average':
-                continue
-            try:
-                rows[tok] = {
-                    'score': float(r['score']),
-                    'dac': float(r['drivable_area_compliance']),
-                }
-            except (ValueError, KeyError):
-                continue
-    return rows, os.path.relpath(files[0], EXP)
-
-
-def bootstrap(diffs, seed=SEED):
-    n = len(diffs)
-    mean = sum(diffs) / n
-    rnd = random.Random(seed)
-    means = []
-    for _ in range(B):
-        s = 0.0
-        for _ in range(n):
-            s += diffs[rnd.randrange(n)]
-        means.append(s / n)
-    means.sort()
-    return mean, means[int(0.025 * B)], means[int(0.975 * B)]
-
-
-def main():
-    data, srcs = {}, {}
-    for name, sub, _ in AGENTS:
-        data[name], srcs[name] = load(sub)
+def render(root):
+    data = {name: load_scores(root, sub) for name, sub, _ in AGENTS}
 
     common = set(data[AGENTS[0][0]])
     for name, _, _ in AGENTS[1:]:
@@ -154,11 +117,22 @@ def main():
              'The two smallest effects (drop-IDM, logged-path) would not survive a '
              'strict Bonferroni threshold and should be reported as suggestive.')
     L.append('- `warmup_test_e2e` is not the official navtest leaderboard.')
+    return '\n'.join(L) + '\n', len(common)
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    io.open(OUT, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
-    print('wrote', OUT)
-    print('scenes=%d agents=%d' % (len(common), len(AGENTS)))
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--csv-root', help='workspace exp/ or results/per_scene (auto-detected)')
+    ap.add_argument('--out', help='report path')
+    a = ap.parse_args(argv)
+    root = resolve_csv_root(a.csv_root)
+    out = a.out or (os.path.join(REPO, 'results', 'ci_report.md') if is_per_scene(root)
+                    else os.path.join(root, 'analysis', 'ci_report.md'))
+    text, n = render(root)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    io.open(out, 'w', encoding='utf-8', newline='\n').write(text)
+    print('wrote', out)
+    print('scenes=%d agents=%d' % (n, len(AGENTS)))
 
 
 if __name__ == '__main__':

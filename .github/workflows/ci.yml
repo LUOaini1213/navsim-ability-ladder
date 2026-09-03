@@ -1,0 +1,23 @@
+name: ci
+
+# No dataset, no devkit, no GPU: the tests regenerate every report in results/
+# from the committed per-scene CSVs (fixed bootstrap seed) and compare byte for
+# byte, rebuild pdm_summary.csv, and check the numbers README quotes.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Tests (standard library only)
+        run: python -m unittest discover -s tests -v
+      - name: README numbers come from the CSVs
+        run: python analysis/make_summary.py --check README.md

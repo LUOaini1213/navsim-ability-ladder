@@ -33,7 +33,7 @@ Split: `warmup_test_e2e` (same 563-scene cache as CV 0.233).
 - TTC: 63
 - NC: 51
 
-Dumped trajectories: NC=802ffb33c2655bab, DAC=dace7f508e4b5070, TTC=8fb4110a350b5f17, ok=4b10d7d9e7465633
+Dumped trajectories: NC=802ffb33c2655bab, DAC=dace7f508e4b5070, TTC=8fb4110a350b5f17 (`results/figures/traj_warmup_fail_*.png`); the `ok=4b10d7d9e7465633` example was dumped in the workspace but is not committed
 
 ## How to read this
 

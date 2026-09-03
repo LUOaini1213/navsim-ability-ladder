@@ -1,5 +1,7 @@
 # NAVSIM ability ladder — what actually caps open-loop planning scores?
 
+[![ci](https://github.com/LUOaini1213/navsim-ability-ladder/actions/workflows/ci.yml/badge.svg)](https://github.com/LUOaini1213/navsim-ability-ladder/actions/workflows/ci.yml)
+
 An ablation study on NAVSIM's `warmup_test_e2e` split. Instead of training one
 planner and reporting a number, this builds a **ladder of agents where each rung
 adds exactly one piece of information**, scores them all on the same metric
@@ -8,7 +10,21 @@ learned component back in, to see which slot it can actually fill.
 
 Every number below comes from per-scene CSVs written by NAVSIM's own
 `run_pdm_score.py`. The analysis scripts only read those CSVs — they never
-re-run an evaluation, so nothing here can drift from the raw output.
+re-run an evaluation, so nothing here can drift from the raw output. **The CSVs
+are in this repository** (`results/per_scene/`, 13 agents × 563 scenes, 616 KB),
+so every table and confidence interval reproduces from a plain clone:
+
+```bash
+python -m unittest discover -s tests -v          # regenerates results/*.md from the CSVs and compares byte for byte
+python analysis/analyze_ci.py                    # -> results/ci_report.md      (10000 paired resamples, seed 12345)
+python analysis/analyze_clean_ladder.py          # -> results/clean_ladder.md   (the 135 held-out scenes)
+python analysis/make_summary.py --check README.md   # the numbers in the tables below, recomputed
+```
+
+Thirteen agents were scored in total: the nine rungs of the ladder below, the
+learned `MapMLP`, and its three variants (`MapMLP-reg`, `SpeedMLP`,
+`SpeedMLP` at 200 epochs). Tables in `results/` list all thirteen; the README
+tables show the rungs plus the variants that changed a conclusion.
 
 ## The ladder (563 scenes, same metric cache)
 
@@ -52,6 +68,10 @@ bottleneck is sample efficiency and inductive bias.
 The blind MLP has a low open-loop L1 and still gets zeroed by DAC on 90 of 563
 scenes. A multiplicative safety metric does not care how close your trajectory
 looked.
+
+![One of the 90 DAC failures: progress vs time (left) and the local x-y plan (right) for the human trajectory (black), ConstantVelocity (blue, dashed) and the blind EgoStatusMLP (red). The MLP matches the human progress almost exactly but under-turns laterally; that path leaves the drivable area and DAC multiplies the scene score to zero.](results/figures/traj_warmup_fail_DAC_dace7f508e4b5070.png)
+
+*One of the 90: the blind MLP keeps up with the human in progress (left) and still loses the scene, because it under-turns by a few decimetres (right) and the drivable-area check is multiplicative. NC and TTC failure examples are in `results/figures/`.*
 
 ## Putting a learned part back in: three attempts
 
@@ -114,14 +134,25 @@ established.
 run for consistency. **The discrepancy is unexplained** and should be pinned down
 before that row is quoted anywhere.
 
+## What is and is not in this repository
+
+| In the repo | Not in the repo |
+|---|---|
+| the five agents and their hydra configs (`agents/`, `configs/`) | the NAVSIM / nuplan devkits, the OpenScene logs, the maps (~3.8 GB, upstream licences) |
+| per-scene PDM scores of all 13 agents, the scene→log map and the train/val split (`results/per_scene/`) | the metric cache and the trained checkpoints (`*.ckpt`) |
+| the analysis scripts, and tests that regenerate every report from the CSVs (`analysis/`, `tests/`) | the workspace runner `run_navsim_step.py` the PowerShell scripts call |
+| the reports, the 13-agent summary and six failure-trajectory figures (`results/`) | the sensor blobs (empty here; no camera / LiDAR agent was run) |
+
 ## Layout
 
 ```
 agents/     kinematic, privileged brake / centerline, MapMLP, SpeedMLP, centerline_util
 configs/    matching hydra configs (paths via ${oc.env:NAVSIM_EXP_ROOT})
-analysis/   train_map_mlp.py, train_speed_mlp.py, analyze_ci.py, analyze_clean_ladder.py, analyze_pdm.py
-scripts/    PowerShell runners for the evaluations
-results/    generated reports, pdm_summary.csv, failure trajectories
+analysis/   ladder_io.py (shared loading + bootstrap), analyze_ci.py, analyze_clean_ladder.py,
+            make_summary.py, analyze_pdm.py, train_map_mlp.py, train_speed_mlp.py
+tests/      bootstrap sanity on synthetic data; reports regenerate byte for byte from results/per_scene
+scripts/    PowerShell runners for the evaluations (need the workspace)
+results/    per_scene/ CSVs, generated reports, pdm_summary.csv, failure trajectories
 ```
 
 ## Reproducing
@@ -142,7 +173,9 @@ upstream and separately licensed, and the dataset alone is ~3.8 GB.
    `python analysis/train_speed_mlp.py --epochs 80 --hidden 128 --dropout 0.2 --wd 1e-3`
    then score them with `run_pdm_score.py agent=map_mlp_agent|map_mlp_reg_agent|speed_mlp_agent`.
 6. `python analysis/analyze_ci.py` and `python analysis/analyze_clean_ladder.py`
-   regenerate the reports from the per-scene CSVs.
+   regenerate the reports from the per-scene CSVs — from the workspace when
+   `NAVSIM_EXP_ROOT` points at it, otherwise from `results/per_scene/`, which is
+   why steps 1–5 are not needed to check any number in this README.
 
 ## Scope
 

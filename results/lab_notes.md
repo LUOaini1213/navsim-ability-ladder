@@ -38,7 +38,7 @@ TransFuser was **not** run: `dataset/sensor_blobs/mini` is empty (0 GB). Officia
 
 ## MLP failure families
 
-See `exp/analysis/mlp_fail_counts.json` and `exp/trajectories/traj_warmup_fail_*.png`.
+See `results/mlp_fail_counts.json` and `results/figures/traj_warmup_fail_*.png` (workspace paths at the time: `exp/analysis/`, `exp/trajectories/`).
 
 - ok 359 / DAC 90 / TTC 63 / NC 51
 
