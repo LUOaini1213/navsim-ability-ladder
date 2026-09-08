@@ -78,5 +78,14 @@ class ReportsReproduce(unittest.TestCase):
                 self.assertTrue(os.path.getsize(out) > 1000)
 
 
+class BrakeRerunCharacterization(unittest.TestCase):
+    def test_characterization_reproduces_from_the_committed_csvs(self):
+        import brake_rerun_diff
+        text, n, differ = brake_rerun_diff.render(PER_SCENE)
+        self.assertEqual((n, differ), (563, 130))
+        committed = io.open(os.path.join(ROOT, "results", "brake_rerun_diff.md"), encoding="utf-8").read()
+        self.assertEqual(text, committed)
+
+
 if __name__ == '__main__':
     unittest.main()

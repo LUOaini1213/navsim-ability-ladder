@@ -292,9 +292,15 @@ established. *(navtest has no such problem: navtrain and navtest share no logs.)
 
 `privileged_brake_mini` was run twice on the warmup split and produced different
 results (PDMS 0.602 / DAC 0.766, then 0.593 / 0.785). Every report here uses the
-first run for consistency. **The discrepancy is unexplained** and should be
-pinned down before that row is quoted anywhere. The navtest runs were each
-executed once.
+first run for consistency. Both per-scene CSVs are committed
+(`results/per_scene/privileged_brake_mini*.csv`) and `python analysis/brake_rerun_diff.py`
+characterizes the gap ([results/brake_rerun_diff.md](results/brake_rerun_diff.md)):
+the two runs came from identical code and configuration snapshots, yet 130 of 563
+scenes score differently, ego progress differs in 127 of them, and run 1 is the
+higher one in 96. So the trajectory itself changed between runs with no parameter
+change, which points at scene loading or the parallel scorer rather than at the
+agent. **The cause is still not pinned down**; that row should not be quoted as
+settled. The navtest runs were each executed once.
 
 ---
 
