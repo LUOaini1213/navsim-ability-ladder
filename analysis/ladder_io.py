@@ -16,6 +16,7 @@ Two layouts are understood:
 """
 import csv
 import glob
+import gzip
 import io
 import os
 import random
@@ -44,22 +45,31 @@ def is_per_scene(root):
     return os.path.isfile(os.path.join(root, 'token_log.csv'))
 
 
-def csv_path(root, subdir):
-    """The canonical CSV of one agent: the committed file, or the FIRST run in
-    the workspace (matching pdm_report.md; privileged_brake_mini has two runs)."""
-    flat = os.path.join(root, subdir + '.csv')
-    if os.path.isfile(flat):
-        return flat
+def open_text(path):
+    """Open a committed CSV whether it is plain or gzipped (navtest is gzipped)."""
+    if path.endswith('.gz'):
+        return io.TextIOWrapper(gzip.open(path, 'rb'), encoding='utf-8')
+    return io.open(path, encoding='utf-8')
+
+
+def csv_path(root, subdir, newest=False):
+    """The canonical CSV of one agent: the committed file (``.csv`` or ``.csv.gz``),
+    or a run directory in the workspace -- the FIRST run by default, matching
+    pdm_report.md (privileged_brake_mini has two); ``newest=True`` for navtest,
+    where each agent was scored once and the run directory is unique."""
+    for flat in (os.path.join(root, subdir + '.csv'), os.path.join(root, subdir + '.csv.gz')):
+        if os.path.isfile(flat):
+            return flat
     files = sorted(glob.glob(os.path.join(root, subdir, '*', '*.csv')))
     if not files:
         raise SystemExit('no csv for ' + subdir + ' under ' + root)
-    return files[0]
+    return files[-1] if newest else files[0]
 
 
-def load_scores(root, subdir):
+def load_scores(root, subdir, newest=False):
     """token -> {'score', 'dac'} for one agent, skipping the trailing average row."""
     rows = {}
-    with io.open(csv_path(root, subdir), encoding='utf-8') as f:
+    with open_text(csv_path(root, subdir, newest)) as f:
         for r in csv.DictReader(f):
             tok = (r.get('token') or '').strip()
             if not tok or tok.lower() == 'average':
@@ -72,10 +82,10 @@ def load_scores(root, subdir):
     return rows
 
 
-def load_rows(root, subdir):
+def load_rows(root, subdir, newest=False):
     """Every metric column of one agent as floats, keyed by token."""
     rows = {}
-    with io.open(csv_path(root, subdir), encoding='utf-8') as f:
+    with open_text(csv_path(root, subdir, newest)) as f:
         for r in csv.DictReader(f):
             tok = (r.get('token') or '').strip()
             if not tok or tok.lower() == 'average':
@@ -112,10 +122,10 @@ def split_logs(root):
 
 def token_to_log(root):
     """token -> log name, from token_log.csv or the metric-cache directory layout."""
-    flat = os.path.join(root, 'token_log.csv')
-    if os.path.isfile(flat):
-        with io.open(flat, encoding='utf-8') as f:
-            return {r['token']: r['log'] for r in csv.DictReader(f)}
+    for flat in (os.path.join(root, 'token_log.csv'), os.path.join(root, 'token_log.csv.gz')):
+        if os.path.isfile(flat):
+            with open_text(flat) as f:
+                return {r['token']: r['log'] for r in csv.DictReader(f)}
     cache = os.path.join(root, 'metric_cache')
     m = {}
     for log in os.listdir(cache):
@@ -143,4 +153,21 @@ def bootstrap(diffs, seed=SEED, b=B):
             s += diffs[rnd.randrange(n)]
         means.append(s / n)
     means.sort()
+    return mean, means[int(0.025 * b)], means[int(0.975 * b)]
+
+
+# navtest has 12,146 scenes; the loop above would draw 121 million indices per
+# comparison. ``random.choices`` does the same sampling in C, so the navtest
+# tables use this variant with a smaller B -- at n=12k the Monte-Carlo error on
+# a percentile is far below the width of the interval it bounds. Same seed
+# discipline: one rerun on the same CSVs reproduces every published interval.
+B_LARGE = 2000
+
+
+def bootstrap_large(diffs, seed=SEED, b=B_LARGE):
+    """Mean of paired differences and its percentile-bootstrap 95% CI, for large n."""
+    n = len(diffs)
+    mean = sum(diffs) / n
+    rnd = random.Random(seed)
+    means = sorted(sum(rnd.choices(diffs, k=n)) / n for _ in range(b))
     return mean, means[int(0.025 * b)], means[int(0.975 * b)]

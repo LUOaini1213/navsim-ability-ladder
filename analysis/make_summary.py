@@ -92,6 +92,17 @@ def clean_val_tokens(root, subdirs):
     return sorted(t for t in common if t2l.get(t) in val)
 
 
+def warmup_ladder_section(text):
+    """The 563-scene ladder table only. The navtest tables in README use the same
+    row shape, so an unscoped scan would count them too and compare warmup
+    numbers against navtest ones."""
+    start = text.find('## The ladder (563 scenes')
+    if start < 0:
+        return text
+    end = text.find('\n## ', start + 1)
+    return text[start:end if end > 0 else None]
+
+
 def check_readme(root, readme):
     text = io.open(readme, encoding='utf-8').read()
     problems = []
@@ -101,7 +112,8 @@ def check_readme(root, readme):
         common = set(s) if common is None else common & set(s)
     common = sorted(common)
     seen = 0
-    for m in re.finditer(r'^\| \**([A-Za-z]+)\** \|[^|]*\|[^|]*\| \**(0\.\d{3})\** \| \**(0\.\d{3})\** \|', text, re.M):
+    for m in re.finditer(r'^\| \**([A-Za-z]+)\** \|[^|]*\|[^|]*\| \**(0\.\d{3})\** \| \**(0\.\d{3})\** \|',
+                         warmup_ladder_section(text), re.M):
         label, pdms, dac = m.group(1), float(m.group(2)), float(m.group(3))
         sub = README_ROWS.get(label)
         if not sub:
