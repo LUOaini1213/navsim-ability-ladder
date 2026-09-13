@@ -1,8 +1,9 @@
 name: ci
 
 # No dataset, no devkit, no GPU: the tests regenerate every report in results/ and
-# results/navtest/ from the committed per-scene CSVs (fixed bootstrap seed) and compare
-# byte for byte, rebuild pdm_summary.csv, and check the numbers README quotes.
+# results/navtest/ from the committed CSVs (fixed bootstrap seed) and compare byte for byte,
+# rebuild pdm_summary.csv, cross-check openloop.csv against the per-scene files, and check
+# the numbers README quotes.
 
 on:
   push:
@@ -23,3 +24,5 @@ jobs:
         run: python analysis/make_summary.py --check README.md
       - name: README numbers come from the CSVs (navtest)
         run: python analysis/analyze_navtest.py --check README.md
+      - name: README numbers come from the CSVs (open-loop rank correlations)
+        run: python analysis/analyze_openloop_csv.py --check README.md

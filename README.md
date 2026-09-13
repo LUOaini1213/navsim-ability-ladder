@@ -14,18 +14,22 @@ seeds per cell. An earlier version used the 563-scene `warmup_test_e2e` split;
 it is kept below, because one of its conclusions **reversed** when the sample
 size grew, and that reversal is itself a result.
 
-Every number comes from per-scene CSVs written by NAVSIM's own
-`run_pdm_score.py`. The analysis scripts only read those CSVs — they never re-run
-an evaluation, so nothing here can drift from the raw output. **The CSVs are in
-this repository**, so every table and confidence interval reproduces from a plain
-clone with no dataset, no devkit and no GPU:
+Every simulation score comes from per-scene CSVs written by NAVSIM's own
+`run_pdm_score.py`; the open-loop training losses come from the training runs and
+are archived next to them in `results/navtest/cells.csv` and
+`results/navtest/openloop.csv`. The analysis scripts only read those files — they
+never re-run an evaluation, so nothing here can drift from the raw output. **All
+of it is in this repository**, so every table and confidence interval reproduces
+from a plain clone with no dataset, no devkit and no GPU:
 
 ```bash
 python -m unittest discover -s tests -v              # regenerates every report and compares byte for byte
 python analysis/analyze_navtest.py                   # -> results/navtest/*.md   (12,146 scenes, 56 runs)
+python analysis/analyze_openloop_csv.py              # -> results/navtest/openloop_summary.md
 python analysis/analyze_ci.py                        # -> results/ci_report.md   (the 563-scene study)
 python analysis/analyze_navtest.py --check README.md # the navtest numbers below, recomputed
 python analysis/make_summary.py --check README.md    # the 563-scene numbers below, recomputed
+python analysis/analyze_openloop_csv.py --check README.md   # the rank correlations below, recomputed
 ```
 
 **The pipeline reproduces the published baselines.** On the same cache, in
@@ -146,15 +150,19 @@ selection would see. [`results/navtest/regularisation.md`](results/navtest/regul
 **6. The open-loop loss is a coarse filter, not a selection criterion.** It is
 not useless: over the nine map-conditioned runs, rank correlation between navtest
 displacement error and PDMS is −0.83, and it correctly flags the models that
-heavy regularisation broke. It fails where a leaderboard lives. Among the seven
-runs that are actually competitive (ADE 0.70–0.82, PDMS 0.805–0.841) the rank
-correlation falls to −0.64 and inverts in places: dropout 0.2 fits better than
-the unregularised baseline (ADE 0.768 vs 0.820) and scores worse (0.805 vs
-0.818). Two regularisers that improve validation L1 by comparable amounts —
-wd 1e-4 by 0.032, dropout 0.2 by 0.024 — move the score +0.024 and −0.012, both
-intervals excluding zero. And *within* a run the per-scene correlation between
-displacement error and PDMS never exceeds 0.38 in magnitude, so the loss does not
-tell you which scenes will fail either.
+heavy regularisation broke. Flagging them is most of what it does. Drop the worst
+run and the correlation is −0.76; drop the two that heavy regularisation broke and
+the seven that remain give −0.64, weakening monotonically as the broken runs go.
+Among those seven (ADE 0.70–0.82, PDMS 0.805–0.841) it also inverts in places:
+dropout 0.2 fits better than the unregularised baseline (ADE 0.768 vs 0.820) and
+scores worse (0.805 vs 0.818). Two regularisers that improve validation L1 by
+comparable amounts — wd 1e-4 by 0.032, dropout 0.2 by 0.024 — move the score
++0.024 and −0.012, both intervals excluding zero. And *within* a run the per-scene
+correlation between displacement error and PDMS never exceeds 0.38 in magnitude,
+so the loss does not tell you which scenes will fail either. Every figure in this
+paragraph is recomputed from the committed CSV in
+[`results/navtest/openloop_summary.md`](results/navtest/openloop_summary.md),
+which `analysis/analyze_openloop_csv.py` regenerates and the tests rebuild.
 
 ## What changed when the split changed
 
@@ -331,9 +339,11 @@ agents/     kinematic, privileged brake / centerline, MapMLP, SpeedMLP,
 configs/    matching hydra configs (paths via ${oc.env:NAVSIM_EXP_ROOT})
 analysis/   ladder_io.py (shared loading + bootstrap)
             analyze_navtest.py   navtest tables, from results/navtest/per_scene
+            analyze_openloop_csv.py   the rank correlations, from results/navtest/openloop.csv
             analyze_ci.py, analyze_clean_ladder.py, make_summary.py   the 563-scene study
             build_features.py, train_ladder.py   navtrain feature extraction and cell training
-            analyze_openloop.py, summarize_pdm.py, export_per_scene.py   workspace-side tools
+            analyze_openloop.py (writes that CSV in the workspace), summarize_pdm.py,
+            export_per_scene.py   workspace-side tools: they need the devkit and the features
 tests/      bootstrap sanity; every report regenerates byte for byte from the committed CSVs
 scripts/    bash runners for caching, scoring and training + env.sh; the older PowerShell runners
 results/    per_scene/ (563) and navtest/ (12,146): CSVs, reports, figures
