@@ -110,12 +110,20 @@ intervals: [`results/navtest/path_speed.md`](results/navtest/path_speed.md).
 | learned (sees map) | learned | 0.823 |
 | rule (map centerline) | human (upper bound) | 0.835 |
 
-**5. The learned component earns its place in the speed profile and nowhere
-else.** Pacing a hand-drawn line beats the hand speed law in every seed (+0.028,
-+0.034, +0.032) and recovers about two thirds of the distance to the human speed
-profile. Letting the model draw the line instead is not separable from the rule
-(−0.004 with the interval spanning zero, +0.008, −0.022 across seeds). Giving the
-speed model the GT boxes as well changes nothing or hurts slightly.
+**5. The speed effect reproduces across seeds; the path effect does not.** Every
+delta below is b − a, the convention used throughout
+[`results/navtest/path_speed.md`](results/navtest/path_speed.md). Pacing a
+hand-drawn line beats the hand speed law in every seed (+0.028, +0.034, +0.032,
+all three intervals excluding zero) and recovers about two thirds of the distance
+to the human speed profile. Letting the model draw the line instead is unstable
+in direction. With the speed learned, the swap is +0.004 (interval spans zero),
+−0.008 and +0.022 — the last two intervals both exclude zero and point opposite
+ways. With the speed held to the rule, the only comparison in which nothing but
+the path changes, it is +0.002 (spans zero), +0.021 and +0.039: two of three
+significantly positive, three-seed mean 0.806 against the rule path's 0.785. So
+the honest reading is that one seed's path result does not survive the next
+seed's, not that the learned path cannot help. Giving the speed model the GT
+boxes as well changes nothing or hurts slightly.
 
 ## How far can you trust the open-loop loss?
 

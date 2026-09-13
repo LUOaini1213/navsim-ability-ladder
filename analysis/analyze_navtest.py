@@ -195,9 +195,25 @@ def path_speed_md(R):
         L.append(row_delta(R, 'privmapkin', 'l_pose_map_s%d_rs' % s, 'rule path -> learned path, rule speed, seed %d' % s))
         L.append(row_delta(R, 'l_ds_map_s%d' % s, 'l_pose_map_s%d' % s, 'rule path -> learned path, learned speed, seed %d' % s))
         L.append(row_delta(R, 'l_ds_map_s%d' % s, 'l_ds_map_agents_s%d' % s, 'learned speed also sees boxes, seed %d' % s))
-    L += ['', 'Given the centerline, the learned component earns its place in the speed profile and',
-          'nowhere else: letting the model draw the line instead of pacing it is not separable from',
-          'the hand rule, while pacing a hand-drawn line beats the hand speed law in every seed.']
+    # The closing paragraph is counted from the deltas above, not asserted: for each swap,
+    # how many seeds land significantly better and how many significantly worse.
+    def tally(pairs):
+        ds = [R.delta(a, b) for a, b in pairs]
+        return (sum(1 for _n, _m, lo, _hi in ds if lo > 0),
+                sum(1 for _n, _m, _lo, hi in ds if hi < 0))
+
+    n = len(SEEDS)
+    sp_up, sp_dn = tally([('privmapkin', 'l_ds_map_s%d' % s) for s in SEEDS])
+    pl_up, pl_dn = tally([('l_ds_map_s%d' % s, 'l_pose_map_s%d' % s) for s in SEEDS])
+    pr_up, pr_dn = tally([('privmapkin', 'l_pose_map_s%d_rs' % s) for s in SEEDS])
+    L += ['', 'Counting the seeds whose interval excludes zero. Rule speed -> learned speed, on the rule',
+          'path: %d of %d seeds better, %d worse. Rule path -> learned path at the learned speed: %d better,'
+          % (sp_up, n, sp_dn, pl_up),
+          '%d worse. The same path swap at the rule speed -- the only comparison in which nothing but the'
+          % pl_dn,
+          'path changes -- is %d of %d better, %d worse. The speed effect reproduces across seeds; the sign'
+          % (pr_up, n, pr_dn),
+          'of the path effect does not, so the path numbers are per-seed outcomes rather than an effect.']
     return '\n'.join(L) + '\n'
 
 
