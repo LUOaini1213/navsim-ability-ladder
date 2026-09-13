@@ -169,8 +169,10 @@ tell you which scenes will fail either.
 
 The reversal is the honest headline. On 563 scenes with ~3,000 training samples,
 the learned map model lost to the hand-written follower by 0.203 and the write-up
-concluded that the bottleneck was inductive bias. With 103,288 training samples
-and the same architecture, the same model beats that follower by 0.038. The old
+concluded that the bottleneck was inductive bias. With 98,318 training samples —
+the navtrain split is 103,288 scenes, of which 4,970 are held out for validation
+(`results/navtest/cells.csv`, columns `n_train` / `n_val`) — and the same
+architecture, the same model beats that follower by 0.038. The old
 conclusion was a statement about the sample size, stated as if it were a
 statement about the method.
 
