@@ -148,10 +148,16 @@ def check_readme(root, readme):
         got = sum(d[t]['score'] for t in val) / len(val)
         if abs(got - float(m.group(1))) > 0.0006:
             problems.append(f'{label} clean n=135: README {m.group(1)} vs CSV {got:.3f}')
+    # The hand-rule reference the table above compares against. Parse the value out of the
+    # README rather than hard-coding it: keying the check on the literal 'PrivMapKin (0.730)'
+    # would let an edited README switch its own check off and still pass.
     hand = scores['privileged_centerline_kin']
     got = sum(hand[t]['score'] for t in val) / len(val)
-    if 'PrivMapKin (0.730)' in text and abs(got - 0.730) > 0.0006:
-        problems.append(f'PrivMapKin clean n=135: README 0.730 vs CSV {got:.3f}')
+    m = re.search(r'PrivMapKin \((0\.\d{3})\)', text)
+    if not m:
+        problems.append('PrivMapKin reference value not found in README')
+    elif abs(got - float(m.group(1))) > 0.0006:
+        problems.append(f'PrivMapKin clean n=135: README {m.group(1)} vs CSV {got:.3f}')
     return problems
 
 
