@@ -342,6 +342,19 @@ def _check_regularisation(R, text, problems):
         problems.append('regularisation table: found %d of %d rows' % (seen, len(REG_VARIANTS)))
 
 
+def _check_train_samples(text, problems):
+    """The training-set size README quotes, against n_train in cells.csv."""
+    m = re.search(r'With ([\d,]+) training samples', text)
+    if not m:
+        problems.append('README does not state the training-sample count')
+        return
+    with io.open(os.path.join(OUT, 'cells.csv'), encoding='utf-8') as f:
+        n_train = {r['cell']: int(r['n_train']) for r in csv.DictReader(f)}
+    want = n_train['pose_map_s0']
+    if int(m.group(1).replace(',', '')) != want:
+        problems.append('training samples: README %s vs cells.csv n_train %d' % (m.group(1), want))
+
+
 def check_readme(R, readme):
     """Verify the navtest numbers README quotes against the per-scene CSVs."""
     text = io.open(readme, encoding='utf-8').read()
@@ -380,6 +393,7 @@ def check_readme(R, readme):
              sum(R.mean(x) for x in runs) / len(runs))
     _check_path_speed(R, text, problems)
     _check_regularisation(R, text, problems)
+    _check_train_samples(text, problems)
     return problems
 
 
