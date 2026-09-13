@@ -17,10 +17,12 @@ ANALYSIS = os.path.join(ROOT, 'analysis')
 sys.path.insert(0, ANALYSIS)
 
 import analyze_navtest as nav  # noqa: E402
+import analyze_openloop_csv as ol  # noqa: E402
 
 PER_SCENE = nav.PER_SCENE
 N_SCENES = 12146
 N_LOGS = 136
+N_OPENLOOP_RUNS = 45
 
 
 class Archive(unittest.TestCase):
@@ -81,9 +83,56 @@ class ReportsReproduce(unittest.TestCase):
     def test_regularisation_regenerates_byte_for_byte(self):
         self._same('regularisation.md', nav.regularisation_md)
 
+    def test_openloop_summary_regenerates_byte_for_byte(self):
+        committed = io.open(os.path.join(nav.OUT, ol.REPORT), encoding='utf-8').read()
+        self.assertEqual(ol.report(ol.load_runs()), committed,
+                         ol.REPORT + ' is not what openloop.csv gives')
+
     def test_readme_navtest_numbers_match_the_csvs(self):
         problems = nav.check_readme(self.R, os.path.join(ROOT, 'README.md'))
         self.assertEqual(problems, [], '\n'.join(problems))
+
+    def test_readme_openloop_numbers_match_the_csv(self):
+        problems = ol.check_readme(ol.load_runs(), os.path.join(ROOT, 'README.md'))
+        self.assertEqual(problems, [], '\n'.join(problems))
+
+
+class OpenLoopArchive(unittest.TestCase):
+    """openloop.csv is one row per run; two of its columns must agree with the rest.
+
+    The displacement errors in that CSV come from the training runs and cannot be
+    rebuilt here, but the score and the validation loss can be, so they are: if the
+    file were stale or hand-edited, these would catch it.
+    """
+
+    def setUp(self):
+        self.rows = ol.load_runs()
+        self.R = nav.Runs(PER_SCENE, '')
+
+    def test_one_row_per_scored_run(self):
+        self.assertEqual(len(self.rows), N_OPENLOOP_RUNS)
+        self.assertEqual(len({r['run'] for r in self.rows}), N_OPENLOOP_RUNS)
+
+    def test_pdms_column_is_the_per_scene_mean(self):
+        for r in self.rows:
+            with self.subTest(run=r['run']):
+                self.assertEqual(int(r['n']), N_SCENES)
+                self.assertAlmostEqual(self.R.mean('l_' + r['run']), float(r['PDMS']), places=6)
+
+    def test_val_l1_column_matches_cells_csv(self):
+        cells = nav.load_cells()
+        for r in self.rows:
+            stem = r['run'][:-3] if r['run'].endswith('_rs') else r['run']
+            with self.subTest(run=r['run']):
+                # a _rs run re-times the same checkpoint, so it shares the cell's loss
+                self.assertAlmostEqual(cells['l_' + stem], float(r['val_l1_navtrain']), places=5)
+
+    def test_spearman_matches_a_known_case(self):
+        # rank correlation of two exactly opposed orderings is -1, of two equal ones +1
+        self.assertAlmostEqual(ol.spearman([1, 2, 3, 4], [4, 3, 2, 1]), -1.0)
+        self.assertAlmostEqual(ol.spearman([1, 2, 3, 4], [10, 20, 30, 40]), 1.0)
+        # ties take the average rank: 1, 2.5, 2.5, 4
+        self.assertEqual(ol.ranks([5, 6, 6, 7]), [1.0, 2.5, 2.5, 4.0])
 
 
 class HeadlineClaims(unittest.TestCase):
