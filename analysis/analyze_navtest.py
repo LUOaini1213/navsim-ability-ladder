@@ -48,6 +48,33 @@ LADDER = [
     ('Human', 'human', 'logged future', 'no'),
 ]
 
+# path cell, speed cell, the runs averaged into that cell. README quotes the mean column
+# of path_speed.md as a single PDMS value per row, minus the "learned, map + boxes" row.
+PATH_SPEED = [
+    ('rule (map centerline)', 'rule (kinematic)', ['privmapkin']),
+    ('rule (map centerline)', 'learned, blind', ['l_ds_kin_s%d' % s for s in SEEDS]),
+    ('rule (map centerline)', 'learned, sees map', ['l_ds_map_s%d' % s for s in SEEDS]),
+    ('rule (map centerline)', 'learned, map + boxes', ['l_ds_map_agents_s%d' % s for s in SEEDS]),
+    ('learned (sees map)', 'rule (kinematic)', ['l_pose_map_s%d_rs' % s for s in SEEDS]),
+    ('learned (sees map)', 'learned', ['l_pose_map_s%d' % s for s in SEEDS]),
+    ('rule (map centerline)', 'human (upper bound)', ['privmap_gtspd']),
+]
+
+# label, run stem. The first entry is the baseline every delta is taken against.
+REG_VARIANTS = [
+    ('none (baseline)', 'l_pose_map_s0'),
+    ('wd 1e-4', 'l_reg_pose_map_wd1e-4_s0'),
+    ('wd 1e-3', 'l_reg_pose_map_wd1e-3_s0'),
+    ('wd 1e-2', 'l_reg_pose_map_wd1e-2_s0'),
+    ('dropout 0.2', 'l_reg_pose_map_do0.2_s0'),
+    ('dropout 0.2 + wd 1e-3', 'l_reg_pose_map_do0.2_wd1e-3_s0'),
+    ('hidden 128', 'l_reg_pose_map_h128_s0'),
+]
+
+# label, base stem of the 2x2 cell (one run per seed).
+FACTORIAL = [('kin', 'pose_kin'), ('kin+agents', 'pose_agents'),
+             ('kin+map', 'pose_map'), ('kin+map+agents', 'pose_map_agents')]
+
 
 class Runs(object):
     """Lazily loaded per-scene rows, keyed by committed stem."""
@@ -138,8 +165,7 @@ def ladder_md(R):
 
 
 def factorial_md(R):
-    cells = [('kin', 'pose_kin'), ('kin+agents', 'pose_agents'),
-             ('kin+map', 'pose_map'), ('kin+map+agents', 'pose_map_agents')]
+    cells = FACTORIAL
     L = ['# 2x2: what a learned trajectory model is allowed to see (navtest)', '',
          'One MLP per cell regresses the eight future poses. Inputs are ego kinematics (8),',
          'optionally the on-route map centerline (20x4) and optionally the nearest eight dynamic',
@@ -181,13 +207,8 @@ def path_speed_md(R):
             cells = '%.3f | %s | %s' % (v[0], '--', '--')
         return '| %s | %s | %s | **%.3f** |' % (path, speed, cells, sum(v) / len(v))
 
-    L.append(line('rule (map centerline)', 'rule (kinematic)', ['privmapkin']))
-    L.append(line('rule (map centerline)', 'learned, blind', ['l_ds_kin_s%d' % s for s in SEEDS]))
-    L.append(line('rule (map centerline)', 'learned, sees map', ['l_ds_map_s%d' % s for s in SEEDS]))
-    L.append(line('rule (map centerline)', 'learned, map + boxes', ['l_ds_map_agents_s%d' % s for s in SEEDS]))
-    L.append(line('learned (sees map)', 'rule (kinematic)', ['l_pose_map_s%d_rs' % s for s in SEEDS]))
-    L.append(line('learned (sees map)', 'learned', ['l_pose_map_s%d' % s for s in SEEDS]))
-    L.append(line('rule (map centerline)', 'human (upper bound)', ['privmap_gtspd']))
+    for path, speed, stems in PATH_SPEED:
+        L.append(line(path, speed, stems))
     L += ['', '## Paired deltas, per seed', ''] + DELTA_HEAD
     for s in SEEDS:
         L.append(row_delta(R, 'privmapkin', 'l_ds_map_s%d' % s, 'rule speed -> learned speed, rule path, seed %d' % s))
@@ -218,11 +239,7 @@ def path_speed_md(R):
 
 
 def regularisation_md(R):
-    variants = [('none (baseline)', 'l_pose_map_s0'), ('wd 1e-4', 'l_reg_pose_map_wd1e-4_s0'),
-                ('wd 1e-3', 'l_reg_pose_map_wd1e-3_s0'), ('wd 1e-2', 'l_reg_pose_map_wd1e-2_s0'),
-                ('dropout 0.2', 'l_reg_pose_map_do0.2_s0'),
-                ('dropout 0.2 + wd 1e-3', 'l_reg_pose_map_do0.2_wd1e-3_s0'),
-                ('hidden 128', 'l_reg_pose_map_h128_s0')]
+    variants = REG_VARIANTS
     L = ['# Regularising the map-conditioned model (navtest, seed 0)', '',
          'Same architecture and data; only the regularisation changes. The checkpoint is always the',
          'last epoch, so the open-loop validation L1 below (60 held-out navtrain logs) is the number a',
@@ -231,7 +248,7 @@ def regularisation_md(R):
          '| regularisation | val L1 (navtrain) | dL1 vs baseline | PDMS | dPDMS vs baseline | 95% CI | verdict |',
          '|---|---:|---:|---:|---:|---|---|']
     val_l1 = load_cells()
-    base = 'l_pose_map_s0'
+    base = variants[0][1]
     for label, stem in variants:
         if stem == base:
             L.append('| %s | %.4f | -- | **%.3f** | -- | -- | -- |' % (label, val_l1[stem], R.mean(stem)))
@@ -250,6 +267,79 @@ def regularisation_md(R):
 
 
 import re  # noqa: E402
+
+
+def md_section(text, title):
+    """The markdown section starting at ``title``, or None if there is no such heading."""
+    start = text.find(title)
+    if start < 0:
+        return None
+    end = text.find('\n## ', start + 1)
+    return text[start:end if end > 0 else None]
+
+
+def md_num(cell):
+    """A numeric README cell as a float. README prose uses U+2212, the reports use '-'."""
+    return float(cell.replace(u'−', '-'))
+
+
+def _cmp(problems, what, quoted, got, tol=0.0006):
+    # Report the ASCII form: the message is printed to whatever console runs the check.
+    if abs(md_num(quoted) - got) > tol:
+        problems.append('%s: README %s vs CSV %+.4f' % (what, quoted.replace(u'−', '-'), got))
+
+
+def _check_path_speed(R, text, problems):
+    """README's condensed path/speed table against the mean column of path_speed.md."""
+    section = md_section(text, '## Who draws the path, who paces it')
+    if section is None:
+        problems.append('README has no "## Who draws the path, who paces it" section')
+        return
+    seen, quoted = 0, 0
+    for path, speed, stems in PATH_SPEED:
+        m = re.search(r'^\| ' + re.escape(path) + r' \| ' + re.escape(speed)
+                      + r' \| \**(0\.\d{3})\** \|', section, re.M)
+        seen += 1
+        if not m:
+            continue  # README shows a subset of the rows; the count check below catches drops
+        quoted += 1
+        _cmp(problems, 'path/speed "%s" + "%s"' % (path, speed), m.group(1),
+             sum(R.mean(x) for x in stems) / len(stems))
+    if seen != len(PATH_SPEED) or quoted < len(PATH_SPEED) - 1:
+        problems.append('path/speed table: matched %d of the %d rows in path_speed.md'
+                        % (quoted, len(PATH_SPEED)))
+
+
+def _check_regularisation(R, text, problems):
+    """README's regularisation table: val L1 and dL1 from cells.csv, PDMS/dPDMS/CI from the CSVs."""
+    section = md_section(text, '## How far can you trust the open-loop loss?')
+    if section is None:
+        problems.append('README has no "## How far can you trust the open-loop loss?" section')
+        return
+    val_l1, base, seen = load_cells(), REG_VARIANTS[0][1], 0
+    for label, stem in REG_VARIANTS:
+        m = re.search(r'^\| ' + re.escape(label) + r' \| (\S+) \| (\S+) \| \**(0\.\d{3})\** \| ([^|]*)\|',
+                      section, re.M)
+        if not m:
+            continue
+        seen += 1
+        l1, dl1, pdms, dpdms = m.group(1), m.group(2), m.group(3), m.group(4).strip().strip('*')
+        _cmp(problems, '%s val L1' % label, l1, val_l1[stem], tol=0.00006)
+        _cmp(problems, '%s PDMS' % label, pdms, R.mean(stem))
+        if stem == base:
+            continue
+        _cmp(problems, '%s dL1' % label, dl1, val_l1[stem] - val_l1[base])
+        _n, mean, lo, hi = R.delta(base, stem)
+        g = re.match(r'([+−-][\d.]+) \[([+−-][\d.]+), ([+−-][\d.]+)\]$', dpdms)
+        if not g:
+            problems.append('%s: cannot parse the dPDMS cell %r'
+                            % (label, dpdms.replace(u'−', '-')))
+            continue
+        for name, cell, got in (('dPDMS', g.group(1), mean), ('CI low', g.group(2), lo),
+                                ('CI high', g.group(3), hi)):
+            _cmp(problems, '%s %s' % (label, name), cell, got)
+    if seen != len(REG_VARIANTS):
+        problems.append('regularisation table: found %d of %d rows' % (seen, len(REG_VARIANTS)))
 
 
 def check_readme(R, readme):
@@ -271,15 +361,25 @@ def check_readme(R, readme):
             problems.append('%s: README %s vs CSV %.3f' % (label, m.group(1), got))
     if seen != len(LADDER):
         problems.append('navtest ladder: found %d of %d rows' % (seen, len(LADDER)))
-    for label, stems in [('kin', ['pose_kin']), ('kin+agents', ['pose_agents']),
-                         ('kin+map', ['pose_map']), ('kin+map+agents', ['pose_map_agents'])]:
-        m = re.search(r'^\| ' + re.escape(label) + r' \|[^|]*\| \**(0\.\d{3})\** \|', text, re.M)
+    # The 2x2 table quotes two columns: the mean open-loop val L1 (cells.csv) and the PDMS.
+    fac = md_section(text, '## What a learned trajectory model is allowed to see')
+    if fac is None:
+        problems.append('README has no "## What a learned trajectory model is allowed to see" section')
+        fac = ''
+    val_l1 = load_cells()
+    for label, base in FACTORIAL:
+        m = re.search(r'^\| ' + re.escape(label) + r' \| \**(0\.\d{3})\** \| \**(0\.\d{3})\** \|',
+                      fac, re.M)
         if not m:
             problems.append('factorial row for %s not found in README' % label)
             continue
-        got = sum(R.mean('l_%s_s%d' % (stems[0], s)) for s in SEEDS) / len(SEEDS)
-        if abs(got - float(m.group(1))) > 0.0006:
-            problems.append('%s: README %s vs CSV %.3f' % (label, m.group(1), got))
+        runs = ['l_%s_s%d' % (base, s) for s in SEEDS]
+        _cmp(problems, '%s open-loop L1' % label, m.group(1),
+             sum(val_l1[x] for x in runs) / len(runs))
+        _cmp(problems, '%s PDMS' % label, m.group(2),
+             sum(R.mean(x) for x in runs) / len(runs))
+    _check_path_speed(R, text, problems)
+    _check_regularisation(R, text, problems)
     return problems
 
 
