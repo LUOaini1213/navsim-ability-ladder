@@ -35,6 +35,8 @@ speed. Human speed is the upper bound at fixed geometry.
 | rule path -> learned path, learned speed, seed 2 | 12146 | +0.0216 | [+0.0163, +0.0269] | -0.006 | +0.007 | +0.029 | CI excludes 0 |
 | learned speed also sees boxes, seed 2 | 12146 | -0.0052 | [-0.0081, -0.0024] | +0.000 | -0.004 | -0.004 | CI excludes 0 |
 
-Given the centerline, the learned component earns its place in the speed profile and
-nowhere else: letting the model draw the line instead of pacing it is not separable from
-the hand rule, while pacing a hand-drawn line beats the hand speed law in every seed.
+Counting the seeds whose interval excludes zero. Rule speed -> learned speed, on the rule
+path: 3 of 3 seeds better, 0 worse. Rule path -> learned path at the learned speed: 1 better,
+1 worse. The same path swap at the rule speed -- the only comparison in which nothing but the
+path changes -- is 2 of 3 better, 0 worse. The speed effect reproduces across seeds; the sign
+of the path effect does not, so the path numbers are per-seed outcomes rather than an effect.
