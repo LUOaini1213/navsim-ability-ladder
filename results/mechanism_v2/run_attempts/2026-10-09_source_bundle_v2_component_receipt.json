@@ -1,0 +1,78 @@
+{
+  "status": "source_snapshot_v2_component_verified",
+  "observation_date_utc": "2026-10-09",
+  "scope": "Refreshed local source snapshot, component tests and syntax compilation only; not final reproduction package, updated full suite, experimental smoke or scientific completion",
+  "source_snapshot_directory": "results/repro_snapshots/source_components_post_seed_20261009",
+  "schema": "local-reproduction-source-snapshot-v2",
+  "actual_build_and_separate_cli_verification": {
+    "passed": true,
+    "n_source_files": 143,
+    "source_bytes": 960612,
+    "archive_sha256": "cb3b3fda59cc6cf4b6cbbde69f2eacc52a77efc4c1e8fd4a8d2fd77f2bbf3d18",
+    "manifest_sha256": "bf772763cf390fbaa679c085924b8eff416b2011409b43b996a2b08a9fa2bf42",
+    "final_project_completed": false
+  },
+  "build_command": "E:/navsim_workspace/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py build --out results/repro_snapshots/source_components_post_seed_20261009",
+  "separate_verification_command": "E:/navsim_workspace/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py verify results/repro_snapshots/source_components_post_seed_20261009",
+  "historical_v1_archive_separately_reverified_and_preserved": {
+    "folder": "results/repro_snapshots/source_components_20261009",
+    "passed": true,
+    "n_source_files": 127,
+    "source_bytes": 752794,
+    "archive_sha256": "494a0ec422146384241629f5c5a913484873b0e2dbbe1415af5f1a9ae80a71de",
+    "manifest_sha256": "aa4a68bd7cfd2e0b1b6995e1ee94b1b3804e332ac0ff3b494d6243c143c6e5e4"
+  },
+  "tests": {
+    "runner": "Python 3.9.25 stdlib unittest discovery of tests/test_repro_source_bundle.py; verbosity 2 with retained StringIO output",
+    "count": 13,
+    "failures": 0,
+    "errors": 0,
+    "observed_duration_seconds": 0.5024063,
+    "stdout": "results/mechanism_v2/run_attempts/2026-10-09_source_bundle_v2_tests.log",
+    "stdout_sha256": "a47ca15ad43fb21deb34ef58d05cb2ed1b4f1ade889d95a7df790fdc103656fc",
+    "heavy_modules_imported": []
+  },
+  "syntax_only": {
+    "python_version": "3.9.25",
+    "compiled_python_files": 113,
+    "compilation_only_no_import_execution": true,
+    "receipt": "results/mechanism_v2/run_attempts/2026-10-09_source_bundle_v2_syntax.json",
+    "receipt_sha256": "df9e4d90d1b54630c96ba7c6ebbc5bf42ed0ef2fd77e4fb036de51955a007273",
+    "heavy_modules_imported": []
+  },
+  "actual_coverage_check": {
+    "observation_utc": "2026-10-09T12:41:17.668727+00:00",
+    "fifteen_seed_source_and_test_files_missing_in_old_snapshot_now_included": true,
+    "seed_component_missing": [],
+    "seed_component_current_byte_mismatches": [],
+    "explicit_public_metadata_file": "docs/reference_metadata_2026-10-09.json",
+    "included_public_metadata_references": 10,
+    "arbitrary_json_files_allowed": false
+  },
+  "prebuild_scientific_preservation_check": {
+    "observation_utc": "2026-10-09T12:40:37.694440+00:00",
+    "source": "results/mechanism_v2/cache_resume_status.json frozen_sha256",
+    "binding_count": 185,
+    "mismatches": []
+  },
+  "source_sha256": {
+    "analysis/repro_source_bundle.py": "8c22120fba0537ebd06f8e171ae903e69054d613478872853bf36f40726115e8",
+    "tests/test_repro_source_bundle.py": "59b81b694ebf186e42262146e6a6360bf9a9f6e8584bb5ab00cdc67b19e3b15d",
+    "docs/REPRODUCIBILITY.md": "a0a82de43459ce6d39346dcd56a296ff0869c956f17abc39f62ba516c6632517",
+    "docs/reference_metadata_2026-10-09.json": "eaabd90e5316bcd21f388bc744e1e945169012a666944ae5671b27841c58658f"
+  },
+  "postcapture_document_sha256": {
+    "docs/EXECUTION_STATUS.md": "70500468e6cb1153bf8cb21ddf23d63866834e50707fe0d6152d6a6d0544ad1b",
+    "docs/COMPLETION_REQUIREMENTS.md": "3ec6ecc58700f74e7bf235330b91a24b1a3d25e62dad9209970de891aa09b8c7"
+  },
+  "experimental_reproduction_completed": false,
+  "final_project_completed": false,
+  "publication_authorized": false,
+  "limitations": [
+    "The ZIP captures source bytes before the status and completion-ledger update; neither it nor the historical archive is rewritten to match later documentation",
+    "Checks establish byte integrity and syntax, not provenance authenticity, dependency compatibility, experimental semantics or redistribution permission",
+    "No Torch, NumPy or Matplotlib imports in these scoped component/syntax checks; no scientific runner or duplicate cache/scoring process was launched",
+    "No frozen protocol/donor inputs, model weights, raw data, score archives or reviewed-paper PDFs are packaged",
+    "Actual complete scoring, applicable extensions, scientific rendering and QA, manuscript, final preservation/license audit and documented end-to-end experimental smoke remain pending"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "prospective-same-city-execution-gate-v1",
+  "base_protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "city_protocol_sha256": "138795fe48b84c2fdd6a96151f5be1251db0522307e9154f468d20ecfa3e7c2f",
+  "original_followup_policy_sha256": "cd1e15965f43a09bd3d6044e35663a75692ab8726a7b57db0d76605708e9e94f",
+  "gate_source_sha256": "6f08dd73969fd3588374d9ae0c7a959c77b7e54d7b3f62d4d950cb22df6ba38f",
+  "source_split": "validation",
+  "candidate_contrasts": [
+    "M1-M2",
+    "M4-M5"
+  ],
+  "minimum_absolute_pdms_effect": 0.01,
+  "trigger": "At least one candidate absolute validation mean reaches the existing practical threshold, including negative effects",
+  "matrix": "Six M2/M5 same-city auxiliary models, three seeds, same full-data update budget; matched real anchors reused",
+  "scope": "Additional execution rule fixed after core training and earlier historical/smoke evidence, before complete controlled comparisons; not an original-plan numeric preregistration claim",
+  "no_trigger": "Withhold a clean current-scene-alignment interpretation; base donor contrasts remain compound diagnostics",
+  "claim_boundary": "Execution alone is not significance, novelty, causality, or evidence of physical interaction use",
+  "captured_utc": "2026-10-09T08:39:33.473094+00:00",
+  "complete_core_reports_present_at_binding": []
+}

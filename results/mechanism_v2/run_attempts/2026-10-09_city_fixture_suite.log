@@ -1,0 +1,39 @@
+test_all_12_cells_common_coverage_and_real_anchor_lineage (test_city_analysis.CityAnalysis) ... ok
+test_resealed_wrong_logs_and_nonfinite_subscores_rejected (test_city_analysis.CityAnalysis) ... ok
+test_resealed_wrong_real_anchor_poses_rejected (test_city_analysis.CityAnalysis) ... ok
+test_summary_rejects_missing_seeds_or_unaligned_masks (test_city_analysis.CityAnalysis) ... ok
+test_wrong_matrix_or_source_metadata_rejected_even_if_resealed (test_city_analysis.CityAnalysis) ... ok
+test_coverage_or_donor_partition_cannot_be_relaxed (test_city_audit.CityInputAudit) ... ok
+test_explicit_unsupported_city_exclusion (test_city_audit.CityInputAudit) ... ok
+test_same_city_and_other_session_required (test_city_audit.CityInputAudit) ... ok
+test_fallback_preserves_city_and_session (test_city_control.CityControl) ... ok
+test_full_matching_is_deterministic_and_cross_session (test_city_control.CityControl) ... ok
+test_matching_never_accesses_future_keys (test_city_control.CityControl) ... ok
+test_single_session_city_excluded_not_relaxed (test_city_control.CityControl) ... ok
+test_complete_core_report_prevents_false_preoutcome_binding (test_city_control.CityDesignBinding) ... ok
+test_repeated_binding_preserves_time_and_refuses_changed_inputs (test_city_control.CityDesignBinding) ... ok
+test_changed_bound_sources_and_waiting_are_not_completion (test_city_evaluation.CityEvaluation) ... ok
+test_completed_attempt_not_snapshot_or_failed_last_stage (test_city_evaluation.CityEvaluation) ... ok
+test_exact_36_exports_same_seeds_and_three_splits (test_city_evaluation.CityEvaluation) ... ok
+test_cannot_retroactively_freeze_after_a_complete_report (test_city_followup.CityFollowup) ... ok
+test_city_gate_recomputes_both_effects_from_all_core_csvs (test_city_followup.CityFollowup) ... ok
+test_evaluation_never_auto_creates_a_missing_policy (test_city_followup.CityFollowup) ... ok
+test_freeze_idempotent_unchanged_then_refuses_input_change (test_city_followup.CityFollowup) ... ok
+test_invalid_missing_effects_and_threshold_cannot_change (test_city_followup.CityFollowup) ... ok
+test_positive_and_negative_practical_effects_trigger (test_city_followup.CityFollowup) ... ok
+test_resealed_secondary_report_cannot_replace_actual_csv_effect (test_city_followup.CityFollowup) ... ok
+test_small_effect_withholds_clean_alignment_claim (test_city_followup.CityFollowup) ... ok
+test_all_six_and_base_audit_required_before_inference (test_city_models.CityModels) ... ok
+test_empty_partial_nonfinite_or_negative_diagnostics_rejected (test_city_models.CityModels) ... ok
+test_real_anchor_source_and_full_cohort_metadata_bound (test_city_models.CityModels) ... ok
+test_six_full_budget_auxiliaries_and_exact_matrix (test_city_models.CityModels) ... ok
+test_smoke_budget_changed_checkpoint_and_normalizer_rejected (test_city_models.CityModels) ... ok
+test_duplicate_missing_or_misaligned_subset_is_rejected (test_city_predictions.CityPredictions) ... ok
+test_empty_subset_not_a_complete_evaluation (test_city_predictions.CityPredictions) ... ok
+test_exact_input_only_subset_and_registered_order (test_city_predictions.CityPredictions) ... ok
+test_nonfinite_or_wrong_shape_predictions_not_promoted (test_city_predictions.CityPredictions) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 2.000s
+
+OK

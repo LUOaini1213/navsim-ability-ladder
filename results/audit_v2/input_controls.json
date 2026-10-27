@@ -1,0 +1,110 @@
+{
+  "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "donors_sha256": "75c16fae2ad60d600ae459400f1e44133b066f20228c14371fa01560e7d20085",
+  "donors": {
+    "train": {
+      "n": 83099,
+      "different_session_fraction": 1.0,
+      "original_sessions_by_city": {
+        "sg-one-north": 12,
+        "us-ma-boston": 26,
+        "us-nv-las-vegas-strip": 70,
+        "us-pa-pittsburgh-hazelwood": 22
+      },
+      "same_city_fraction": 0.42420486407778674,
+      "same_command_fraction": 1.0,
+      "same_speed_bin_fraction": 1.0,
+      "same_count_bin_fraction": 0.9999879661608443,
+      "exact_object_count_fraction": 0.8813704136030518,
+      "median_absolute_speed_difference_mps": 0.8941583633422852,
+      "p95_absolute_speed_difference_mps": 3.0258355140686,
+      "empty_to_nonempty_count": 0,
+      "nonempty_to_empty_count": 0,
+      "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals"
+    },
+    "validation": {
+      "n": 11074,
+      "different_session_fraction": 1.0,
+      "original_sessions_by_city": {
+        "sg-one-north": 1,
+        "us-ma-boston": 3,
+        "us-nv-las-vegas-strip": 9,
+        "us-pa-pittsburgh-hazelwood": 3
+      },
+      "same_city_fraction": 0.4372403828788152,
+      "same_command_fraction": 1.0,
+      "same_speed_bin_fraction": 1.0,
+      "same_count_bin_fraction": 0.989073505508398,
+      "exact_object_count_fraction": 0.896875564385046,
+      "median_absolute_speed_difference_mps": 0.925586462020874,
+      "p95_absolute_speed_difference_mps": 2.98217568397522,
+      "empty_to_nonempty_count": 43,
+      "nonempty_to_empty_count": 0,
+      "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals"
+    },
+    "confirmation": {
+      "n": 9115,
+      "different_session_fraction": 1.0,
+      "original_sessions_by_city": {
+        "sg-one-north": 1,
+        "us-ma-boston": 3,
+        "us-nv-las-vegas-strip": 9,
+        "us-pa-pittsburgh-hazelwood": 3
+      },
+      "same_city_fraction": 0.37103675260559515,
+      "same_command_fraction": 1.0,
+      "same_speed_bin_fraction": 1.0,
+      "same_count_bin_fraction": 0.9967087218869994,
+      "exact_object_count_fraction": 0.8645090510148108,
+      "median_absolute_speed_difference_mps": 0.9246395826339722,
+      "p95_absolute_speed_difference_mps": 2.91555743217468,
+      "empty_to_nonempty_count": 27,
+      "nonempty_to_empty_count": 0,
+      "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals"
+    },
+    "navtest": {
+      "n": 12146,
+      "different_session_fraction": 1.0,
+      "original_sessions_by_city": {
+        "sg-one-north": 2,
+        "us-ma-boston": 11,
+        "us-nv-las-vegas-strip": 20,
+        "us-pa-pittsburgh-hazelwood": 11
+      },
+      "same_city_fraction": 0.29565288984027666,
+      "same_command_fraction": 1.0,
+      "same_speed_bin_fraction": 1.0,
+      "same_count_bin_fraction": 0.9976947143092376,
+      "exact_object_count_fraction": 0.8407706240737691,
+      "median_absolute_speed_difference_mps": 0.9664911031723022,
+      "p95_absolute_speed_difference_mps": 3.2837151288986206,
+      "empty_to_nonempty_count": 6,
+      "nonempty_to_empty_count": 1,
+      "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals"
+    }
+  },
+  "cohorts": {
+    "navtrain": {
+      "listed_logs": 1192,
+      "missing_logs": [],
+      "official_token_filter_n": 103288,
+      "available_selected_raw_scenes": 103288,
+      "feature_eligible_scenes": 103288,
+      "selected_raw_scenes_without_features": 0,
+      "official_filtered_tokens_not_in_available_selected_raw_cohort": 0,
+      "scope": "Counts on available logs under the unchanged official scene filter; excluded extraction reasons cannot be reconstructed from the historical archive"
+    },
+    "navtest": {
+      "listed_logs": 136,
+      "missing_logs": [],
+      "official_token_filter_n": 12146,
+      "available_selected_raw_scenes": 12146,
+      "feature_eligible_scenes": 12146,
+      "selected_raw_scenes_without_features": 0,
+      "official_filtered_tokens_not_in_available_selected_raw_cohort": 0,
+      "scope": "Counts on available logs under the unchanged official scene filter; excluded extraction reasons cannot be reconstructed from the historical archive"
+    }
+  },
+  "passed": true,
+  "cohort_enumerated": true
+}

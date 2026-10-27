@@ -1,0 +1,50 @@
+{
+  "status": "source_snapshot_component_verified",
+  "observation_date_utc": "2026-10-09",
+  "scope": "Local source snapshot and its component tests only; not final reproducibility package, experimental smoke or project completion",
+  "source_snapshot_directory": "results/repro_snapshots/source_components_20261009",
+  "actual_build_and_separate_cli_verification": {
+    "passed": true,
+    "n_source_files": 127,
+    "source_bytes": 752794,
+    "archive_sha256": "494a0ec422146384241629f5c5a913484873b0e2dbbe1415af5f1a9ae80a71de",
+    "manifest_sha256": "aa4a68bd7cfd2e0b1b6995e1ee94b1b3804e332ac0ff3b494d6243c143c6e5e4",
+    "scope": "Local byte-exact source/instruction snapshot; experiments, data licenses, scores, final manuscript and completion audit remain separate",
+    "final_project_completed": false
+  },
+  "test_command": "E:/navsim_workspace/.venv/Scripts/python.exe -m unittest discover -s tests -p test_repro_source_bundle.py -v",
+  "tests": 9,
+  "failures": 0,
+  "observed_duration_seconds": 0.339,
+  "source_and_retained_stdout_sha256": [
+    {
+      "sha256": "5cb29905e1e17d613748f88c3134cb1343574c2cff9a679a493032177f135a14",
+      "path": "analysis/repro_source_bundle.py"
+    },
+    {
+      "sha256": "b112af53cf76b4524f7578a1ae1a645241b821c6899be05479431f08a6d0c305",
+      "path": "tests/test_repro_source_bundle.py"
+    },
+    {
+      "sha256": "45f5463289dfc7d8347dc2035453d4064fbc2175cbe28840201b9b0d5250ba76",
+      "path": "results/mechanism_v2/run_attempts/2026-10-09_source_bundle_tests.log"
+    }
+  ],
+  "initial_fixture_failure": "The first seven-test run had one failed assertion: a modified byte fixture changed CRLF to LF, so verification correctly rejected size before the expected hash error. The fixture was corrected to preserve size/newlines; two further archive-integrity tests were added.",
+  "checked_scope": [
+    "Two identical fixture builds yield identical ZIP and manifest hashes",
+    "Existing/broad output targets refused without deleting user files",
+    "Raw/derived data, environment files and paper PDFs excluded",
+    "Changed byte contents rejected even after ZIP checksum is updated",
+    "Missing/extra/duplicate archive entries and malformed/oversized sizes rejected",
+    "Traversal/noncanonical paths refused",
+    "Failed new attempts preserved, not overwritten/deleted",
+    "Source snapshot cannot be labelled experimental, final or publication completion"
+  ],
+  "limitations": [
+    "Byte integrity does not prove provenance authenticity, experiment semantics or redistribution permission",
+    "No complete updated test-suite run",
+    "No raw-data/model/scoring reproduction; complete score archives, final manuscript and documented experimental smoke remain pending",
+    "Snapshot is an immutable copy of source bytes at capture, not a claim that the evolving worktree or future outputs are frozen"
+  ]
+}

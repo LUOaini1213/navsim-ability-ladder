@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "city_protocol_sha256": "138795fe48b84c2fdd6a96151f5be1251db0522307e9154f468d20ecfa3e7c2f",
+  "donors_sha256": "42c14d3980ff554fd81ec845099a2333c03ed96406fff9aae3ff56a8be4cf82b",
+  "design_sha256": "a499b00e4463ecf3db1b158318b55f9f8ead1c7a44eb1b5a61cd87d3c97eda1a",
+  "audit_source_sha256": "6eedff947c8c557227cadb2796c12eaf18bafe7d4f887aba3fa781f55ffa7916",
+  "partitions": {
+    "train": {
+      "n_scenes": 83099,
+      "n_original_sessions": 130,
+      "same_city_fraction": 1.0,
+      "different_session_fraction": 1.0,
+      "omitted_scenes": 0,
+      "eligible_token_order_sha256": "26529658eeb04964a3c37d34133e236883fe545230e63bb27a408033fb2a4e7e"
+    },
+    "validation": {
+      "n_scenes": 10312,
+      "n_original_sessions": 15,
+      "same_city_fraction": 1.0,
+      "different_session_fraction": 1.0,
+      "omitted_scenes": 762,
+      "eligible_token_order_sha256": "62e8fbbb60f1c015575117b9c4ee18b59f2a57ebbebfb1b8344007eefbc3c62a"
+    },
+    "confirmation": {
+      "n_scenes": 8379,
+      "n_original_sessions": 15,
+      "same_city_fraction": 1.0,
+      "different_session_fraction": 1.0,
+      "omitted_scenes": 736,
+      "eligible_token_order_sha256": "b9d289aa6780da924ae4ddc000c383523209d815ed614d14a386be2ec6c1771b"
+    },
+    "navtest": {
+      "n_scenes": 12146,
+      "n_original_sessions": 44,
+      "same_city_fraction": 1.0,
+      "different_session_fraction": 1.0,
+      "omitted_scenes": 0,
+      "eligible_token_order_sha256": "bf365bbb3b3d0596ed230decdec18e552da6245a3616bbd938310c26665279fe"
+    }
+  },
+  "outcomes_used": false,
+  "scope": "Actual frozen input mappings only; six auxiliary models and matched-coverage PDMS remain pending",
+  "limitation": "City and different-session constraints are verified, but route geometry and actor compatibility are not; not a physically valid intervention",
+  "inherited_diagnostic_text_note": "diagnostics.json reuses a base-helper limitation string saying city is unconstrained; this is inapplicable to these separately verified strict-city mappings. Frozen generator/helper files and receipts were not rewritten."
+}

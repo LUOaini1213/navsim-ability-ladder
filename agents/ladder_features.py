@@ -68,21 +68,27 @@ def input_dim(see_map: bool, see_agents: bool) -> int:
     return EGO_DIM + (CL_DIM if see_map else 0) + (AGENTS_DIM + LEAD_DIM if see_agents else 0)
 
 
-def scene_blocks(scene):
-    """Compute every block for a scene. Returns dict or None if the route is unusable."""
+def scene_blocks(scene, see_map=True, see_agents=True, require_path=True, agent_input=None):
+    """Build only requested current-frame inputs; never consult future frames.
+
+    Defaults preserve historical all-block feature extraction. Pose-only blind
+    agents explicitly disable map/path access. A missing required route returns
+    None; callers must record this, not silently treat it as a valid prediction.
+    """
     frame = scene.frames[scene.scene_metadata.num_history_frames - 1]
-    ego = ego_features_from_status(frame.ego_status)
-    rp = route_path(scene, SEARCH_DEPTH)
-    cl = centerline_features(scene, K_POINTS, LOOKAHEAD_M, SEARCH_DEPTH)
-    if rp is None or cl is None:
+    status = frame.ego_status if agent_input is None else agent_input.ego_statuses[-1]
+    ego = ego_features_from_status(status)
+    rp = route_path(scene, SEARCH_DEPTH) if require_path else None
+    cl = centerline_features(scene, K_POINTS, LOOKAHEAD_M, SEARCH_DEPTH) if see_map else None
+    if (require_path and rp is None) or (see_map and cl is None):
         return None
-    path, ego_pose, s0 = rp
+    path, ego_pose, s0 = rp if rp is not None else (None, None, None)
     speed = float(np.hypot(ego[0], ego[1]))
     return {
         "ego": ego.astype(np.float32),
-        "cl": cl.reshape(-1).astype(np.float32),
-        "agents": agent_features(frame),
-        "lead": lead_features(scene, speed),
+        "cl": cl.reshape(-1).astype(np.float32) if cl is not None else None,
+        "agents": agent_features(frame) if see_agents else None,
+        "lead": lead_features(scene, speed) if see_agents else None,
         "path": path,
         "ego_pose": ego_pose,
         "s0": s0,

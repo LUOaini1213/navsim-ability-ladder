@@ -1,0 +1,13 @@
+test_all_seven_figure_layouts_explicitly_ineligible (test_followup_plot.FollowupPlot) ... ok
+test_both_budgets_reuse_identical_full_anchor (test_followup_plot.FollowupPlot) ... ok
+test_city_empty_and_one_session_strata_retained (test_followup_plot.FollowupPlot) ... ok
+test_heatmap_labels_round_near_zero_without_false_sign (test_followup_plot.FollowupPlot) ... ok
+test_nonfinite_report_cannot_enter_rendering (test_followup_plot.FollowupPlot) ... ok
+test_production_preflight_calls_source_rebuild_before_accepting (test_followup_plot.FollowupPlot) ... ok
+test_smoke_exercises_both_interval_widths_not_just_one_line (test_followup_plot.FollowupPlot) ... ok
+test_stale_or_tampered_summary_and_missing_cells_rejected (test_followup_plot.FollowupPlot) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.004s
+
+OK

@@ -1,0 +1,646 @@
+{
+  "passed": true,
+  "scope": "Deterministic navtest samples, live adapter with history-only Scene versus batch cached inference",
+  "ledger": [
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "20f1de62f5795dab",
+      "max_error": 2.384185791015625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "20f1de62f5795dab",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "20f1de62f5795dab",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "20f1de62f5795dab",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "97b9989fa3675cab",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "97b9989fa3675cab",
+      "max_error": 2.86102294921875e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "97b9989fa3675cab",
+      "max_error": 2.86102294921875e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "97b9989fa3675cab",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "7602906d3c785da3",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "7602906d3c785da3",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "7602906d3c785da3",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "7602906d3c785da3",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "3265e31c65705a5f",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "3265e31c65705a5f",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "3265e31c65705a5f",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "3265e31c65705a5f",
+      "max_error": 7.62939453125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "54d3c4a139e75250",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "54d3c4a139e75250",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "54d3c4a139e75250",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "54d3c4a139e75250",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "de205067b0165547",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "de205067b0165547",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "de205067b0165547",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "de205067b0165547",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "1082d34008e05df4",
+      "max_error": 4.76837158203125e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "1082d34008e05df4",
+      "max_error": 3.5762786865234375e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "1082d34008e05df4",
+      "max_error": 5.960464477539062e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "1082d34008e05df4",
+      "max_error": 3.5762786865234375e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "ef23fc3dea3551b5",
+      "max_error": 1.1920928955078125e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "ef23fc3dea3551b5",
+      "max_error": 4.172325134277344e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "ef23fc3dea3551b5",
+      "max_error": 1.7881393432617188e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "ef23fc3dea3551b5",
+      "max_error": 7.152557373046875e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "cd7575ed015c5678",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "cd7575ed015c5678",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "cd7575ed015c5678",
+      "max_error": 7.62939453125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "cd7575ed015c5678",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "0000548db87959c2",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "0000548db87959c2",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "0000548db87959c2",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "0000548db87959c2",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "43c74ea303715baf",
+      "max_error": 1.5497207641601562e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "43c74ea303715baf",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "43c74ea303715baf",
+      "max_error": 1.430511474609375e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "43c74ea303715baf",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "aa072830a2d15d9f",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "aa072830a2d15d9f",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "aa072830a2d15d9f",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "aa072830a2d15d9f",
+      "max_error": 1.430511474609375e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "fffe18f189075204",
+      "max_error": 7.62939453125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "fffe18f189075204",
+      "max_error": 7.62939453125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "fffe18f189075204",
+      "max_error": 3.814697265625e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "fffe18f189075204",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "86877e183c4e5864",
+      "max_error": 2.980232238769531e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "86877e183c4e5864",
+      "max_error": 4.470348358154297e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "86877e183c4e5864",
+      "max_error": 1.7881393432617188e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "86877e183c4e5864",
+      "max_error": 2.682209014892578e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "65451b2015ec58c7",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "65451b2015ec58c7",
+      "max_error": 2.86102294921875e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "65451b2015ec58c7",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "65451b2015ec58c7",
+      "max_error": 2.86102294921875e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M0_f1_steps_s0",
+      "token": "bc1489ef42185fa1",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M1_f1_steps_s0",
+      "token": "bc1489ef42185fa1",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M3_f1_steps_s0",
+      "token": "bc1489ef42185fa1",
+      "max_error": 1.9073486328125e-06,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    },
+    {
+      "run": "M4_f1_steps_s0",
+      "token": "bc1489ef42185fa1",
+      "max_error": 9.5367431640625e-07,
+      "passed": true,
+      "diagnostic": {
+        "reason": "model",
+        "used_fallback": false
+      }
+    }
+  ]
+}

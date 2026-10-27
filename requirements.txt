@@ -1,8 +1,11 @@
-# Analysis of the committed per-scene CSVs (analysis/analyze_ci.py,
-# analyze_clean_ladder.py, make_summary.py) and the tests need only the Python
+# Historical standard-library analysis of the committed per-scene CSVs (analysis/analyze_ci.py,
+# analyze_clean_ladder.py, make_summary.py) and its original tests need only the Python
 # standard library (3.10+).
 #
 # Training the learned agents and analyze_pdm.py / the agents themselves run
 # inside the NAVSIM v1.1 devkit environment (torch, numpy, pandas, shapely come
-# with it); they are not installable from this file. Versions used here:
+# with it); they are not installable from this file. Historical reported versions:
 # Python 3.11, torch 2.7.1 (CPU), numpy 1.24, pandas 2.0, NAVSIM v1.1.
+# Current controlled-study tests/training/plots require the NAVSIM environment:
+# Python 3.9.25, torch 2.0.1+cpu, numpy 1.23.4; see docs/REPRODUCIBILITY.md
+# and results/mechanism_v2/runtime_snapshot/runtime.json for the actual inventory.

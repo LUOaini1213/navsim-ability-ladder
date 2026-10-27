@@ -1,0 +1,26 @@
+{
+  "kind": "five-seed-registration-component-verification-v1",
+  "captured_utc": "2026-10-09T10:38:41.222633+00:00",
+  "passed": true,
+  "registration_sha256": "7a2930183f1dc0d7b65b4c3ffb3caf3be1eb4d317736e1e4bfbd7a8383d3f197",
+  "source_sha256": "96ceac1acd943d4a7e550202747179d792b27939a8f4b49ebed5f1e1639bd0b9",
+  "tests_source_sha256": "e2c75e32ea20230b8640aaa041895986082ad111a969ba345d900c20948e3735",
+  "tests_log_sha256": "770bc36823e70adc9b0d1f4493ca464ca4b27551d758b107a6bace6af7c0ae27",
+  "actual_scoped_tests": {
+    "run": 15,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "numpy_or_torch_imported_by_this_check": false,
+  "twelve_registered_jobs_steps": 13000,
+  "base_recipe_unchanged_except_seed_extension": true,
+  "cache_bound_analysis_files_rechecked": 14,
+  "changed_cache_bound_analysis_files": [],
+  "complete_core_reports_present": [],
+  "actual_gate_decision": null,
+  "actual_added_models_complete": false,
+  "training_and_scoring_runner_implemented": false,
+  "project_complete": false,
+  "disclosure": "Actual prospective registration and lightweight component tests; no actual score gate, extension fit, prediction, score, five-seed analysis or full updated test-suite execution."
+}

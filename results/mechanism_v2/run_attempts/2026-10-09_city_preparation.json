@@ -1,0 +1,28 @@
+{
+  "command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "analysis/prepare_city_control.py"
+  ],
+  "status": "completed",
+  "events": [
+    {
+      "kind": "waiting_for_memory",
+      "available_mb": 3048.27734375,
+      "minimum_mb": 2400,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:24:13.382446+00:00"
+    },
+    {
+      "kind": "memory_headroom_ready",
+      "available_mb": 3059.2109375,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:24:33.428912+00:00"
+    }
+  ],
+  "started_utc": "2026-10-09T07:24:13.381445+00:00",
+  "runner_pid": 39964,
+  "child_pid": null,
+  "exit_code": 0,
+  "finished_utc": "2026-10-09T07:24:43.682255+00:00"
+}

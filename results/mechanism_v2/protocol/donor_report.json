@@ -1,0 +1,30 @@
+{
+  "train": {
+    "n": 83099,
+    "matching_levels": {
+      "0": 83098,
+      "1": 1
+    }
+  },
+  "validation": {
+    "n": 11074,
+    "matching_levels": {
+      "0": 10953,
+      "1": 121
+    }
+  },
+  "confirmation": {
+    "n": 9115,
+    "matching_levels": {
+      "0": 9085,
+      "1": 30
+    }
+  },
+  "navtest": {
+    "n": 12146,
+    "matching_levels": {
+      "0": 12118,
+      "1": 28
+    }
+  }
+}

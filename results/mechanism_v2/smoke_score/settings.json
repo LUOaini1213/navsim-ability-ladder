@@ -1,0 +1,23 @@
+{
+  "runs": {
+    "M4_f1_steps_s0_smoke3": {
+      "predictions_sha256": "b180be74aa14e636b433e73ead8a6f6f0e16d7ef628538b570fe80da855f235e",
+      "meta": {
+        "schema": "dynamic-objects-v2",
+        "run": "M4_f1_steps_s0_smoke3",
+        "split": "navtest",
+        "scenes": 12146,
+        "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+        "checkpoint_sha256": "f28ff53a1729ef636c5ff73a5bcfe62ed194241e5369c37d6e6450743b878db9",
+        "features_sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b",
+        "eligible_for_paper": false,
+        "fallbacks": 0,
+        "execution": "strict frozen-feature inference; input extraction failures excluded by historical feature archive and separately audited"
+      }
+    }
+  },
+  "split": "navtest",
+  "cache_root": "E:\\navsim_workspace\\exp\\metric_cache_navtest",
+  "limit": 3,
+  "scoring_config_sha256": "df133a7b556cbb521d409504e58a395ee149c27b3a753235aa83ee148f91e5fc"
+}
