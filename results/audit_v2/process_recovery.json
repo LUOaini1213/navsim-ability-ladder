@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "resumed_from_step": 325,
+  "final_step": 1000,
+  "checks": {
+    "settings": true,
+    "model": true,
+    "optimizer": true,
+    "rng": true,
+    "step": true,
+    "order": true,
+    "position": true,
+    "validation_history": true
+  },
+  "trial_directory": "E:\\navsim_workspace\\exp\\mechanism_v2\\recovery\\c0df9d5204b7440f9a970399a703582b",
+  "interrupted_command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "<repo>\\analysis\\train_mechanism.py",
+    "--config",
+    "M4",
+    "--seed",
+    "0",
+    "--max-steps",
+    "1000",
+    "--threads",
+    "2",
+    "--out-root",
+    "E:\\navsim_workspace\\exp\\mechanism_v2\\recovery\\c0df9d5204b7440f9a970399a703582b\\interrupted"
+  ],
+  "interrupted_exit_code": 1,
+  "baseline_command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "<repo>\\analysis\\train_mechanism.py",
+    "--config",
+    "M4",
+    "--seed",
+    "0",
+    "--max-steps",
+    "1000",
+    "--threads",
+    "2",
+    "--out-root",
+    "E:\\navsim_workspace\\exp\\mechanism_v2\\recovery\\c0df9d5204b7440f9a970399a703582b\\baseline"
+  ],
+  "resumed_command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "<repo>\\analysis\\train_mechanism.py",
+    "--config",
+    "M4",
+    "--seed",
+    "0",
+    "--max-steps",
+    "1000",
+    "--threads",
+    "2",
+    "--out-root",
+    "E:\\navsim_workspace\\exp\\mechanism_v2\\recovery\\c0df9d5204b7440f9a970399a703582b\\interrupted"
+  ],
+  "scope": "Actual interrupted process; exact model, Adam, sampler, RNG and validation at 1000 smoke updates; elapsed time and CPU latency intentionally not compared"
+}

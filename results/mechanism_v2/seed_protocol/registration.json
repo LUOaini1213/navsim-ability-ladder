@@ -1,0 +1,152 @@
+{
+  "kind": "prospective-five-seed-extension-v1",
+  "base_protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "base_donors_sha256": "75c16fae2ad60d600ae459400f1e44133b066f20228c14371fa01560e7d20085",
+  "original_followup_policy_sha256": "cd1e15965f43a09bd3d6044e35663a75692ab8726a7b57db0d76605708e9e94f",
+  "registration_source_sha256": "96ceac1acd943d4a7e550202747179d792b27939a8f4b49ebed5f1e1639bd0b9",
+  "training_source_sha256": {
+    "agents/mechanism_model.py": "a2769dfe8107aff47250b193a877d541b35a9e6aa21c4d2a47c80eb9e0aff510",
+    "analysis/mechanism_data.py": "2b26c96e21b007e788bdb9b655f880570f05e9e91e42ab42a8586ebb9b2d363e",
+    "analysis/train_mechanism.py": "c983257e4ced4daefa42dd552bd06d76c6c0c41017f0a5a27c11695c51629b4d"
+  },
+  "primary_contrasts": [
+    "M1-M0",
+    "M4-M1",
+    "M4-M5"
+  ],
+  "source_splits": [
+    "validation",
+    "confirmation"
+  ],
+  "negative_threshold": -0.01,
+  "positive_threshold": 0.01,
+  "trigger": "Any primary paired contrast has min(seed effect) <= -0.01 and max(seed effect) >= 0.01 in validation or confirmation",
+  "matrix": [
+    {
+      "tag": "M0_f1_steps_s3",
+      "config": "M0",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M1_f1_steps_s3",
+      "config": "M1",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M2_f1_steps_s3",
+      "config": "M2",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M3_f1_steps_s3",
+      "config": "M3",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M4_f1_steps_s3",
+      "config": "M4",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M5_f1_steps_s3",
+      "config": "M5",
+      "seed": 3,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M0_f1_steps_s4",
+      "config": "M0",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M1_f1_steps_s4",
+      "config": "M1",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M2_f1_steps_s4",
+      "config": "M2",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M3_f1_steps_s4",
+      "config": "M3",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M4_f1_steps_s4",
+      "config": "M4",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    },
+    {
+      "tag": "M5_f1_steps_s4",
+      "config": "M5",
+      "seed": 4,
+      "fraction": 1.0,
+      "budget": "steps",
+      "n_train": 83099,
+      "optimizer_steps": 13000
+    }
+  ],
+  "reused_seeds": [
+    0,
+    1,
+    2
+  ],
+  "additional_seeds": [
+    3,
+    4
+  ],
+  "all_conditions_rule": "Run all six conditions for both added seeds; never select the favorable seed, contrast or checkpoint",
+  "unchanged_inputs": "Same complete training/validation/confirmation cohorts, donors, normalizer fitting policy, architecture, optimizer and last-checkpoint budget",
+  "confirmation_access": "Verify all twelve full-budget added artifacts and normalizer parity with the original core before reading their confirmation outcomes",
+  "analysis_rule": "Report every original and added paired seed and all seven metrics; session intervals condition on the five fitted seeds, not population training uncertainty",
+  "scope": "Execution design bound after core fitting and earlier historical/smoke evidence, before complete controlled comparisons; not an original-plan numeric preregistration",
+  "claim_boundary": "Outcome-gated sensitivity extension, not fresh independent confirmation, novelty, deployment safety or significance-seeking stopping",
+  "if_unavailable": "Preserve failure evidence and withhold a key claim relying on the discordant contrast",
+  "captured_utc": "2026-10-09T10:38:39.501535+00:00",
+  "complete_core_reports_present_at_binding": []
+}

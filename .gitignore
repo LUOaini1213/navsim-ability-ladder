@@ -5,3 +5,7 @@ __pycache__/
 .env
 exp/
 dataset/
+scores.sqlite
+scores.sqlite-*
+*.tmp
+tmp/

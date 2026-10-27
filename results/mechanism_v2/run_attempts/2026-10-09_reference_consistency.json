@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "n_entries": 10,
+  "n_plan_paper_ids": 10,
+  "review_scope_counts": {
+    "selected_text_review": 6,
+    "metadata_abstract_only": 4
+  },
+  "files_sha256": {
+    "docs/references.bib": "f7fb52d86553ff805fff941a837abfed59567ac10bbbfb597015f39870040c9e",
+    "docs/reference_metadata_2026-10-09.json": "d66b0216b1555bbb06e0304b7f199cd2654f9c41b6bc0cd74e156b887e2e005e",
+    "docs/PAPER_PLAN_2026-10-09.md": "782c29047a83c986ef5b5c57d91f3ba94c22eb5f5ca4732344f0976e6c3be9b7",
+    "docs/CLOSEST_PRIOR_REVIEW.md": "d1114abad80e4f917a1eb9d64fa98aa229de5310967127e484a8419f9e73a155"
+  },
+  "scope": "Local controlled-format title/ID/year/type/URL/author-count and coverage consistency against manually checked primary metadata; not an independent author-name parser, full-text novelty review or final manuscript audit",
+  "manuscript_citation_audit_complete": false,
+  "observation_date_utc": "2026-10-09",
+  "method": "One-off standard-library check of this repository's braced, one-field-per-line BibTeX format; primary metadata and named author lists were manually checked using official arXiv/publisher/author pages in this turn",
+  "checker_limit": "The first checker invocation dropped the first field's indentation while splitting entries and stopped with KeyError before producing evidence. The corrected boundary parser retained the title line and passed. This is not a general BibTeX parser."
+}

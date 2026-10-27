@@ -1,0 +1,10 @@
+{
+  "status": "externally_stopped_for_memory_safety",
+  "external_stop": {"recorded_utc": "2026-10-09T08:50:50Z", "launcher_pid": 42412, "launcher_session_exit_code": 1, "reason": "Stopped owned queued scorer alongside unsafe automatic cache retries; zero scoring jobs were started."},
+  "runner_pid": 39092,
+  "jobs": [],
+  "memory_events": [],
+  "scope": "Core predictions, official scores, paired analysis, cases, gates and figures only; conditional follow-ups, manuscript, reproducibility and final audit remain",
+  "attempt_receipt": "<repo>\\results\\mechanism_v2\\run_attempts\\core_scoring_20261009T080743Z_39092.json",
+  "started_utc": "2026-10-09T08:07:43.634143+00:00"
+}

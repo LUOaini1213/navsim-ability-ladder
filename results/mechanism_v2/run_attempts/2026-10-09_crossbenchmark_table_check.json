@@ -1,0 +1,108 @@
+{
+  "kind": "published-table-rank-arithmetic-only-v1",
+  "method_order": [
+    "UniAD",
+    "Hydra-MDP",
+    "WoTE",
+    "Hydra-NeXt",
+    "SafeDrive",
+    "VADv2",
+    "DriveSuprim",
+    "SparseDriveV2"
+  ],
+  "transcribed_table_3_PDMS": [
+    83.4,
+    86.5,
+    88.3,
+    88.6,
+    91.6,
+    89.3,
+    93.5,
+    92
+  ],
+  "transcribed_table_3_DS": [
+    45.81,
+    59.95,
+    61.71,
+    73.86,
+    66.77,
+    76.15,
+    83.02,
+    89.15
+  ],
+  "transcribed_table_4_submetrics": {
+    "NC": [
+      97.8,
+      98.3,
+      98.5,
+      98.1,
+      99.5,
+      98.3,
+      98.6,
+      98.5
+    ],
+    "DAC": [
+      91.9,
+      96,
+      96.8,
+      97.7,
+      99,
+      97.4,
+      98.6,
+      98.4
+    ],
+    "TTC": [
+      92.9,
+      94.6,
+      94.9,
+      94.6,
+      97.2,
+      95.7,
+      95.5,
+      95
+    ],
+    "EP": [
+      78.8,
+      78.7,
+      81.9,
+      81.8,
+      84.3,
+      82.3,
+      91.3,
+      88.6
+    ]
+  },
+  "computed": {
+    "PDMS": {
+      "spearman_rho": 0.9047619047619048,
+      "pairwise_inversions": 3
+    },
+    "NC": {
+      "spearman_rho": 0.44581549075848886,
+      "pairwise_inversions": 8
+    },
+    "DAC": {
+      "spearman_rho": 0.7142857142857143,
+      "pairwise_inversions": 6
+    },
+    "TTC": {
+      "spearman_rho": 0.5868368683374969,
+      "pairwise_inversions": 8
+    },
+    "EP": {
+      "spearman_rho": 0.8333333333333334,
+      "pairwise_inversions": 5
+    },
+    "CL-Proxy": {
+      "spearman_rho": 0.9047619047619048,
+      "pairwise_inversions": 3
+    }
+  },
+  "reported_rhos_match_two_decimal_rounding": true,
+  "exact_PDMS_DS_two_sided_permutation_p": 0.004563492063492064,
+  "exact_extreme_permutations": 184,
+  "permutations": 40320,
+  "reported_PDMS_DS_p": 0.002,
+  "p_value_qualification": "Exact two-sided permutation p on the eight tabulated ranks; different calculation from the reported p, not proof of the authors implementation or an independent benchmark experiment.",
+  "scope": "Pure standard-library arithmetic on manually visually checked published method-level tables only. Proxy is the product of normalized published mean NC/DAC/EP, not an official per-scene score. Checkpoints/configuration lineage and underlying referenced papers were not independently reproduced. No project outcome, proxy-gate substitution or real closed-loop validation."
+}

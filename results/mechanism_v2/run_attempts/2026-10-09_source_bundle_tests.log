@@ -1,0 +1,16 @@
+Scope: source snapshot component tests only; not the updated full suite or experimental reproduction.
+
+test_changed_inventory_during_build_preserves_failed_attempt (test_repro_source_bundle.SourceBundleTests) ... ok
+test_changed_zip_fails_and_resealed_manifest_does_not_hide_changed_member (test_repro_source_bundle.SourceBundleTests) ... ok
+test_existing_or_broad_output_is_preserved (test_repro_source_bundle.SourceBundleTests) ... ok
+test_manifest_cannot_promote_source_snapshot_to_completed_release (test_repro_source_bundle.SourceBundleTests) ... ok
+test_oversized_manifest_member_and_noninteger_size_are_refused_before_unzip (test_repro_source_bundle.SourceBundleTests) ... ok
+test_path_traversal_and_unsupported_members_refused (test_repro_source_bundle.SourceBundleTests) ... ok
+test_resealed_archive_with_missing_extra_or_duplicate_members_is_refused (test_repro_source_bundle.SourceBundleTests) ... ok
+test_sensitive_and_dataset_artifacts_are_excluded (test_repro_source_bundle.SourceBundleTests) ... ok
+test_snapshot_is_byte_exact_deterministic_and_not_scientific_completion (test_repro_source_bundle.SourceBundleTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.339s
+
+OK

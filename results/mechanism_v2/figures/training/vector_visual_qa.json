@@ -1,0 +1,13 @@
+{
+  "status": "independent SVG rasterization visually inspected and accepted",
+  "inspection_date_utc": "2026-10-09",
+  "scope": "Real full-budget training diagnostics only; not PDMS or deployment-safety evidence",
+  "svg_sha256": "53c6440bf21cd942e900afeca7f72716edf7d0daef0eae8a2f2134e19d81ea75",
+  "scientific_render_receipt_sha256": "49b7d283ba435dc02f18c3a2ed3e8f3f6955c8c54947aeea478ee0b9514ada4a",
+  "independent_render_receipt_sha256": "2e36f24faaf39451c2bcd87b6536d3783bcc30f04cc4229eb4c5c50ba7e1b5b5",
+  "inspected_raster_sha256": "3f05d27932f61088f7f38a99e4102109b495d4d0981429b625df619ec62bc873",
+  "independent_renderer": "sharp 0.35.5 / libvips 8.18.7 / librsvg 2.63.2",
+  "raster_file": "core_convergence_vector_qa.png",
+  "checks": ["all four panels readable", "axes and metre/radian units complete", "legend and full title not clipped", "min/max across three fitted seeds explicitly not a confidence band", "optimizer-update axis retained", "SVG independently rasterized, not merely reusing the original PNG"],
+  "source_modification": "none; SVG and scientific receipt hashes checked before and after rendering"
+}

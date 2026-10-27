@@ -1,0 +1,435 @@
+{
+  "cache_frozen_binding_mismatches": [],
+  "cache_frozen_bindings": 185,
+  "command_count": 22,
+  "commands": [
+    {
+      "argv": [
+        "--out",
+        "\"$reproCheckRoot\\runtime\""
+      ],
+      "block": 2,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/snapshot_mechanism_runtime.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--out",
+        "\"$reproCheckRoot\\core_manifest.json\""
+      ],
+      "block": 2,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/verify_mechanism_core.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--out",
+        "\"$reproCheckRoot\\training_diagnostics\""
+      ],
+      "block": 2,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/summarize_mechanism_training.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--training-only",
+        "--out",
+        "\"$reproCheckRoot\\training_figures\""
+      ],
+      "block": 2,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/plot_mechanism.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--receipt",
+        "results\\mechanism_v2\\run_attempts\\full_suite_FRESH_NAME.json",
+        "--",
+        "$env:NAVSIM_PYTHON",
+        "-X",
+        "utf8",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "block": 3,
+      "forwarded_command_not_executed": [
+        "$env:NAVSIM_PYTHON",
+        "-X",
+        "utf8",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_guarded_command.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--out",
+        "results\\reproduction_protocol"
+      ],
+      "block": 4,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/prepare_mechanism.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--threads",
+        "2"
+      ],
+      "block": 5,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_mechanism_core.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--threads",
+        "2"
+      ],
+      "block": 5,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_mechanism_evaluation.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [],
+      "block": 6,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/resume_mechanism_cache.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--wait-for-cache"
+      ],
+      "block": 6,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_mechanism_scoring.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--workspace",
+        "E:\\navsim_workspace",
+        "--threads",
+        "2"
+      ],
+      "block": 7,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_mechanism_curves.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--workspace",
+        "E:\\navsim_workspace"
+      ],
+      "block": 7,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_mechanism_curve_evaluation.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--workspace",
+        "E:\\navsim_workspace"
+      ],
+      "block": 8,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_city_training.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--workspace",
+        "E:\\navsim_workspace"
+      ],
+      "block": 8,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_city_evaluation.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [],
+      "block": 9,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_seed_training.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [],
+      "block": 10,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_seed_evaluation.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--workspace",
+        "E:\\navsim_workspace"
+      ],
+      "block": 11,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/run_seed_figures.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--layout-smoke",
+        "--out",
+        "tmp\\seed_layout_FRESH_NAME"
+      ],
+      "block": 12,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/plot_seed.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "build",
+        "--out",
+        "results\\repro_snapshots\\FRESH_NAME"
+      ],
+      "block": 13,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/repro_source_bundle.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "verify",
+        "results\\repro_snapshots\\FRESH_NAME"
+      ],
+      "block": 13,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/repro_source_bundle.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--kind",
+        "city",
+        "--layout-smoke",
+        "--out",
+        "tmp\\city_layout"
+      ],
+      "block": 14,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/plot_followups.py",
+      "unsupported_options": []
+    },
+    {
+      "argv": [
+        "--kind",
+        "curves",
+        "--layout-smoke",
+        "--out",
+        "tmp\\curve_layout"
+      ],
+      "block": 14,
+      "forwarded_command_not_executed": [],
+      "invalid_literal_choices": [],
+      "missing_required_options": [],
+      "source": "analysis/plot_followups.py",
+      "unsupported_options": []
+    }
+  ],
+  "diagnostic_fresh_output_targets": {
+    "analysis/plot_mechanism.py": "\"$reproCheckRoot\\training_figures\"",
+    "analysis/snapshot_mechanism_runtime.py": "\"$reproCheckRoot\\runtime\"",
+    "analysis/summarize_mechanism_training.py": "\"$reproCheckRoot\\training_diagnostics\"",
+    "analysis/verify_mechanism_core.py": "\"$reproCheckRoot\\core_manifest.json\""
+  },
+  "document_sha256": {
+    "docs/COMPLETION_REQUIREMENTS.md": "22876a75de75fef2b21d81dc507cedc1066ac899834d3af0a92f97d69d7b292d",
+    "docs/EXECUTION_STATUS.md": "c5954b379e38a98f2c6ffcb9fb2ebc719e387e28784b18b3f80e520462f5fe86",
+    "docs/REPRODUCIBILITY.md": "0c1b564e03f120f0f5cb438efb7ff8cb952b7079f41a056eeab82fbd977ba73a"
+  },
+  "documented_commands_executed": false,
+  "experimental_reproduction_completed": false,
+  "final_project_completed": false,
+  "heavy_modules_imported": [],
+  "limitations": [
+    "Flags/required literal options/selected literal choices and fresh output expressions checked statically; runtime argument conversion, path expansion, imports, data dependencies and outcome gates were not executed",
+    "Historical/default-output examples in EXECUTION_STATUS are labelled historical, not validated as safe active-retry commands",
+    "Current controllers retain fixed protocol paths; a custom preparation output is not a portable controller relocation",
+    "Source snapshots and old component receipts are historical capture-time records; their copied guide predates this correction and is not rewritten",
+    "Actual scoring, applicable follow-ups, rendering/visual QA, final manuscript/package and documented end-to-end experimental smoke remain pending"
+  ],
+  "mismatches": [],
+  "observation_utc": "2026-10-09T12:54:27.628953+00:00",
+  "powershell_parse": {
+    "checked_blocks": [
+      {
+        "block": 1,
+        "parse_errors": [],
+        "python_script_commands": 0
+      },
+      {
+        "block": 2,
+        "parse_errors": [],
+        "python_script_commands": 4
+      },
+      {
+        "block": 3,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 4,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 5,
+        "parse_errors": [],
+        "python_script_commands": 2
+      },
+      {
+        "block": 6,
+        "parse_errors": [],
+        "python_script_commands": 2
+      },
+      {
+        "block": 7,
+        "parse_errors": [],
+        "python_script_commands": 2
+      },
+      {
+        "block": 8,
+        "parse_errors": [],
+        "python_script_commands": 2
+      },
+      {
+        "block": 9,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 10,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 11,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 12,
+        "parse_errors": [],
+        "python_script_commands": 1
+      },
+      {
+        "block": 13,
+        "parse_errors": [],
+        "python_script_commands": 2
+      },
+      {
+        "block": 14,
+        "parse_errors": [],
+        "python_script_commands": 2
+      }
+    ],
+    "document": "docs/REPRODUCIBILITY.md",
+    "document_sha256": "0c1b564e03f120f0f5cb438efb7ff8cb952b7079f41a056eeab82fbd977ba73a",
+    "powershell_blocks": 14,
+    "powershell_version": "7.6.5",
+    "python_script_commands": 22,
+    "scope": "PowerShell parsing only; no documented command or script was executed"
+  },
+  "preserved_source_snapshots": {
+    "source_components_20261009": {
+      "archive_sha256": "494a0ec422146384241629f5c5a913484873b0e2dbbe1415af5f1a9ae80a71de",
+      "manifest_sha256": "aa4a68bd7cfd2e0b1b6995e1ee94b1b3804e332ac0ff3b494d6243c143c6e5e4"
+    },
+    "source_components_post_seed_20261009": {
+      "archive_sha256": "cb3b3fda59cc6cf4b6cbbde69f2eacc52a77efc4c1e8fd4a8d2fd77f2bbf3d18",
+      "manifest_sha256": "bf772763cf390fbaa679c085924b8eff416b2011409b43b996a2b08a9fa2bf42"
+    }
+  },
+  "python_version": "3.9.25 (main, Oct 31 2025, 22:56:13) [MSC v.1929 64 bit (AMD64)]",
+  "schema": "local-reproduction-command-source-audit-v1",
+  "scope": "PowerShell syntax parsing and Python AST inspection of literal argparse contracts/source hashes only; current local command index, not executed CLI tests, environment validation, scientific smoke or completed portable reproduction",
+  "source_sha256": {
+    "analysis/plot_followups.py": "c809f1cc735ebaa29d0024a6d3b3b596fb37bf0d4693323464624c8b51e18a7b",
+    "analysis/plot_mechanism.py": "e47bb722aa0a2d8e6380e5716437f00fb4150d614e8608d031024f761b994053",
+    "analysis/plot_seed.py": "763176a5fafbfd03a9659d69863485b93839640c78fb0bda678a8bb7ef362198",
+    "analysis/prepare_mechanism.py": "728d50529c3121c029acf50c11c4c282318904ac26b881907ff62822be0ea759",
+    "analysis/repro_source_bundle.py": "8c22120fba0537ebd06f8e171ae903e69054d613478872853bf36f40726115e8",
+    "analysis/resume_mechanism_cache.py": "8c560ffca1d45b4acea2ad7d3584b7b685180385b5ff844c84eec6d6648e2a3e",
+    "analysis/run_city_evaluation.py": "cebaf757ca455aa54ff0185475dd68e092f69f9a36ef73f6744f62374c5a909f",
+    "analysis/run_city_training.py": "6d8fbd3c758f77b1c942a7fe661d369c50f56dcc5ef5d3ce1c52f1d71597d2ba",
+    "analysis/run_guarded_command.py": "a62c612a20dcb42c3a4394e6e46c2fcc4512519f141db34a1843f276c47a3f23",
+    "analysis/run_mechanism_core.py": "9281821274ac7868a3f7fcd474419378f023179f1ae91bf7fdd01e4332be0053",
+    "analysis/run_mechanism_curve_evaluation.py": "da6f426931319161f7c9889f0eba0067e39d20b6a7460699e32ee730d7948909",
+    "analysis/run_mechanism_curves.py": "7849feb6cd7b3374b93fca8f8d2ff177dbaf600d7ad1d88e72319a22e275aa7e",
+    "analysis/run_mechanism_evaluation.py": "109ff434c3b029d247650da2f5fb1943621cf1190855bfe700bff6ad24265151",
+    "analysis/run_mechanism_scoring.py": "a4aa17991bc4eb9359a246a8e49ef9771e8a1f44c948ea061945fcd39775a165",
+    "analysis/run_seed_evaluation.py": "8a3abf4d8e9d8de81fd363e493af3aaee629d5107438937e3fb71c4fe089f41a",
+    "analysis/run_seed_figures.py": "64a05753218794aa162ac6db0474a9dc604fd410852eacc12874021bec883dd6",
+    "analysis/run_seed_training.py": "d8fc31689e26c729ce95ec2d9b3fcc643f57d0c0032414ee3aa7aa44479c276b",
+    "analysis/snapshot_mechanism_runtime.py": "ff50b39988324daa4b4628aece075eab2f705af9a3e484a3325904029afde819",
+    "analysis/summarize_mechanism_training.py": "a4abcb5da63486d1dbd9730f8f2df664805a03e8bf30bf39ee85dd1ccf449d76",
+    "analysis/verify_mechanism_core.py": "94314fbf326216830d72dc278c05e3e9024f829922f99f5eaca8c480d7d75c35"
+  },
+  "status": "static_command_source_audit_passed",
+  "unique_local_script_count": 20
+}

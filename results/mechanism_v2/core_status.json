@@ -1,0 +1,100 @@
+{
+  "runner_pid": 27552,
+  "stage": "core_training",
+  "status": "completed",
+  "jobs": [
+    {
+      "tag": "M0_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M0_f1_steps_s0.log"
+    },
+    {
+      "tag": "M1_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M1_f1_steps_s0.log"
+    },
+    {
+      "tag": "M2_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M2_f1_steps_s0.log"
+    },
+    {
+      "tag": "M3_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M3_f1_steps_s0.log"
+    },
+    {
+      "tag": "M4_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M4_f1_steps_s0.log"
+    },
+    {
+      "tag": "M5_f1_steps_s0",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M5_f1_steps_s0.log"
+    },
+    {
+      "tag": "M0_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M0_f1_steps_s1.log"
+    },
+    {
+      "tag": "M1_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M1_f1_steps_s1.log"
+    },
+    {
+      "tag": "M2_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M2_f1_steps_s1.log"
+    },
+    {
+      "tag": "M3_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M3_f1_steps_s1.log"
+    },
+    {
+      "tag": "M4_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M4_f1_steps_s1.log"
+    },
+    {
+      "tag": "M5_f1_steps_s1",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M5_f1_steps_s1.log"
+    },
+    {
+      "tag": "M0_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M0_f1_steps_s2.log"
+    },
+    {
+      "tag": "M1_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M1_f1_steps_s2.log"
+    },
+    {
+      "tag": "M2_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M2_f1_steps_s2.log"
+    },
+    {
+      "tag": "M3_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M3_f1_steps_s2.log"
+    },
+    {
+      "tag": "M4_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M4_f1_steps_s2.log"
+    },
+    {
+      "tag": "M5_f1_steps_s2",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M5_f1_steps_s2.log"
+    }
+  ],
+  "current_job": null,
+  "child_pid": null,
+  "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\logs\\M5_f1_steps_s2.log"
+}

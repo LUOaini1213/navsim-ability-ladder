@@ -1,0 +1,33 @@
+{
+  "command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "status": "completed",
+  "events": [
+    {
+      "kind": "waiting_for_memory",
+      "available_mb": 2628.65625,
+      "minimum_mb": 2400,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:33:03.383570+00:00"
+    },
+    {
+      "kind": "memory_headroom_ready",
+      "available_mb": 2639.84765625,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:33:23.416392+00:00"
+    }
+  ],
+  "started_utc": "2026-10-09T07:33:03.382573+00:00",
+  "runner_pid": 20416,
+  "log_path": "results\\mechanism_v2\\run_attempts\\2026-10-09_full_suite_105.log",
+  "child_pid": null,
+  "exit_code": 0,
+  "finished_utc": "2026-10-09T07:35:58.931305+00:00"
+}

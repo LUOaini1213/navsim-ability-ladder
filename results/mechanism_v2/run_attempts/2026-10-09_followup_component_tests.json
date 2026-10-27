@@ -1,0 +1,33 @@
+{
+  "status": "observed_component_tests_passed",
+  "observation_date_utc": "2026-10-09",
+  "scope": "Separate component and fixture tests only; not an updated full-suite run or auxiliary experimental outcome",
+  "python_executable": "E:/navsim_workspace/.venv/Scripts/python.exe",
+  "python_command_template": "-m unittest discover -s tests -p PATTERN -v",
+  "python_results": [
+    {"pattern": "test_followup_plot.py", "tests": 8, "failures": 0, "seconds": 0.005},
+    {"pattern": "test_followup_builders.py", "tests": 2, "failures": 0, "seconds": 0.002},
+    {"pattern": "test_curve_analysis.py", "tests": 7, "failures": 0, "seconds": 1.263},
+    {"pattern": "test_city_analysis.py", "tests": 5, "failures": 0, "seconds": 1.084}
+  ],
+  "node_results": {
+    "executable": "C:/Users/<user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+    "command": "--test tests/test_svg_qa.cjs",
+    "environment": {"SVG_QA_NODE_MODULES": "C:/Users/<user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules"},
+    "tests": 4,
+    "passes": 4,
+    "failures": 0,
+    "skips": 0,
+    "duration_ms": 890.3363,
+    "observed_tool_session": 92094,
+    "observed_exit_code": 0,
+    "renderer_source_sha256": "29f3b5d3b3f95555c5bc6926172df0bad06a6043357fa8c0dfe47d673ce0e444",
+    "test_source_sha256": "872cb1b846cd0e1054c7db67317e590a2bebab66496cd4b47cb7d9d71ab04f91"
+  },
+  "evidence_limits": [
+    "Structured summary of observed tool output; complete stdout was not independently retained as a log",
+    "Builder tests mock false gates and verify fail-closed order; they are not audits of actual auxiliary models",
+    "Layout smoke data are synthetic and ineligible for scientific results",
+    "Full updated Python suite, actual auxiliary models/scores and scientific follow-up visual QA remain pending"
+  ]
+}

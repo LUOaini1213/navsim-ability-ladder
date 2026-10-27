@@ -1,0 +1,35 @@
+test_changed_csv_is_rejected (test_seed_followup.SeedFollowup) ... ok
+test_confirmation_only_discordance_is_not_ignored (test_seed_followup.SeedFollowup) ... ok
+test_core_cannot_replace_or_duplicate_one_of_eighteen_identities (test_seed_followup.SeedFollowup) ... ok
+test_matrix_refuses_replaced_seeds_and_contrasts (test_seed_followup.SeedFollowup) ... ok
+test_nan_effect_cannot_bypass_difference_comparison (test_seed_followup.SeedFollowup) ... ok
+test_no_discordance_does_not_manufacture_added_jobs (test_seed_followup.SeedFollowup) ... ok
+test_paired_csv_trigger_not_training_completion (test_seed_followup.SeedFollowup) ... ok
+test_prospective_registration_refuses_existing_reports (test_seed_followup.SeedFollowup) ... ok
+test_real_design_has_exact_twelve_full_budget_jobs (test_seed_followup.SeedFollowup) ... ok
+test_recipe_changes_only_seed_registration_not_cohorts_or_settings (test_seed_followup.SeedFollowup) ... ok
+test_recipe_refuses_post_registration_seed_selection (test_seed_followup.SeedFollowup) ... ok
+test_registration_idempotent_and_binds_donors (test_seed_followup.SeedFollowup) ... ok
+test_requires_both_reports_and_never_creates_missing_registration (test_seed_followup.SeedFollowup) ... ok
+test_resealed_report_cannot_replace_actual_paired_effect (test_seed_followup.SeedFollowup) ... ok
+test_smoke_archive_and_changed_gate_are_rejected (test_seed_followup.SeedFollowup) ... ok
+test_actual_gated_copy_preserves_base_protocol_and_donors (test_seed_models.SeedModels) ... ok
+test_all_twelve_artifacts_required_for_confirmation_boundary (test_seed_models.SeedModels) ... ok
+test_changed_activation_or_donor_copy_is_rejected (test_seed_models.SeedModels) ... ok
+test_checkpoint_and_resealed_normalizer_change_refused (test_seed_models.SeedModels) ... ok
+test_no_trigger_materializes_nothing (test_seed_models.SeedModels) ... ok
+test_partial_activation_is_preserved_not_overwritten (test_seed_models.SeedModels) ... ok
+test_smoke_wrong_budget_seed_and_nonfinite_metrics_refused (test_seed_models.SeedModels) ... ok
+test_source_and_settings_hash_changes_refused (test_seed_models.SeedModels) ... ok
+test_command_uses_isolated_outputs_frozen_trainer_and_fixed_budget (test_seed_training.SeedTraining) ... ok
+test_no_resumable_auto_retry_or_log_traversal (test_seed_training.SeedTraining) ... ok
+test_ordinary_failure_not_skipped_or_retried (test_seed_training.SeedTraining) ... ok
+test_owned_memory_interruption_is_recorded_and_never_retried (test_seed_training.SeedTraining) ... ok
+test_post_launch_status_failure_cleans_up_owned_child (test_seed_training.SeedTraining) ... ok
+test_real_tiny_child_logged_with_conservative_policy (test_seed_training.SeedTraining) ... ok
+test_source_change_while_waiting_prevents_launch (test_seed_training.SeedTraining) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 15.788s
+
+OK

@@ -1,0 +1,14 @@
+{
+  "eligible_for_paper": false,
+  "settings_sha256": "091dc66aae737fb1a5abce7720a2c98eee9a1cc74dbbea8cdeacaab7a33ef4fb",
+  "split": "navtest",
+  "runs": {
+    "M4_f1_steps_s0_smoke3": {
+      "n": 3,
+      "mean_score": 0.6589758936016789,
+      "csv_sha256": "a3b7578318575a8ac466400c634f519ba896b07914a1ad7d3916f75e8e8edcff"
+    }
+  },
+  "elapsed_seconds": 0.17200000000593718,
+  "failures": 0
+}

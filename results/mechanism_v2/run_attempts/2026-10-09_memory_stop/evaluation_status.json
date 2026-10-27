@@ -1,0 +1,57 @@
+{
+  "runner_pid": 26060,
+  "stage": "cache_validation",
+  "status": "failed_or_interrupted",
+  "jobs": [
+    {
+      "stage": "core_artifacts",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\core_artifacts.log"
+    },
+    {
+      "stage": "input_controls",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\input_controls.log"
+    },
+    {
+      "stage": "process_recovery",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\process_recovery.log"
+    },
+    {
+      "stage": "live_parity",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\live_parity.log"
+    },
+    {
+      "stage": "cache_smoke",
+      "exit_code": 0,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_smoke.log"
+    },
+    {
+      "stage": "cache_validation",
+      "exit_code": 1,
+      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log"
+    }
+  ],
+  "launch_source_and_policy_sha256": {
+    "<repo>\\analysis\\verify_mechanism_core.py": "94314fbf326216830d72dc278c05e3e9024f829922f99f5eaca8c480d7d75c35",
+    "<repo>\\analysis\\audit_mechanism_recovery.py": "94dc7cf7540cbdddec85414e4eb0a15cf425d7c1449f449ede985688d77c07bb",
+    "<repo>\\analysis\\audit_mechanism_live.py": "d47820a69f86e659cce9d1dc43e75f98c9439e409098e900b178bb983df00269",
+    "<repo>\\analysis\\audit_mechanism_inputs.py": "dbd817483a8c223d8f039464457c9f837f55af9a580c9e5eca46c3ead9ac34b3",
+    "<repo>\\analysis\\cache_mechanism.py": "dff30413b2299ff633675bcdec5872c5b3501dbed390842e36264a91d769fc69",
+    "<repo>\\analysis\\predict_mechanism.py": "8194f2401ad323388d29bb003d72b09c40e2e4154e80dee5341942deeb178b36",
+    "<repo>\\analysis\\score_mechanism.py": "c13a18ff97f37d3e2b2ec07791dc6670750583a791ba9c9f3690a820cd2d9c98",
+    "<repo>\\analysis\\mechanism_scoring.py": "eab17bf4d13dfb7ca1e727be697651da14b2d880e6df4aef354ba8184dc7cd18",
+    "<repo>\\analysis\\analyze_mechanism.py": "ce49fdd61ce10c70c93903449bc9c62075c840550959637fc81a4be3f297daca",
+    "<repo>\\analysis\\mechanism_cases.py": "7b936550287092896aa383e658460b83abc5c1ac00cab882cb2a41738fb06297",
+    "<repo>\\analysis\\mechanism_gates.py": "c27df2db73bf4d8f4cb1f47a12537ef27ebf40ea6fdfb130bc9b60f134ddc7c3",
+    "<repo>\\results\\mechanism_v2\\protocol\\protocol.json": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+    "<repo>\\results\\mechanism_v2\\protocol\\donors.npz": "75c16fae2ad60d600ae459400f1e44133b066f20228c14371fa01560e7d20085",
+    "<repo>\\results\\mechanism_v2\\protocol\\diagnostics.json": "9fb5b7838dca41cf10d6c9e997f9d407a09f405bdcb34448308e29227c4b0ec4",
+    "<repo>\\results\\mechanism_v2\\protocol\\followup_policy.json": "cd1e15965f43a09bd3d6044e35663a75692ab8726a7b57db0d76605708e9e94f"
+  },
+  "child_pid": 42968,
+  "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log",
+  "exception": "RuntimeError('cache_validation failed; inspect E:\\\\navsim_workspace\\\\exp\\\\mechanism_v2\\\\evaluation_logs\\\\cache_validation.log; not silently skipping/restarting')"
+}

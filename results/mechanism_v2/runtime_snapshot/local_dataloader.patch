@@ -1,0 +1,13 @@
+diff --git a/navsim/common/dataloader.py b/navsim/common/dataloader.py
+index 66332b6..0b6bf6e 100644
+--- a/navsim/common/dataloader.py
++++ b/navsim/common/dataloader.py
+@@ -177,7 +177,7 @@ class MetricCacheLoader:
+         metadata_file = [file for file in metadata_dir.iterdir() if ".csv" in str(file)][0]
+         with open(str(metadata_file), "r") as f:
+             cache_paths = f.read().splitlines()[1:]
+-        metric_cache_dict = {cache_path.split("/")[-2]: cache_path for cache_path in cache_paths}
++        metric_cache_dict = {cache_path.replace("\\", "/").split("/")[-2]: cache_path for cache_path in cache_paths}
+         return metric_cache_dict
+ 
+     @property

@@ -1,0 +1,335 @@
+{
+  "schema_version": 2,
+  "python": "3.9.25",
+  "torch": "2.0.1+cpu",
+  "numpy": "1.23.4",
+  "workspace": "E:\\navsim_workspace",
+  "agent_source": "<repo>\\agents",
+  "features": {
+    "navtrain": {
+      "path": "E:\\navsim_workspace\\exp\\features\\features_navtrain.npz",
+      "sha256": "f046a4b1644fd073922e9645b14eb7fcb702810f80913069b64a81a39b1cfb73",
+      "scenes": 103288,
+      "logs": 1192,
+      "unique_tokens": 103288,
+      "nonfinite": {
+        "ego": 0,
+        "cl": 0,
+        "agents": 0,
+        "lead": 0,
+        "y_pose": 0,
+        "y_ds": 0,
+        "ds_valid": 0,
+        "cmd": 0,
+        "speed": 0
+      },
+      "bad_masks": 0,
+      "nonzero_padding": 0,
+      "loss_units": "Historical pose L1 mixes metres (x/y) and radians (heading); ds is metres."
+    },
+    "navtest": {
+      "path": "E:\\navsim_workspace\\exp\\features\\features_navtest.npz",
+      "sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b",
+      "scenes": 12146,
+      "logs": 136,
+      "unique_tokens": 12146,
+      "nonfinite": {
+        "ego": 0,
+        "cl": 0,
+        "agents": 0,
+        "lead": 0,
+        "y_pose": 0,
+        "y_ds": 0,
+        "ds_valid": 0,
+        "cmd": 0,
+        "speed": 0
+      },
+      "bad_masks": 0,
+      "nonzero_padding": 0,
+      "loss_units": "Historical pose L1 mixes metres (x/y) and radians (heading); ds is metres."
+    }
+  },
+  "checkpoints": [
+    {
+      "run": "ds_kin_s0",
+      "checkpoint_sha256": "b96e3f4639eac090b84de0ecba46cbc09d598f5580f6025dc080577a98cb178e",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_kin_s1",
+      "checkpoint_sha256": "8037cb17960e8ef7a27c158fcec3688f5486f93ed2c2810c2e2696bbb8602118",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_kin_s2",
+      "checkpoint_sha256": "d2f40a625eb5099686f7f6dff3a1e7f65e49f97fca9e00ff64f0fb4f5a6f4c61",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_agents_s0",
+      "checkpoint_sha256": "8660fc7a6716c25f9694f0b4056ec828583256fbb457a274435b7abb57e57d6d",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_agents_s1",
+      "checkpoint_sha256": "7034532dca9cb2801899fa155abf8ad3ad5c71b3ba3915113d2f811f2c7c384f",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_agents_s2",
+      "checkpoint_sha256": "c60a4e4b147946ba3cb233a16a3bb6267e52b3f7bd6d4e1db780d83efccab3fc",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_s0",
+      "checkpoint_sha256": "65139d42da110714e6600190d23c9573afc86d48bef83c5d950d8e6afe4d0e59",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_s1",
+      "checkpoint_sha256": "46a088062bcf67a432417a712bc123c7ab14b86f053ae3fb51d1d4888fbea8dc",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "ds_map_s2",
+      "checkpoint_sha256": "e482b87d2755dac3331c91aa0688cb62d6fa2fef254a7b4898d93dcccbe458f2",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_agents_s0",
+      "checkpoint_sha256": "dc9b682fa0fa10aaed9d7a11cbba29a2f47c0511b1516fc8162a9aa31ccd1286",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_agents_s1",
+      "checkpoint_sha256": "548fb6ab7b52fab375d5785c07274bf4e90333be0872f1544a028a3fb9f22a2b",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_agents_s2",
+      "checkpoint_sha256": "335c14ab7b13f61e23d7f3779791b898c87544cb1b72edf58298b3873b828261",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_kin_s0",
+      "checkpoint_sha256": "8675826c95a28dc1826171a360a9bd9a3a960e0461b192df1cffc772647533d7",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_kin_s1",
+      "checkpoint_sha256": "6aaa59f245f72ba7581592dcc062acefdc4ebd3a35e75c0f04a4c48abc493036",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_kin_s2",
+      "checkpoint_sha256": "097f8c8785902209cc204fd24b95f6dee20093bec49c02626ea4916bc605c9d3",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_agents_s0",
+      "checkpoint_sha256": "fe9d929cb564a5f86f0e43ddcc44f38e7ef6e41747ca005abf41438102531878",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_agents_s1",
+      "checkpoint_sha256": "054ac5ef76c6bfdb3dddb1b3bd941da7ec211572ca6aed64939be399dfea34ab",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_agents_s2",
+      "checkpoint_sha256": "214b7a282eba372617a92ff44e65e74697d1954dc73c553c9700ebff5abcb2b9",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_s0",
+      "checkpoint_sha256": "494c0ea8f700ac9144b79b4be61da94d336600d8c4a48f959ded6fd39fe293b5",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_s1",
+      "checkpoint_sha256": "9266bb7b8104051605a040dd7e34b2610caaeded69ce169b3c92142474b4d0a8",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "pose_map_s2",
+      "checkpoint_sha256": "f29bb8d76c7d0f960c12c0f56aa92bdd9f935be83ba13a2bf272d0a486e52089",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_do0.2_s0",
+      "checkpoint_sha256": "aa53e16e6ab3c81ec5d7ccad61bb087c50713dc0c8e7b21126d962a063e3d5cb",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_do0.2_wd1e-3_s0",
+      "checkpoint_sha256": "0036ca6a695162938d5b4e3d43730e3d262a753ef35b28a221d7ab05a7dfc5f2",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_h128_s0",
+      "checkpoint_sha256": "37bf9624ed2d5a33a803b6a675f7358781a36bf2910663bd7344819edeb9fb13",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_wd1e-2_s0",
+      "checkpoint_sha256": "3093410347e84dfc8597e58103921cc17515d3f5ec2927e8615d8141b7f233cc",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_wd1e-3_s0",
+      "checkpoint_sha256": "13d064513d295e98348f44996633ae5c04fd3400aa2e5640a74bea6a4585f1f8",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    },
+    {
+      "run": "reg_pose_map_wd1e-4_s0",
+      "checkpoint_sha256": "37de72090e58632b066e938a9f865ea834ac5fa8bea68b2a1beb5eb21598b340",
+      "normalization_train_only_max_mu_error": 0.0,
+      "normalization_train_only_max_sd_error": 0.0,
+      "nonfinite_outputs_on_cached_navtest": 0,
+      "validation_logs": 60,
+      "select": "last"
+    }
+  ],
+  "sampling": {
+    "logs_per_split": 12,
+    "scenes_per_log": 2
+  },
+  "limitations": [
+    "Real-scene/map parity is sampled, not exhaustive.",
+    "Archived scores have no historical fallback ledger; it cannot be reconstructed as fact.",
+    "No-future access is tested by supplying only history frames to feature extraction.",
+    "Velocity finite differences are a diagnostic, not an exact annotation identity."
+  ],
+  "source_sha256": {
+    "<repo>\\agents\\ladder_features.py": "f70c4d7f225fc6527a779aad5b164ab2113366465e780b1525ca67e7124f9f7c",
+    "<repo>\\agents\\ladder_mlp_agent.py": "467efc0309fd3a61499b3f62f819f801825080bc8d1abbae6dddb5e41f6ab917",
+    "<repo>\\agents\\centerline_util.py": "4e018ab7c8d67ac457a1bc2adf8fbfbe9ed2dbfe461f16e5e4d023238f5aa584",
+    "E:\\navsim_workspace\\navsim\\navsim\\common\\dataclasses.py": "803b2c610cd3aff62ba5514bbddefc58af2c09a5e7e800c859c11447617200d3",
+    "E:\\navsim_workspace\\navsim\\navsim\\planning\\scenario_builder\\navsim_scenario_utils.py": "4acf3d85d0a298bfae55fe84d6060824ea51f4b3677ec6327429d9d161899e2d"
+  },
+  "devkit_revision": "3e8291bfa89ff247231e0227778840cd0a036896",
+  "token_overlap": 0,
+  "log_overlap": 0,
+  "checkpoint_scope": "Exactly the cells archived in results/navtest/cells.csv; excludes trial checkpoints trained on different files.",
+  "real_scene_audit": {
+    "checked": 48,
+    "passed": 48,
+    "reasons": {
+      "feature_parity": 48
+    },
+    "reuse": "Reused ledger after verifying exact feature/source hashes and sampling parameters."
+  },
+  "velocity_convention": {
+    "source": "navsim_scenario_utils.annotations_to_detection_tracks rotates stored velocity into global coordinates without adding ego velocity",
+    "interpretation": "absolute object velocity, expressed in the ego coordinate basis, not relative velocity",
+    "diagnostic_track_pairs": 3285,
+    "median_global_finite_difference_error_mps": 0.13142082741411018,
+    "p95_global_finite_difference_error_mps": 0.5529147298053203
+  },
+  "elapsed_seconds": 14.421999999991385,
+  "passed": true
+}

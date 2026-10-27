@@ -1,0 +1,34 @@
+{
+  "schema": "dynamic-object-followup-gates-v1",
+  "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "freeze_scope": "Numeric resource/claim gates fixed after core training started, before complete controlled PDMS comparisons. These are execution gates, not a retrospective claim that the original prose plan specified these numbers.",
+  "minimum_absolute_pdms_effect": 0.01,
+  "learning_curve": {
+    "source_split": "validation",
+    "trigger": "Any preregistered primary contrast with absolute mean PDMS difference >= 0.01, including negative or seed-unstable effects",
+    "fixed_updates": {"configs": ["M1", "M4"], "fractions": [0.1, 0.3], "seeds": [0, 1, 2]},
+    "epoch_sensitivity": {"configs": ["M1", "M4"], "fractions": [0.1, 0.3], "seeds": [0, 1, 2]},
+    "full_fraction": "Reuse existing core runs, because the fixed-epoch and fixed-update budgets coincide at full data",
+    "no_trigger": "Do not manufacture a data-budget explanation; report the gated omission and inconclusive core evidence"
+  },
+  "seed_discordance": {
+    "negative_threshold": -0.01,
+    "positive_threshold": 0.01,
+    "trigger": "At least one negative and one positive paired seed effect exceeding these thresholds for the same primary contrast",
+    "claim_rule": "A key mechanism claim based on a discordant contrast needs five-seed follow-up with a separately frozen extension protocol; otherwise report seed sensitivity and withhold the claim"
+  },
+  "alignment_claim": {
+    "motivation": "The input-only donor audit, performed before full controlled PDMS comparisons, found substantial cross-city donor mixing",
+    "required_control": "A key current-scene-alignment claim needs an additional same-city, different-session donor control with fixed matching/coverage rules before its outcomes are read",
+    "coverage_rule": "Never relax city or original-session independence; report unsupported cities/partitions and compare all participating models on exactly the same eligible scenes",
+    "training_rule": "Reuse M1/M4 only if the complete training cohort and normalization policy remain unchanged; otherwise retrain both real-input anchors on the matched cohort",
+    "no_control": "Withhold the clean-alignment interpretation; base M1-M2/M4-M5 remain compound cross-scene/cross-city diagnostic interventions"
+  },
+  "cross_protocol": {
+    "trigger": "The same primary contrast exceeds the practical threshold in validation and confirmation, with the same direction, at least two of three seeds sharing that direction in each split, and both adjusted session-cluster intervals excluding zero in that direction",
+    "models": ["M0", "M1", "M4"],
+    "seeds": [0, 1, 2],
+    "other_conditions": "Separate NAVSIM benchmark v2 environment/cache, input-coordinate audit, raw-log/synthetic-frame feasibility smoke, no sensor-model training and no benchmark submission",
+    "claim_rule": "Passing this gate authorizes a feasibility attempt, not a v2 result or full closed-loop safety claim; any feasibility failure must be evidenced and disclosed"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "trial_root": "E:\\navsim_workspace\\exp\\mechanism_v2\\cache_recovery_trials\\isolated-h3xd80y3",
+  "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "cache_builder_sha256": "dff30413b2299ff633675bcdec5872c5b3501dbed390842e36264a91d769fc69",
+  "audit_source_sha256": "106431dda0f5044ddccd7d0658e1ee6e8997f1881dda0f5c9142f38a6754279b",
+  "scientific_result_eligible": false,
+  "attempts": [
+    {
+      "fault": "empty",
+      "detected_exception": "EOFError",
+      "corrupted_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recovered_sha256": "275f3f5b1a6551f05a09eeb3fe0cec1e48aff56a54618d4344af3a2b8593027e",
+      "baseline_byte_equal": true,
+      "semantic_signature_equal": true,
+      "maximum_official_submetric_error": 0.0,
+      "untouched_file_preserved": true,
+      "ledger_records_recomputation": true
+    },
+    {
+      "fault": "truncated_lzma",
+      "detected_exception": "EOFError",
+      "corrupted_sha256": "0f4c7878b1105093e26ff5ffeffb2cb1db22baaf2ea84042c9b05230bcec3ca2",
+      "recovered_sha256": "275f3f5b1a6551f05a09eeb3fe0cec1e48aff56a54618d4344af3a2b8593027e",
+      "baseline_byte_equal": true,
+      "semantic_signature_equal": true,
+      "maximum_official_submetric_error": 0.0,
+      "untouched_file_preserved": true,
+      "ledger_records_recomputation": true
+    },
+    {
+      "fault": "invalid_pickle",
+      "detected_exception": "UnpicklingError",
+      "corrupted_sha256": "3d7ed691c1d41b8f491c1f4b9c6b5155903d1ad0664e8e6e68a1706c7c511121",
+      "recovered_sha256": "275f3f5b1a6551f05a09eeb3fe0cec1e48aff56a54618d4344af3a2b8593027e",
+      "baseline_byte_equal": true,
+      "semantic_signature_equal": true,
+      "maximum_official_submetric_error": 0.0,
+      "untouched_file_preserved": true,
+      "ledger_records_recomputation": true
+    }
+  ],
+  "scope": "Two actual raw validation scenes, three intentional isolated-file corruptions; not full cache coverage or a model performance result",
+  "token": "6cf36b3ef1995e98",
+  "baseline_sha256": "275f3f5b1a6551f05a09eeb3fe0cec1e48aff56a54618d4344af3a2b8593027e",
+  "untouched_sha256": "bcb3fbcb4a46d411c48ec5f28dc05c737b09ce7573ecd76f898b93525c249402",
+  "official_submetric_names": [
+    "no_at_fault_collisions",
+    "drivable_area_compliance",
+    "ego_progress",
+    "time_to_collision_within_bound",
+    "comfort",
+    "driving_direction_compliance",
+    "score"
+  ],
+  "historical_and_full_cache_roots_modified": false,
+  "boundary": "No historical/full-cache path was passed for mutation; final full historical-artifact preservation audit remains separate"
+}

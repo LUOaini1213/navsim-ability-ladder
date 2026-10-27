@@ -1,0 +1,31 @@
+{
+  "command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "analysis/plot_mechanism.py",
+    "--smoke-layout",
+    "--out",
+    "tmp/mechanism_layout_smoke_corrected"
+  ],
+  "status": "completed",
+  "events": [
+    {
+      "kind": "waiting_for_memory",
+      "available_mb": 3371.4453125,
+      "minimum_mb": 2400,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:21:16.438337+00:00"
+    },
+    {
+      "kind": "memory_headroom_ready",
+      "available_mb": 2913.296875,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:21:36.484267+00:00"
+    }
+  ],
+  "started_utc": "2026-10-09T07:21:16.436336+00:00",
+  "runner_pid": 37176,
+  "child_pid": null,
+  "exit_code": 0,
+  "finished_utc": "2026-10-09T07:21:41.750828+00:00"
+}

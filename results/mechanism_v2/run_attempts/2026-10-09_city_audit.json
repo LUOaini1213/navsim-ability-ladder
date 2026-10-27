@@ -1,0 +1,28 @@
+{
+  "command": [
+    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "-u",
+    "analysis/audit_city_inputs.py"
+  ],
+  "status": "completed",
+  "events": [
+    {
+      "kind": "waiting_for_memory",
+      "available_mb": 2994.49609375,
+      "minimum_mb": 2400,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:26:47.603126+00:00"
+    },
+    {
+      "kind": "memory_headroom_ready",
+      "available_mb": 2533.07421875,
+      "stable_seconds": 20,
+      "observed_at_utc": "2026-10-09T07:27:07.641216+00:00"
+    }
+  ],
+  "started_utc": "2026-10-09T07:26:47.601620+00:00",
+  "runner_pid": 40628,
+  "child_pid": null,
+  "exit_code": 0,
+  "finished_utc": "2026-10-09T07:27:12.936913+00:00"
+}
