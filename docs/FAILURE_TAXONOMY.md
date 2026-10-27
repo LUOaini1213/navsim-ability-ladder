@@ -265,4 +265,35 @@ in hash order — 12 in total, fewer if a stratum is short.
 
 ## Deviations
 
-None yet. Changes after this commit will be listed here with their commit.
+Everything below was added after the pre-registration commit (`83a7638`). Results:
+`results/failure_taxonomy/README.md`.
+
+1. **`lane_change`, routes shorter than 60 m** (found in a 3-log smoke test, before any outcome
+   was read). The frozen `cl` block stores a route that ends before 60 m with its end point
+   repeated. Repeated points are now dropped before the last real segment is extended;
+   otherwise the "extension" is a zero-length segment and the offset is measured to a point.
+   Twelve scenes have a zero-length route and get `lane_change = n/a`.
+2. **Extra raw column `route_len_m`** (length of the stored centerline, which is shorter than
+   the 60-m lookahead when the route ends). Kept for exploratory use; it is not a category.
+3. **Where the case plans come from.** The text above says every case is rebuilt with
+   `SceneLoader`. That is done for PrivMapKin (S1 contrast, S5). The kinematic rule and the
+   learned cells (S1–S4) are rebuilt from the study's frozen inputs instead: `KinematicAgent`
+   fed the `t0` ego status it reads, and the network branch of `LadderMLPAgent` on the archived
+   input blocks (the score path of `analysis/validate_score_path.py` on the controlled-study
+   branch). This keeps the map out of memory on a shared machine. The acceptance rule was
+   applied unchanged: all 192 plans (120 failing, 72 contrast) reproduce the committed
+   per-scene rows (largest absolute sub-score error 4.8e-07 for the failing plans, 5e-07 for
+   the contrast plans). With this source `fallback` can only mean a non-finite network
+   output; it never occurred.
+4. **Post-hoc, exploratory additions** (none changes a category, a label or a hypothesis):
+   - `city_sensitivity.md`: every headline effect with one city left out, added after the city
+     breakdown showed Singapore carrying a large share of the box penalty;
+   - descriptive drivable-area margins in `cases/root_causes.md` (distance of the plan from the
+     logged path at the first off-road step, how far the worst ego corner gets outside the
+     DAC polygons, whether that corner lies on a mapped lane), added after the first look at
+     the labels showed most DAC failures within 1 m of the logged path.
+5. **iid reference, narrower than written.** The scene-level bootstrap was computed for E1 and
+   the seed-averaged E2–E4 only, not for every seed, to keep the run short; the per-seed rows
+   carry log and session intervals only.
+6. **Note, not a change.** By the reporting floor, Singapore (1,914 scenes, 13 logs, but 2
+   sessions) gets no interval anywhere; every Singapore statement rests on two sessions.
