@@ -83,11 +83,16 @@ values and every interval: [`results/navtest/factorial.md`](results/navtest/fact
 
 **3. Ground-truth perception is not a free input.** The map effect is large in
 every seed (+0.163 to +0.209). The box effect on its own is not significant in
-two seeds of three — and once the model already has the map it is significantly
-**negative in all three**: −0.044, −0.031, −0.047, every interval excluding zero.
-The open-loop loss barely moves (0.290 → 0.295), so this is invisible to the
-training objective. Eighty-eight dimensions of perfect perception cost this model
-capacity it needed elsewhere.
+two seeds of three — and once the model already has the map it is **negative in
+all three**: −0.044, −0.031, −0.047, every scene-level bootstrap interval
+excluding zero. The failure taxonomy below adds two caveats: clustered by
+driving session, seed 1's interval reaches zero ([−0.064, +0.000]); and
+Singapore's 1,914 scenes, from only two sessions, carry 54% of the penalty —
+without Singapore it is −0.022 and seed 1 is no longer significant. The
+open-loop loss barely moves (0.290 → 0.295), so this is invisible to the
+training objective. One reading is that eighty-eight dimensions of perfect
+perception cost this model capacity it needed elsewhere; the taxonomy shows the
+cost lands on path geometry (more drivable-area failures), not on braking.
 
 **4. With the map, a small MLP matches a sensor-fusion planner.** `kin+map`
 averages 0.823 and its best variant reaches 0.841, against TransFuser's published
@@ -165,6 +170,39 @@ concluded that the bottleneck was inductive bias. With 103,288 training samples
 and the same architecture, the same model beats that follower by 0.038. The old
 conclusion was a statement about the sample size, stated as if it were a
 statement about the method.
+
+## Where the planners fail
+
+Pre-registered in [`docs/FAILURE_TAXONOMY.md`](docs/FAILURE_TAXONOMY.md) before
+any rate was computed; tables and commands in
+[`results/failure_taxonomy/`](results/failure_taxonomy/README.md). Every navtest
+scene gets eight features with fixed bins (city, speed, command, lead vehicle,
+junction, curvature, lane change, stop-and-go); failure rates and the headline
+effects are broken down by each, with log- and session-clustered bootstrap
+intervals.
+
+- **The map gain is a free-flow effect, not a turn effect.** Scenes without a
+  lead vehicle carry 53% of the learned map gain (+0.181 overall), and in fast
+  scenes it is +0.419. It is not larger on curved routes (pre-registered H1:
+  +0.017 [−0.014, +0.048], not supported). It works through drivable-area
+  compliance: the DAC failure rate drops by 16.3 points.
+- **The box penalty is geometric and concentrated.** Adding boxes to the map
+  model (−0.041) adds drivable-area failures (+3.3 points) and TTC failures
+  (+2.3 points), but not slower plans (−0.2 points). Singapore's 1,914 scenes,
+  from two sessions, carry 54% of it; without Singapore it is −0.022 and seed 1
+  is no longer significant, while the map × boxes interaction survives (−0.059).
+- **Clustering changes verdicts.** 11 of 104 category-level intervals change
+  verdict between a scene-level bootstrap and the clustered ones, which are a
+  median 2.1× wider.
+- **Root causes.** 120 failures (24 per stratum, at most one per log), re-scored
+  with the unchanged scorer, reproduce the committed scores to 5e-07. DAC is the
+  first failure in 78 of them; when the plan first leaves the road it is a median
+  0.63 m from the human path, and none of those corners lies on a mapped lane
+  that the drivable area misses.
+
+Caveats: features are tested one at a time and are correlated; `lane_change` and
+`stop_go` use the logged future; and navtest had already shaped earlier
+hypotheses here, so "confirmatory" only means "specified in advance".
 
 ## Scope and limitations
 
@@ -324,10 +362,12 @@ analysis/   ladder_io.py (shared loading + bootstrap)
             analyze_ci.py, analyze_clean_ladder.py, make_summary.py   the 563-scene study
             build_features.py, train_ladder.py   navtrain feature extraction and cell training
             analyze_openloop.py, summarize_pdm.py, export_per_scene.py   workspace-side tools
+            failure_taxonomy_{core,features,analyze,cases}.py   the pre-registered failure taxonomy
 tests/      bootstrap sanity; every report regenerates byte for byte from the committed CSVs
 scripts/    bash runners for caching, scoring and training + env.sh; the older PowerShell runners
-results/    per_scene/ (563) and navtest/ (12,146): CSVs, reports, figures
+results/    per_scene/ (563), navtest/ (12,146) and failure_taxonomy/: CSVs, reports, figures
 docs/       WINDOWS.md — the four portability fixes and two CPU performance traps
+            FAILURE_TAXONOMY.md — the taxonomy's pre-registration and its deviations
 ```
 
 ## Reproducing

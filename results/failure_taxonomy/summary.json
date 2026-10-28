@@ -1,0 +1,326 @@
+{
+  "categories": {
+    "all=all": {
+      "logs": 136,
+      "n": 12146,
+      "sessions": 44,
+      "small": false
+    },
+    "city=boston": {
+      "logs": 51,
+      "n": 3731,
+      "sessions": 11,
+      "small": false
+    },
+    "city=pittsburgh": {
+      "logs": 22,
+      "n": 2437,
+      "sessions": 11,
+      "small": false
+    },
+    "city=singapore": {
+      "logs": 13,
+      "n": 1914,
+      "sessions": 2,
+      "small": true
+    },
+    "city=vegas": {
+      "logs": 50,
+      "n": 4064,
+      "sessions": 20,
+      "small": false
+    },
+    "command=left": {
+      "logs": 96,
+      "n": 2501,
+      "sessions": 40,
+      "small": false
+    },
+    "command=right": {
+      "logs": 93,
+      "n": 1575,
+      "sessions": 39,
+      "small": false
+    },
+    "command=straight": {
+      "logs": 134,
+      "n": 8070,
+      "sessions": 44,
+      "small": false
+    },
+    "curvature=bend": {
+      "logs": 109,
+      "n": 1640,
+      "sessions": 40,
+      "small": false
+    },
+    "curvature=straight": {
+      "logs": 134,
+      "n": 7606,
+      "sessions": 44,
+      "small": false
+    },
+    "curvature=turn": {
+      "logs": 106,
+      "n": 2900,
+      "sessions": 41,
+      "small": false
+    },
+    "junction=in": {
+      "logs": 133,
+      "n": 4147,
+      "sessions": 44,
+      "small": false
+    },
+    "junction=near": {
+      "logs": 132,
+      "n": 4669,
+      "sessions": 44,
+      "small": false
+    },
+    "junction=none": {
+      "logs": 123,
+      "n": 3330,
+      "sessions": 43,
+      "small": false
+    },
+    "lane_change=n/a": {
+      "logs": 4,
+      "n": 12,
+      "sessions": 4,
+      "small": true
+    },
+    "lane_change=no": {
+      "logs": 136,
+      "n": 10874,
+      "sessions": 44,
+      "small": false
+    },
+    "lane_change=yes": {
+      "logs": 98,
+      "n": 1260,
+      "sessions": 40,
+      "small": false
+    },
+    "lead=close": {
+      "logs": 118,
+      "n": 2876,
+      "sessions": 42,
+      "small": false
+    },
+    "lead=far": {
+      "logs": 126,
+      "n": 1682,
+      "sessions": 43,
+      "small": false
+    },
+    "lead=mid": {
+      "logs": 129,
+      "n": 3224,
+      "sessions": 42,
+      "small": false
+    },
+    "lead=none": {
+      "logs": 120,
+      "n": 4364,
+      "sessions": 44,
+      "small": false
+    },
+    "speed=fast": {
+      "logs": 71,
+      "n": 968,
+      "sessions": 38,
+      "small": false
+    },
+    "speed=medium": {
+      "logs": 132,
+      "n": 5181,
+      "sessions": 44,
+      "small": false
+    },
+    "speed=slow": {
+      "logs": 131,
+      "n": 5149,
+      "sessions": 44,
+      "small": false
+    },
+    "speed=stopped": {
+      "logs": 120,
+      "n": 848,
+      "sessions": 42,
+      "small": false
+    },
+    "stop_go=moving": {
+      "logs": 136,
+      "n": 10029,
+      "sessions": 44,
+      "small": false
+    },
+    "stop_go=starting": {
+      "logs": 120,
+      "n": 1209,
+      "sessions": 43,
+      "small": false
+    },
+    "stop_go=stationary": {
+      "logs": 6,
+      "n": 7,
+      "sessions": 6,
+      "small": true
+    },
+    "stop_go=stopping": {
+      "logs": 98,
+      "n": 901,
+      "sessions": 40,
+      "small": false
+    }
+  },
+  "draws": 10000,
+  "overall": {
+    "E1": {
+      "delta": 0.2963394053186234,
+      "log": [
+        0.25859736839902925,
+        0.33556534471901533
+      ],
+      "session": [
+        0.232797801242236,
+        0.35630753546149496
+      ]
+    },
+    "E2_avg": {
+      "delta": 0.1811490872989736,
+      "log": [
+        0.1621049501967181,
+        0.19987471581304228
+      ],
+      "session": [
+        0.15860388590750432,
+        0.20196812783210755
+      ]
+    },
+    "E2_s0": {
+      "delta": 0.17141857072287173,
+      "log": [
+        0.15355446329712683,
+        0.18895295588734304
+      ],
+      "session": [
+        0.1487549350387075,
+        0.1921830648307516
+      ]
+    },
+    "E2_s1": {
+      "delta": 0.16264483640704758,
+      "log": [
+        0.1421054654312188,
+        0.18309755103132158
+      ],
+      "session": [
+        0.1374747530995395,
+        0.18584412287365812
+      ]
+    },
+    "E2_s2": {
+      "delta": 0.2093838547670015,
+      "log": [
+        0.18611655099648305,
+        0.2322753499294665
+      ],
+      "session": [
+        0.1814855157424479,
+        0.2382104844357977
+      ]
+    },
+    "E3_avg": {
+      "delta": -0.04066650049398979,
+      "log": [
+        -0.05754906604264171,
+        -0.024915790258416073
+      ],
+      "session": [
+        -0.06665738924517904,
+        -0.016271438402007943
+      ]
+    },
+    "E3_s0": {
+      "delta": -0.0437355688292442,
+      "log": [
+        -0.06804793481438176,
+        -0.021225614914542154
+      ],
+      "session": [
+        -0.08045633323285604,
+        -0.010919021589891546
+      ]
+    },
+    "E3_s1": {
+      "delta": -0.0314493628355014,
+      "log": [
+        -0.05222087327416173,
+        -0.012165941849039746
+      ],
+      "session": [
+        -0.0643942000254972,
+        0.00030902221297837116
+      ]
+    },
+    "E3_s2": {
+      "delta": -0.04681456981722378,
+      "log": [
+        -0.059021157645666955,
+        -0.03481369322171212
+      ],
+      "session": [
+        -0.05769457113265391,
+        -0.03466323406603513
+      ]
+    },
+    "E4_avg": {
+      "delta": -0.058103905373511164,
+      "log": [
+        -0.07042716894183834,
+        -0.04650827482780385
+      ],
+      "session": [
+        -0.07070624961138837,
+        -0.046011002577577585
+      ]
+    },
+    "E4_s0": {
+      "delta": -0.04704072583566607,
+      "log": [
+        -0.06854235748188858,
+        -0.026412885058403633
+      ],
+      "session": [
+        -0.07302288975501114,
+        -0.023485482157097292
+      ]
+    },
+    "E4_s1": {
+      "delta": -0.03686210472583567,
+      "log": [
+        -0.053173854996113656,
+        -0.020974062927496588
+      ],
+      "session": [
+        -0.054759656440648424,
+        -0.016842963578587142
+      ]
+    },
+    "E4_s2": {
+      "delta": -0.09040888555903179,
+      "log": [
+        -0.11118558158894364,
+        -0.06906890866651608
+      ],
+      "session": [
+        -0.1224796236068358,
+        -0.058708463881891146
+      ]
+    }
+  },
+  "runtime_s": 149.1,
+  "scenes": 12146
+}

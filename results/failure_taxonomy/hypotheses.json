@@ -1,0 +1,262 @@
+[
+  {
+    "dropped_draws": 0,
+    "effect": "E2_avg",
+    "estimate": 0.016702510571876356,
+    "high": 0.04788839103496459,
+    "hypothesis": "H1",
+    "level": "log",
+    "low": -0.014315885312773946,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_avg",
+    "estimate": 0.016702510571876356,
+    "high": 0.04737333816338202,
+    "hypothesis": "H1",
+    "level": "session",
+    "low": -0.015471032041292299,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s0",
+    "estimate": 0.05249018248982662,
+    "high": 0.08399909668574118,
+    "hypothesis": "H1",
+    "level": "log",
+    "low": 0.021282907329210066,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s0",
+    "estimate": 0.05249018248982665,
+    "high": 0.08308272302466008,
+    "hypothesis": "H1",
+    "level": "session",
+    "low": 0.019009848354163694,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s1",
+    "estimate": 0.011275585410254613,
+    "high": 0.045738029406342334,
+    "hypothesis": "H1",
+    "level": "log",
+    "low": -0.02302198222950641,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s1",
+    "estimate": 0.011275585410254613,
+    "high": 0.04556819700757053,
+    "hypothesis": "H1",
+    "level": "session",
+    "low": -0.026580347211721977,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s2",
+    "estimate": -0.01365823618445211,
+    "high": 0.022690743871022684,
+    "hypothesis": "H1",
+    "level": "log",
+    "low": -0.05023139343115482,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E2_s2",
+    "estimate": -0.013658236184452166,
+    "high": 0.023569875972058896,
+    "hypothesis": "H1",
+    "level": "session",
+    "low": -0.0492432960780535,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E1",
+    "estimate": -0.03340057603196411,
+    "high": 0.013076590549003175,
+    "hypothesis": "H1r",
+    "level": "log",
+    "low": -0.08021506129575506,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E1",
+    "estimate": -0.03340057603196406,
+    "high": 0.016937748697378407,
+    "hypothesis": "H1r",
+    "level": "session",
+    "low": -0.08274703584701149,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_avg",
+    "estimate": -0.06719030178735105,
+    "high": -0.03436392579075424,
+    "hypothesis": "H3a",
+    "level": "log",
+    "low": -0.09966617554660984,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_avg",
+    "estimate": -0.06719030178735105,
+    "high": -0.019898904745125668,
+    "hypothesis": "H3a",
+    "level": "session",
+    "low": -0.10211889702265373,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s0",
+    "estimate": -0.059641719065077904,
+    "high": -0.007287257515030043,
+    "hypothesis": "H3a",
+    "level": "log",
+    "low": -0.11120894458323867,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s0",
+    "estimate": -0.059641719065077904,
+    "high": 0.01915488092485549,
+    "hypothesis": "H3a",
+    "level": "session",
+    "low": -0.1218074960093116,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s1",
+    "estimate": -0.07205244042163153,
+    "high": -0.034383792348565374,
+    "hypothesis": "H3a",
+    "level": "log",
+    "low": -0.1106864025780863,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s1",
+    "estimate": -0.07205244042163153,
+    "high": -0.014558896542623394,
+    "hypothesis": "H3a",
+    "level": "session",
+    "low": -0.11222738040712478,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s2",
+    "estimate": -0.06987674587534372,
+    "high": -0.04794357319907049,
+    "hypothesis": "H3a",
+    "level": "log",
+    "low": -0.09229239943342776,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s2",
+    "estimate": -0.06987674587534372,
+    "high": -0.05175495823964022,
+    "hypothesis": "H3a",
+    "level": "session",
+    "low": -0.08123770090579713,
+    "supported_here": true
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_avg",
+    "estimate": 0.04139785280251425,
+    "high": 0.07268048823874748,
+    "hypothesis": "H3b",
+    "level": "log",
+    "low": 0.010067015800603964,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_avg",
+    "estimate": 0.04139785280251425,
+    "high": 0.0688716465764766,
+    "hypothesis": "H3b",
+    "level": "session",
+    "low": 0.0010100552094111023,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s0",
+    "estimate": 0.024826021686511983,
+    "high": 0.07381249864725603,
+    "hypothesis": "H3b",
+    "level": "log",
+    "low": -0.025920778992830924,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s0",
+    "estimate": 0.024826021686512004,
+    "high": 0.07761060680787543,
+    "hypothesis": "H3b",
+    "level": "session",
+    "low": -0.04725281334331043,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s1",
+    "estimate": 0.06337252381921571,
+    "high": 0.09939388205996223,
+    "hypothesis": "H3b",
+    "level": "log",
+    "low": 0.02606441534425098,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s1",
+    "estimate": 0.06337252381921574,
+    "high": 0.0929076536099295,
+    "hypothesis": "H3b",
+    "level": "session",
+    "low": 0.01669268858995341,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s2",
+    "estimate": 0.03599501290181505,
+    "high": 0.06174387771720678,
+    "hypothesis": "H3b",
+    "level": "log",
+    "low": 0.010277042883707767,
+    "supported_here": false
+  },
+  {
+    "dropped_draws": 0,
+    "effect": "E3_s2",
+    "estimate": 0.03599501290181508,
+    "high": 0.05540858945949895,
+    "hypothesis": "H3b",
+    "level": "session",
+    "low": 0.014346365395626316,
+    "supported_here": false
+  }
+]
