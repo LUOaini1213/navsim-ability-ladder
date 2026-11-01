@@ -17,9 +17,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ladder_io import (B, REPO, SEED, bootstrap, is_per_scene, load_scores,  # noqa: E402
                        resolve_csv_root)
 
-# Canonical run = the FIRST csv per agent, matching exp/analysis/pdm_report.md.
-# NOTE: privileged_brake_mini has two runs (12:52 PDMS 0.602 / 12:55 PDMS 0.593).
-# pdm_report.md used the first; we keep that for consistency and flag it below.
+# Canonical run = the one pinned in results/per_scene/MANIFEST.md. Every agent was re-run
+# from the current code on 2026-09-24 and reproduces it (results/rerun_check.md).
+# privileged_brake_mini's first August run (PDMS 0.602) came from an earlier version of the
+# agent file and is superseded by the second (0.593); see results/brake_rerun_diff.md.
 AGENTS = [
     ('CV', 'cv_agent_mini', 'speed only'),
     ('Kinematic', 'kinematic_agent_mini', 'v, a, command'),
@@ -104,10 +105,9 @@ def render(root):
                                 else 'not separable')))
 
     L.append('\n## Caveats\n')
-    L.append('- `privileged_brake_mini` has **two** runs with different results '
-             '(12:52 PDMS 0.602 / DAC 0.766; 12:55 PDMS 0.593 / DAC 0.785). '
-             'This report and `pdm_report.md` both use the first. '
-             'The gap is unexplained and should be pinned down before the number is quoted.')
+    L.append('- `privileged_brake_mini` uses the run the current agent code reproduces '
+             '(PDMS 0.593 / DAC 0.785). An earlier run (0.602 / 0.766) was made before the '
+             'agent file was last edited and is superseded; see `brake_rerun_diff.md`.')
     L.append('- MLP, MapMLP(-reg) and SpeedMLP are learned; on this split their scores are '
              'contaminated (428 of 563 scenes were training logs). '
              'The clean comparison is the held-out 135 (MLP 0.475 vs CV 0.181).')

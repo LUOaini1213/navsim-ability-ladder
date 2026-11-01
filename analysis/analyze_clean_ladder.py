@@ -117,8 +117,9 @@ def render(root):
              'on 563 scenes may not separate here — that is the honest cost of removing '
              'the contaminated scenes, not a defect of the analysis.' % len(val_tok))
     L.append('- Priv* and Human are upper bounds, not deployable systems.')
-    L.append('- `privileged_brake_mini` has two runs (0.602 / 0.593 on the full split); '
-             'the first is used everywhere for consistency and the discrepancy is unexplained.')
+    L.append('- `privileged_brake_mini` uses the run the current agent code reproduces; an '
+             'earlier run, made before the agent file was last edited, is superseded '
+             '(`brake_rerun_diff.md`).')
     L.append('- `warmup_test_e2e` is not the official navtest leaderboard.')
     return '\n'.join(L) + '\n', len(val_tok), len(tr_tok)
 

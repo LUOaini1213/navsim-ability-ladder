@@ -1,10 +1,13 @@
-# privileged_brake_mini: the two runs, scene by scene
+# privileged_brake_mini: the superseded run against the canonical one
 
-Run 1 = `2026.08.20.12.52.28` (used in every report), run 2 = `2026.08.20.12.55.16`. Identical code and configuration snapshots (the hydra `code/` folders differ only in `output_dir`); same metric cache; 563 scenes in both.
+Run 1 = `2026.08.20.12.52.28` (CSV written 12:54:17), run 2 = `2026.08.20.12.55.16`: same configuration, same metric cache, `worker=sequential` in both, 563 scenes in both.
 
-| | run 1 | run 2 |
+**What changed between the two runs was the agent.** Hydra's `code/` folder, which an earlier version of this note read as a code snapshot, holds only the three config files. The workspace copy of `agents/privileged_brake_agent.py` was saved at 12:54:58, after run 1 wrote its CSV and before run 2 started. Scoring the current agent again on 2026-09-24 (process pool, 6 workers; sequential; sequential; thread pool, 6 workers) reproduces run 2 in all 563 scenes in 4 of 4 re-runs ([rerun_check.md](rerun_check.md)), so run 2 is the canonical run and every report uses it. Run 1 is kept as `per_scene/privileged_brake_mini_superseded.csv`. What the edit was cannot be recovered: the workspace agent file is not under version control.
+
+| | run 1 (superseded) | run 2 (canonical) |
 |---|---:|---:|
 | mean PDMS | 0.6020 | 0.5926 |
+| mean DAC | 0.7655 | 0.7851 |
 | scenes with a different score | 130 of 563 | |
 | run 2 higher / lower | 34 / 96 | |
 
@@ -20,7 +23,7 @@ Run 1 = `2026.08.20.12.52.28` (used in every report), run 2 = `2026.08.20.12.55.
 | DDC | 5 |
 | PDMS | 130 |
 
-Ego progress differs in almost every affected scene, i.e. the *trajectory* itself differed between the runs, not only its scoring. With identical code and inputs that points upstream of the agent — at the scene loading / annotation order the agent consumes, or at the parallel scorer — rather than at a parameter change. It has not been pinned down; every report keeps using run 1 and says so.
+Ego progress differs in almost every affected scene: the edit changed the trajectories the agent produces, not how they are scored.
 
 
 ## Largest per-scene differences

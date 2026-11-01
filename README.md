@@ -16,9 +16,12 @@ size grew, and that reversal is itself a result.
 
 Every number comes from per-scene CSVs written by NAVSIM's own
 `run_pdm_score.py`. The analysis scripts only read those CSVs — they never re-run
-an evaluation, so nothing here can drift from the raw output. **The CSVs are in
-this repository**, so every table and confidence interval reproduces from a plain
-clone with no dataset, no devkit and no GPU:
+an evaluation, so nothing here can drift from the raw output. The CSVs were
+checked the other way as well: every agent on the 563-scene split was scored again
+from the code in this repository and reproduces its file ([re-running every
+agent](#re-running-every-agent)). **The CSVs are in this repository**, so every
+table and confidence interval reproduces from a plain clone with no dataset, no
+devkit and no GPU:
 
 ```bash
 python -m unittest discover -s tests -v              # regenerates every report and compares byte for byte
@@ -200,7 +203,7 @@ conclusion.
 |---|---|---|---:|---:|
 | ConstantVelocity | speed only | yes | 0.233 | 0.643 |
 | Kinematic | v, a, driving command | yes | 0.580 | 0.737 |
-| PrivBrake | GT boxes, no map | no | 0.602 | 0.766 |
+| PrivBrake | GT boxes, no map | no | 0.593 | 0.785 |
 | EgoStatusMLP | learned, blind | yes | 0.640 | 0.806 |
 | MapMLP | learned, sees centerline | no | 0.548 | 0.798 |
 | PrivMap | map centerline + IDM | no | 0.786 | 0.934 |
@@ -221,9 +224,10 @@ Adding acceleration and command yaw alone moves PDMS 0.233 → 0.580 and cuts th
 NC failure rate from 39% to 12%. Fix the motion model before reaching for a net.
 
 **Perception boxes do not close the gap; the map does.**
-GT detection boxes plus a brake reach only 0.602 with DAC stuck at 0.766.
-Swapping in the on-route lane centerline moves DAC 0.737 → 0.950. *(This one held
-on navtest, with much tighter intervals.)*
+GT detection boxes plus a brake reach only 0.593 (DAC 0.785), +0.013 over the
+kinematic rule with an interval that spans zero. Swapping in the on-route lane
+centerline moves DAC 0.737 → 0.950. *(This one held on navtest, with much tighter
+intervals.)*
 
 **Giving a learned model the map is not the same as it using the map.**
 `MapMLP` is trained on the *identical* centerline features the hand-written
@@ -283,24 +287,45 @@ non-learned agents have no training set, so this only changes what the learned
 rows mean — and it makes them directly comparable to the rest.
 
 **The cost is stated honestly.** At n=135 several effects that separated on 563
-scenes no longer do: GT boxes (+0.020), dropping IDM (+0.012), swapping in the
-logged path (+0.039), and the speed-vs-geometry difference-in-differences
-(+0.041) all have CIs spanning zero. They are reported as suggestive, not
-established. *(navtest has no such problem: navtrain and navtest share no logs.)*
+scenes no longer do: dropping IDM (+0.012), swapping in the logged path (+0.039),
+and the speed-vs-geometry difference-in-differences (+0.041) all have CIs spanning
+zero. They are reported as suggestive, not established. GT boxes go the other way:
++0.013 with an interval spanning zero on all 563 scenes, +0.058 [+0.024, +0.098]
+on the 135 held-out ones, so at this size the box effect is not settled in either
+direction. *(navtest has no such problem: navtrain and navtest share no logs, and
+there the boxes add +0.040 [+0.035, +0.044].)*
 
-## Known open issue
+## Re-running every agent
 
-`privileged_brake_mini` was run twice on the warmup split and produced different
-results (PDMS 0.602 / DAC 0.766, then 0.593 / 0.785). Every report here uses the
-first run for consistency. Both per-scene CSVs are committed
-(`results/per_scene/privileged_brake_mini*.csv`) and `python analysis/brake_rerun_diff.py`
-characterizes the gap ([results/brake_rerun_diff.md](results/brake_rerun_diff.md)):
-the two runs came from identical code and configuration snapshots, yet 130 of 563
-scenes score differently, ego progress differs in 127 of them, and run 1 is the
-higher one in 96. So the trajectory itself changed between runs with no parameter
-change, which points at scene loading or the parallel scorer rather than at the
-agent. **The cause is still not pinned down**; that row should not be quoted as
-settled. The navtest runs were each executed once.
+On 2026-09-24 every agent on the 563-scene split was scored a second time from the
+code in this repository, with the exact hydra overrides of its canonical run
+([`results/rerun_check.md`](results/rerun_check.md)). Twelve of the 13 reproduce
+their committed per-scene CSV bit for bit. `SpeedMLP` matches in 562 of 563
+scenes; in the last one its ego progress differs by 8.3e-11, identically in two
+re-runs, with the agent, its checkpoint and every library unchanged since the
+original run: a float-level difference in the network's CPU inference, far below
+the three decimals anything here is reported to. `tests/test_rerun_check.py` holds
+every committed CSV to the fingerprint of those re-runs on each push.
+
+This settles the one discrepancy an earlier version of this README left open.
+`privileged_brake_mini` had been scored twice on 2026-08-20 with different results
+(PDMS 0.602 / DAC 0.766, then 0.593 / 0.785), and the reports used the first. The
+two runs did not come from identical code: hydra's `code/` folder, which had been
+read as a code snapshot, holds only the config files, and the agent file was saved
+at 12:54:58, after the first run wrote its CSV and before the second started. Both
+runs were sequential, so the parallel scorer was never involved. The current agent
+reproduces the second run in every scene, sequentially (twice), with a 6-thread
+pool and with a 6-process pool, so every report now uses it; the first is kept as
+`privileged_brake_mini_superseded.csv`
+([`results/brake_rerun_diff.md`](results/brake_rerun_diff.md)). Two statements
+about this split moved with it, both corrected above: on all 563 scenes the boxes'
+gain over the kinematic rule no longer separates from zero, and on the 135
+held-out scenes it does.
+
+The selection rules changed too. The workspace-side scripts used to take an
+agent's first run (`ladder_io`) or its best-scoring run (`analyze_pdm`); both now
+read the run pinned in `results/per_scene/MANIFEST.md`. The navtest runs were
+executed once each, on another machine, and are not covered by this check.
 
 ---
 

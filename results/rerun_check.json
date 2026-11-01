@@ -1,0 +1,256 @@
+{
+ "tag": "rerun_20260924",
+ "agents": {
+  "cv_agent_mini": {
+   "canonical_run": "exp/cv_agent_mini/2026.08.14.09.40.13/2026.08.14.09.41.27.csv",
+   "committed_sha256": "6dd68d95a614a8db8dd56993b1ca1af250aea226c88afba96f4af14ace68d4ba",
+   "scenes": 563,
+   "canonical_sha256": "6dd68d95a614a8db8dd56993b1ca1af250aea226c88afba96f4af14ace68d4ba",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/cv_agent_mini/2026.09.24.17.24.37/2026.09.24.17.25.44.csv",
+     "worker": "sequential",
+     "sha256": "6dd68d95a614a8db8dd56993b1ca1af250aea226c88afba96f4af14ace68d4ba",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "kinematic_agent_mini": {
+   "canonical_run": "exp/kinematic_agent_mini/2026.08.20.12.38.45/2026.08.20.12.40.20.csv",
+   "committed_sha256": "c59b895297f9b8cf63cfdaee19b4896dc69119ecc63e4c8aeb7df09c4d670024",
+   "scenes": 563,
+   "canonical_sha256": "c59b895297f9b8cf63cfdaee19b4896dc69119ecc63e4c8aeb7df09c4d670024",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/kinematic_agent_mini/2026.09.24.17.25.50/2026.09.24.17.26.56.csv",
+     "worker": "sequential",
+     "sha256": "c59b895297f9b8cf63cfdaee19b4896dc69119ecc63e4c8aeb7df09c4d670024",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "privileged_brake_mini": {
+   "canonical_run": "exp/privileged_brake_mini/2026.08.20.12.55.16/2026.08.20.12.57.23.csv",
+   "committed_sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+   "scenes": 563,
+   "canonical_sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/privileged_brake_procs/2026.09.24.17.46.58/2026.09.24.17.47.47.csv",
+     "worker": "process pool, 6 workers",
+     "sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    },
+    {
+     "run": "exp/rerun_20260924/privileged_brake_seq_a/2026.09.24.17.18.40/2026.09.24.17.20.27.csv",
+     "worker": "sequential",
+     "sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    },
+    {
+     "run": "exp/rerun_20260924/privileged_brake_seq_b/2026.09.24.17.20.45/2026.09.24.17.21.56.csv",
+     "worker": "sequential",
+     "sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    },
+    {
+     "run": "exp/rerun_20260924/privileged_brake_threads/2026.09.24.17.22.02/2026.09.24.17.23.16.csv",
+     "worker": "thread pool, 6 workers",
+     "sha256": "ae58dcba389b96c2dc26d1edf9a0801b0e7ce1b3919942d240e657d5dd942e2b",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "mlp_agent_mini": {
+   "canonical_run": "exp/mlp_agent_mini/2026.08.14.10.02.42/2026.08.14.10.04.18.csv",
+   "committed_sha256": "663fb5e314ec56088e0ab164dfd45bd21be668606c3a38e13704f6a3953e2023",
+   "scenes": 563,
+   "canonical_sha256": "663fb5e314ec56088e0ab164dfd45bd21be668606c3a38e13704f6a3953e2023",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/mlp_agent_mini/2026.09.24.17.27.02/2026.09.24.17.28.17.csv",
+     "worker": "sequential",
+     "sha256": "663fb5e314ec56088e0ab164dfd45bd21be668606c3a38e13704f6a3953e2023",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "map_mlp_mini": {
+   "canonical_run": "exp/map_mlp_mini/2026.09.02.02.28.36/2026.09.02.02.30.32.csv",
+   "committed_sha256": "0f8560834214bc5a161abb3a60c865843d0c0c8ae31284a330d1dd7098d841b4",
+   "scenes": 563,
+   "canonical_sha256": "0f8560834214bc5a161abb3a60c865843d0c0c8ae31284a330d1dd7098d841b4",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/map_mlp_mini/2026.09.24.17.28.23/2026.09.24.17.30.04.csv",
+     "worker": "sequential",
+     "sha256": "0f8560834214bc5a161abb3a60c865843d0c0c8ae31284a330d1dd7098d841b4",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "map_mlp_reg_mini": {
+   "canonical_run": "exp/map_mlp_reg_mini/2026.09.02.09.44.56/2026.09.02.09.46.38.csv",
+   "committed_sha256": "455cc7580a2c79bb246ea103b97f29a5bbd123a816f2f12a837c4e16fa514697",
+   "scenes": 563,
+   "canonical_sha256": "455cc7580a2c79bb246ea103b97f29a5bbd123a816f2f12a837c4e16fa514697",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/map_mlp_reg_mini/2026.09.24.17.30.11/2026.09.24.17.31.51.csv",
+     "worker": "sequential",
+     "sha256": "455cc7580a2c79bb246ea103b97f29a5bbd123a816f2f12a837c4e16fa514697",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "privileged_centerline_mini": {
+   "canonical_run": "exp/privileged_centerline_mini/2026.08.20.13.08.10/2026.08.20.13.10.02.csv",
+   "committed_sha256": "ca337d04774a8516bbfc2e539afd736e42d10291e8484ed4ea66cbe11725ebca",
+   "scenes": 563,
+   "canonical_sha256": "ca337d04774a8516bbfc2e539afd736e42d10291e8484ed4ea66cbe11725ebca",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/privileged_centerline_mini/2026.09.24.17.31.58/2026.09.24.17.33.23.csv",
+     "worker": "sequential",
+     "sha256": "ca337d04774a8516bbfc2e539afd736e42d10291e8484ed4ea66cbe11725ebca",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "privileged_centerline_kin": {
+   "canonical_run": "exp/privileged_centerline_kin/2026.08.20.13.28.11/2026.08.20.13.30.03.csv",
+   "committed_sha256": "4f0c7b7713b1c6deee4391542b583f48ca4a08c8367d2c3a5c42d3b830233ec2",
+   "scenes": 563,
+   "canonical_sha256": "4f0c7b7713b1c6deee4391542b583f48ca4a08c8367d2c3a5c42d3b830233ec2",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/privileged_centerline_kin/2026.09.24.17.33.31/2026.09.24.17.35.03.csv",
+     "worker": "sequential",
+     "sha256": "4f0c7b7713b1c6deee4391542b583f48ca4a08c8367d2c3a5c42d3b830233ec2",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "speed_mlp_mini": {
+   "canonical_run": "exp/speed_mlp_mini/2026.09.02.09.46.47/2026.09.02.09.48.21.csv",
+   "committed_sha256": "dfe4f067c229c73f5a82ec38124673abac3da8ebf555d7f8fe5aba13cb42f22a",
+   "scenes": 563,
+   "canonical_sha256": "dfe4f067c229c73f5a82ec38124673abac3da8ebf555d7f8fe5aba13cb42f22a",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/speed_mlp_mini/2026.09.24.17.35.12/2026.09.24.17.36.55.csv",
+     "worker": "sequential",
+     "sha256": "d663f9cadcae605ad62557cd6210b752cf66a40aef3ab01457907a6ea3450e08",
+     "scenes": 563,
+     "identical_scenes": 562,
+     "max_abs_diff": 8.290823583223528e-11
+    },
+    {
+     "run": "exp/rerun_20260924/speed_mlp_mini/2026.09.24.17.44.44/2026.09.24.17.46.46.csv",
+     "worker": "sequential",
+     "sha256": "d663f9cadcae605ad62557cd6210b752cf66a40aef3ab01457907a6ea3450e08",
+     "scenes": 563,
+     "identical_scenes": 562,
+     "max_abs_diff": 8.290823583223528e-11
+    }
+   ]
+  },
+  "speed_mlp_e200_mini": {
+   "canonical_run": "exp/speed_mlp_e200_mini/2026.09.02.09.51.00/2026.09.02.09.52.33.csv",
+   "committed_sha256": "65691c38eb5c58eeaad851f49440d159e123f5311be5b66393f96e695b2e35a1",
+   "scenes": 563,
+   "canonical_sha256": "65691c38eb5c58eeaad851f49440d159e123f5311be5b66393f96e695b2e35a1",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/speed_mlp_e200_mini/2026.09.24.17.37.03/2026.09.24.17.38.45.csv",
+     "worker": "sequential",
+     "sha256": "65691c38eb5c58eeaad851f49440d159e123f5311be5b66393f96e695b2e35a1",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "privileged_gtpath_kin": {
+   "canonical_run": "exp/privileged_gtpath_kin/2026.08.20.13.31.46/2026.08.20.13.33.09.csv",
+   "committed_sha256": "cfc24bc82cef412d7e9b91c683b12585249d01cb9858e26662ae3e5de01f528e",
+   "scenes": 563,
+   "canonical_sha256": "cfc24bc82cef412d7e9b91c683b12585249d01cb9858e26662ae3e5de01f528e",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/privileged_gtpath_kin/2026.09.24.17.38.53/2026.09.24.17.40.13.csv",
+     "worker": "sequential",
+     "sha256": "cfc24bc82cef412d7e9b91c683b12585249d01cb9858e26662ae3e5de01f528e",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "privileged_centerline_gtspeed": {
+   "canonical_run": "exp/privileged_centerline_gtspeed/2026.08.20.13.30.11/2026.08.20.13.31.39.csv",
+   "committed_sha256": "4d718572f2f458bc291d0b967a0e2a2d86950eae21b575b15ac97d0183b35b1f",
+   "scenes": 563,
+   "canonical_sha256": "4d718572f2f458bc291d0b967a0e2a2d86950eae21b575b15ac97d0183b35b1f",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/privileged_centerline_gtspeed/2026.09.24.17.40.20/2026.09.24.17.41.48.csv",
+     "worker": "sequential",
+     "sha256": "4d718572f2f458bc291d0b967a0e2a2d86950eae21b575b15ac97d0183b35b1f",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  },
+  "human_agent_mini": {
+   "canonical_run": "exp/human_agent_mini/2026.08.20.12.40.48/2026.08.20.12.42.04.csv",
+   "committed_sha256": "1200f104384d89106d3bb30f0775116f2d3a561942e18d948469defd73baccd2",
+   "scenes": 563,
+   "canonical_sha256": "1200f104384d89106d3bb30f0775116f2d3a561942e18d948469defd73baccd2",
+   "reruns": [
+    {
+     "run": "exp/rerun_20260924/human_agent_mini/2026.09.24.17.41.57/2026.09.24.17.43.17.csv",
+     "worker": "sequential",
+     "sha256": "1200f104384d89106d3bb30f0775116f2d3a561942e18d948469defd73baccd2",
+     "scenes": 563,
+     "identical_scenes": 563,
+     "max_abs_diff": 0.0
+    }
+   ]
+  }
+ },
+ "notes": {
+  "speed_mlp_mini": "The two re-runs agree with each other bit for bit and differ from the September 2 run in one scene (`494fade53c845a1b`, ego progress, 8.3e-11). The agent file, its checkpoint and every library in the environment predate that run and are unchanged, so this is a float-level difference in the network's CPU inference between the two sessions."
+ },
+ "superseded": {
+  "file": "results/per_scene/privileged_brake_mini_superseded.csv",
+  "source": "exp/privileged_brake_mini/2026.08.20.12.52.28/2026.08.20.12.54.17.csv",
+  "sha256": "c8d22342516cac6552f32e526cc89fa0980d8948e9501ecf94f63248fba8d886",
+  "scenes": 563,
+  "identical_scenes_vs_canonical": 431,
+  "max_abs_diff_vs_canonical": 1.0
+ }
+}

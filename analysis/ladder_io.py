@@ -17,15 +17,18 @@ Two layouts are understood:
 import csv
 import glob
 import gzip
+import hashlib
 import io
 import os
 import random
+import re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 PER_SCENE = os.path.join(REPO, 'results', 'per_scene')
 B = 10000
 SEED = 12345
+MANIFEST = os.path.join(PER_SCENE, 'MANIFEST.md')
 
 
 def resolve_csv_root(explicit=None):
@@ -52,14 +55,29 @@ def open_text(path):
     return io.open(path, encoding='utf-8')
 
 
+def pinned_runs():
+    """agent_subdir -> workspace-relative CSV of its canonical run, as listed in
+    results/per_scene/MANIFEST.md."""
+    if not os.path.isfile(MANIFEST):
+        return {}
+    text = io.open(MANIFEST, encoding='utf-8').read()
+    return dict(re.findall(r'^\| `(\w+)\.csv` \| `(exp/[^`]+\.csv)` \|', text, re.M))
+
+
 def csv_path(root, subdir, newest=False):
     """The canonical CSV of one agent: the committed file (``.csv`` or ``.csv.gz``),
-    or a run directory in the workspace -- the FIRST run by default, matching
-    pdm_report.md (privileged_brake_mini has two); ``newest=True`` for navtest,
-    where each agent was scored once and the run directory is unique."""
+    or, in the workspace, the run pinned in results/per_scene/MANIFEST.md. Unpinned
+    agents fall back to the FIRST run, or the newest with ``newest=True`` (navtest,
+    where each agent was scored once). The pin matters: privileged_brake_mini has two
+    runs and only the second came from the current agent code (brake_rerun_diff.md)."""
     for flat in (os.path.join(root, subdir + '.csv'), os.path.join(root, subdir + '.csv.gz')):
         if os.path.isfile(flat):
             return flat
+    pin = pinned_runs().get(subdir)
+    if pin:
+        pinned = os.path.join(os.path.dirname(os.path.abspath(root)), *pin.split('/'))
+        if os.path.isfile(pinned):
+            return pinned
     files = sorted(glob.glob(os.path.join(root, subdir, '*', '*.csv')))
     if not files:
         raise SystemExit('no csv for ' + subdir + ' under ' + root)
@@ -96,6 +114,25 @@ def load_rows(root, subdir, newest=False):
             except ValueError:
                 continue
     return rows
+
+
+FINGERPRINT_COLS = ('no_at_fault_collisions', 'drivable_area_compliance', 'ego_progress',
+                    'time_to_collision_within_bound', 'comfort', 'driving_direction_compliance', 'score')
+
+
+def fingerprint(path):
+    """(sha256, scenes) of one run's per-scene results: token, valid and every sub-score,
+    rows sorted by token. Row order is left out on purpose -- NAVSIM writes the scenes in
+    a different order from run to run, which moves nothing but the last bit of the mean."""
+    rows = []
+    with open_text(path) as f:
+        for r in csv.DictReader(f):
+            tok = (r.get('token') or '').strip()
+            if not tok or tok.lower() == 'average':
+                continue
+            rows.append(','.join([tok, r['valid'].strip()] + [repr(float(r[c])) for c in FINGERPRINT_COLS]))
+    rows.sort()
+    return hashlib.sha256('\n'.join(rows).encode('utf-8')).hexdigest(), len(rows)
 
 
 def split_logs(root):
