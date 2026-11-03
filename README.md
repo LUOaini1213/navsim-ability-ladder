@@ -67,11 +67,17 @@ On the kinematic rung, adding the on-route centerline is **+0.296 [+0.288,
 +0.044]**. The map buys drivable-area compliance (DAC +0.295); the boxes buy
 collision avoidance (NC +0.065) and hand back progress (EP −0.042).
 
-**2. The remaining headroom is speed, not geometry.** With the path fixed to the
-centerline, swapping the rule speed law for the human speed profile is **+0.049
-[+0.045, +0.053]**. With the speed fixed, swapping the centerline for the logged
-path is **+0.010 [+0.003, +0.017]**. Where to go is close to solved by the map;
-how fast to go is not.
+**2. Past the map, speed and path headroom look comparable; the as-scored gap is
+mostly a comfort artefact.** With the path fixed to the centerline, swapping the
+rule speed law for the human speed profile is **+0.049 [+0.045, +0.053]**. With
+the speed fixed, swapping the centerline for the logged path is **+0.010 [+0.003,
++0.017]** as scored, but `PrivGTPathKin` resamples the logged poses at the wrong
+timing and loses comfort (0.761 against 0.972 for PrivMapKin), which carries 2/12
+of the score. Scoring comfort as perfect on both sides of each swap, the logged
+path is worth +0.047 [+0.040, +0.054] and the human speed +0.049 [+0.045, +0.053]
+(both rows in [`ladder.md`](results/navtest/ladder.md)). The intervals overlap, so
+this ladder does not show that the remaining headroom is speed rather than
+geometry; fixing the resampling and rescoring `PrivGTPathKin` would settle it.
 
 ## What a learned trajectory model is allowed to see
 
@@ -199,7 +205,8 @@ statement about the method.
 - The learned models are MLPs. The official EgoStatusMLP (0.664 mean) beats our
   matching `kin` cell (0.642); the training recipes differ and we did not tune.
 - `PrivGTPathKin` scores comfort 0.761 — an artefact of resampling logged poses
-  at the wrong timing, not a property of the logged path.
+  at the wrong timing, not a property of the logged path. Claim 2 therefore
+  quotes the path and speed swaps with comfort neutralised as well.
 - Single benchmark, NAVSIM v1.1. EPDMS and the v2 two-stage splits are not run.
 - The scoring formula was never modified. Windows portability fixes (packaging
   scope, POSIX file locks, cache-path splitting, subnormal floats) touched

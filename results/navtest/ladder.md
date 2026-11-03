@@ -31,6 +31,10 @@ or map privilege: they are upper bounds, not deployable planners.
 | remaining gap to Human | 12146 | +0.1108 | [+0.1057, +0.1161] | +0.073 | +0.036 | +0.090 | CI excludes 0 |
 | hand kinematics -> learned kinematics (official, seed 0) | 12146 | +0.1661 | [+0.1583, +0.1735] | +0.139 | +0.048 | +0.163 | CI excludes 0 |
 | learned blind -> hand rule with the map | 12146 | +0.1303 | [+0.1217, +0.1391] | +0.156 | +0.007 | +0.107 | CI excludes 0 |
+| swap in human speed, comfort scored as 1 (sensitivity) | 12146 | +0.0490 | [+0.0450, +0.0529] | -0.002 | +0.027 | +0.046 | CI excludes 0 |
+| swap in the logged path, comfort scored as 1 (sensitivity) | 12146 | +0.0470 | [+0.0404, +0.0537] | +0.017 | +0.055 | -0.032 | CI excludes 0 |
 
 The map is worth about seven times what ground-truth detection boxes are worth, and it
 buys drivable-area compliance; the boxes buy collision avoidance and give back progress.
+As scored, the human speed is worth more than the logged path; with comfort scored as 1
+(the logged-path rung loses comfort to a resampling artefact) the two are comparable.

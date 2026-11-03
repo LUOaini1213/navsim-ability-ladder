@@ -163,8 +163,20 @@ def ladder_md(R):
         ('egomlp_s0', 'privmapkin', 'learned blind -> hand rule with the map'),
     ]:
         L.append(row_delta(R, a, b, label))
+    # PrivGTPathKin resamples the logged poses at the wrong timing and loses comfort, which
+    # weighs 2/12 in PDMS. The two headroom swaps again, with comfort scored as 1 on both sides.
+    for a, b, label in [
+        ('privmapkin', 'privmap_gtspd', 'swap in human speed, comfort scored as 1 (sensitivity)'),
+        ('privmapkin', 'privgtpath_kin', 'swap in the logged path, comfort scored as 1 (sensitivity)'),
+    ]:
+        n, m, lo, hi = delta_comfort_neutral(R, a, b)
+        L.append('| %s | %d | %+.4f | [%+.4f, %+.4f] | %+.3f | %+.3f | %+.3f | %s |' % (
+            label, n, m, lo, hi, R.dsub(a, b, 'drivable_area_compliance'),
+            R.dsub(a, b, 'no_at_fault_collisions'), R.dsub(a, b, 'ego_progress'), verdict(lo, hi)))
     L += ['', 'The map is worth about seven times what ground-truth detection boxes are worth, and it',
-          'buys drivable-area compliance; the boxes buy collision avoidance and give back progress.']
+          'buys drivable-area compliance; the boxes buy collision avoidance and give back progress.',
+          'As scored, the human speed is worth more than the logged path; with comfort scored as 1',
+          '(the logged-path rung loses comfort to a resampling artefact) the two are comparable.']
     return '\n'.join(L) + '\n'
 
 
@@ -390,6 +402,21 @@ def _prose(text):
     return re.sub(r'\s+', ' ', ' '.join(parts)).replace(u'−', '-').replace(u'—', '--')
 
 
+def comfort_neutral(rows):
+    """Per-scene PDMS with comfort scored as perfect. NAVSIM v1's PDMS is
+    NC * DAC * (5 TTC + 2 C + 5 EP) / 12, so setting C = 1 adds NC * DAC * 2 (1 - C) / 12."""
+    return {t: r['score'] + r['no_at_fault_collisions'] * r['drivable_area_compliance'] * 2.0
+            * (1.0 - r['comfort']) / 12.0 for t, r in rows.items()}
+
+
+def delta_comfort_neutral(R, a, b):
+    """delta() of b - a with comfort neutralised on both sides."""
+    da, db = comfort_neutral(R[a]), comfort_neutral(R[b])
+    common = sorted(set(da) & set(db))
+    mean, lo, hi = bootstrap_large([db[t] - da[t] for t in common])
+    return len(common), mean, lo, hi
+
+
 class _Prose(object):
     def __init__(self, text, problems):
         self.text, self.problems, self.covered = text, problems, []
@@ -459,6 +486,18 @@ def _check_prose(R, text, readme, problems):
     m = P.find('claim 2, logged path', r'swapping the centerline for the logged path is \*\*' + IV + r'\*\*')
     if m:
         P.iv('claim 2 logged path', m, 1, R.delta('privmapkin', 'privgtpath_kin'))
+    m = P.find('claim 2, comfort', r'comfort \((0\.\d{3}) against (0\.\d{3}) for PrivMapKin\)')
+    if m:
+        P.num('claim 2 PrivGTPathKin comfort', m.group(1), R.mean('privgtpath_kin', 'comfort'))
+        P.num('claim 2 PrivMapKin comfort', m.group(2), R.mean('privmapkin', 'comfort'))
+    m = P.find('claim 2, comfort-neutral', r'the logged path is worth ' + IV + r' and the human speed '
+               + IV)
+    if m:
+        P.iv('claim 2 logged path, comfort neutral', m, 1,
+             delta_comfort_neutral(R, 'privmapkin', 'privgtpath_kin'))
+        P.iv('claim 2 human speed, comfort neutral', m, 4,
+             delta_comfort_neutral(R, 'privmapkin', 'privmap_gtspd'))
+
     # 3. the 2x2
     m = P.find('claim 3, map effect range', r'large in every seed \(' + SN + ' to ' + SN + r'\)')
     if m:

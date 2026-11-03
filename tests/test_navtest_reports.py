@@ -162,6 +162,27 @@ class HeadlineClaims(unittest.TestCase):
                 self.assertGreater(mean, 0)
                 self.assertGreater(lo, 0)
 
+    def test_comfort_neutral_rebuilds_pdms_from_its_sub_scores(self):
+        """comfort_neutral assumes PDMS = NC * DAC * (5 TTC + 2 C + 5 EP) / 12. Check that on
+        the three rungs claim 2 compares, then that the as-scored and comfort-neutral
+        logged-path swaps are what README's claim 2 says they are: one clearly smaller than
+        the human-speed swap, the other not."""
+        worst = 0.0
+        for stem in ('privmapkin', 'privgtpath_kin', 'privmap_gtspd'):
+            for r in self.R[stem].values():
+                rebuilt = (r['no_at_fault_collisions'] * r['drivable_area_compliance']
+                           * (5 * r['time_to_collision_within_bound'] + 2 * r['comfort']
+                              + 5 * r['ego_progress']) / 12)
+                worst = max(worst, abs(rebuilt - r['score']))
+        self.assertLess(worst, 1e-5)
+        _n, path, _lo, path_hi = self.R.delta('privmapkin', 'privgtpath_kin')
+        _n, speed, speed_lo, _hi = self.R.delta('privmapkin', 'privmap_gtspd')
+        self.assertLess(path_hi, speed_lo, 'as scored, the logged path is worth less')
+        _n, _m, cpath_lo, cpath_hi = nav.delta_comfort_neutral(self.R, 'privmapkin', 'privgtpath_kin')
+        _n, _m, cspeed_lo, cspeed_hi = nav.delta_comfort_neutral(self.R, 'privmapkin', 'privmap_gtspd')
+        self.assertTrue(cpath_lo <= cspeed_hi and cspeed_lo <= cpath_hi,
+                        'with comfort neutralised the two intervals overlap')
+
     def test_equal_open_loop_gains_move_the_score_in_opposite_directions(self):
         """wd 1e-4 and dropout 0.2 improve the validation L1 by comparable amounts,
         and the simulation score goes up for one and down for the other."""
