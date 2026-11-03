@@ -80,7 +80,7 @@ class Runs(object):
     """Lazily loaded per-scene rows, keyed by committed stem."""
 
     def __init__(self, root, suffix):
-        self.root, self.suffix, self._c = root, suffix, {}
+        self.root, self.suffix, self._c, self._d = root, suffix, {}, {}
 
     def __getitem__(self, stem):
         if stem not in self._c:
@@ -96,12 +96,16 @@ class Runs(object):
         return sum(1 for r in d.values() if r[col] < 1) / len(d)
 
     def delta(self, a, b, col='score'):
-        """(n, mean, lo, hi) of b - a over the scenes both scored."""
-        da, db = self[a], self[b]
-        common = sorted(set(da) & set(db))
-        diffs = [db[t][col] - da[t][col] for t in common]
-        mean, lo, hi = bootstrap_large(diffs)
-        return len(common), mean, lo, hi
+        """(n, mean, lo, hi) of b - a over the scenes both scored. Memoised: the bootstrap
+        seed is fixed, so a repeat call would give the same interval anyway."""
+        key = (a, b, col)
+        if key not in self._d:
+            da, db = self[a], self[b]
+            common = sorted(set(da) & set(db))
+            diffs = [db[t][col] - da[t][col] for t in common]
+            mean, lo, hi = bootstrap_large(diffs)
+            self._d[key] = (len(common), mean, lo, hi)
+        return self._d[key]
 
     def dsub(self, a, b, col):
         da, db = self[a], self[b]
@@ -355,6 +359,192 @@ def _check_train_samples(text, problems):
         problems.append('training samples: README %s vs cells.csv n_train %d' % (m.group(1), want))
 
 
+# ---------------------------------------------------------------- README prose
+#
+# Every signed number the prose of README's navtest sections quotes -- intervals, per-seed
+# lists, sub-score deltas -- is matched by one rule below and recomputed from the per-scene
+# CSVs. A signed number that no rule covers is itself a mismatch, so a claim cannot be added
+# or reworded past the check. Signs are compared exactly as README writes them: every delta
+# is b - a, as in the reports.
+
+SN = r'([+-]\d*\.\d+)'
+IV = SN + r' \[' + SN + r', ' + SN + r'\]'
+PROSE_SECTIONS = ('## The ladder on navtest', '## What a learned trajectory model is allowed to see',
+                  '## Who draws the path, who paces it', '## How far can you trust the open-loop loss?',
+                  '## What changed when the split changed')
+
+
+def _prose(text):
+    """README's navtest sections as one line with ASCII minus signs. Tables are left out
+    (the table checks above cover them), except the split-comparison table, which has no
+    other check."""
+    parts = []
+    for title in PROSE_SECTIONS:
+        sec = md_section(text, title)
+        if sec is None:
+            parts.append('[missing section %s]' % title)
+            continue
+        keep = [ln for ln in sec.split('\n')
+                if title == PROSE_SECTIONS[-1] or not ln.lstrip().startswith('|')]
+        parts.append(' '.join(keep))
+    return re.sub(r'\s+', ' ', ' '.join(parts)).replace(u'−', '-').replace(u'—', '--')
+
+
+class _Prose(object):
+    def __init__(self, text, problems):
+        self.text, self.problems, self.covered = text, problems, []
+
+    def find(self, name, pattern):
+        m = re.search(pattern, self.text)
+        if not m:
+            self.problems.append('README prose: cannot find %s' % name)
+            return None
+        self.covered += [m.span(i) for i in range(1, (m.lastindex or 0) + 1)]
+        return m
+
+    def num(self, what, cell, got):
+        """``cell`` must be ``got`` rounded to the decimals README shows, sign included."""
+        dp = len(cell.split('.')[1])
+        want = ('%+.*f' if cell[0] in '+-' else '%.*f') % (dp, got)
+        if want != cell:
+            self.problems.append('%s: README %s vs CSV %+.4f' % (what, cell, got))
+
+    def iv(self, what, m, first, d):
+        _n, mean, lo, hi = d
+        for k, (name, got) in enumerate((('', mean), (' CI low', lo), (' CI high', hi))):
+            self.num(what + name, m.group(first + k), got)
+
+    def verdicts(self, what, ds, want):
+        got = ['excl' if (lo > 0 or hi < 0) else 'spans' for _n, _m, lo, hi in ds]
+        if got != want:
+            self.problems.append('%s: README says intervals %s, CSV gives %s' % (what, want, got))
+
+    def uncovered(self):
+        for m in re.finditer(SN, self.text):
+            if not any(s <= m.start(1) and m.end(1) <= e for s, e in self.covered):
+                self.problems.append('README prose: signed number %s is not checked ("...%s")'
+                                     % (m.group(1), self.text[max(0, m.start() - 50):m.start()]))
+
+
+def _check_prose(R, text, readme, problems):
+    import analyze_openloop_csv as ol
+    P = _Prose(_prose(text), problems)
+
+    def seeds(fmt):
+        return [fmt % s for s in SEEDS]
+
+    # 1. map vs boxes
+    m = P.find('claim 1, map gain', r'adding the on-route centerline is \*\*' + IV + r'\*\*')
+    if m:
+        P.iv('claim 1 map gain', m, 1, R.delta('kin', 'privmapkin'))
+    m = P.find('claim 1, box gain', r'adding ground-truth detection boxes and a brake is \*\*' + IV + r'\*\*')
+    if m:
+        P.iv('claim 1 box gain', m, 1, R.delta('kin', 'privbrake'))
+    m = P.find('claim 1, sub-scores', r'\(DAC ' + SN + r'\); the boxes buy collision avoidance \(NC ' + SN
+               + r'\) and hand back progress \(EP ' + SN + r'\)')
+    if m:
+        P.num('claim 1 map dDAC', m.group(1), R.dsub('kin', 'privmapkin', 'drivable_area_compliance'))
+        P.num('claim 1 boxes dNC', m.group(2), R.dsub('kin', 'privbrake', 'no_at_fault_collisions'))
+        P.num('claim 1 boxes dEP', m.group(3), R.dsub('kin', 'privbrake', 'ego_progress'))
+    if P.find('claim 1, ratio', r'about (seven) times'):
+        ratio = R.delta('kin', 'privmapkin')[1] / R.delta('kin', 'privbrake')[1]
+        if round(ratio) != 7:
+            problems.append('claim 1: "about seven times" but the ratio is %.2f' % ratio)
+
+    # 2. speed vs path headroom, as scored and with comfort neutralised
+    m = P.find('claim 2, human speed', r'swapping the rule speed law for the human speed profile is \*\*'
+               + IV + r'\*\*')
+    if m:
+        P.iv('claim 2 human speed', m, 1, R.delta('privmapkin', 'privmap_gtspd'))
+    m = P.find('claim 2, logged path', r'swapping the centerline for the logged path is \*\*' + IV + r'\*\*')
+    if m:
+        P.iv('claim 2 logged path', m, 1, R.delta('privmapkin', 'privgtpath_kin'))
+    # 3. the 2x2
+    m = P.find('claim 3, map effect range', r'large in every seed \(' + SN + ' to ' + SN + r'\)')
+    if m:
+        ds = [R.delta(a, b) for a, b in zip(seeds('l_pose_kin_s%d'), seeds('l_pose_map_s%d'))]
+        P.num('claim 3 smallest map effect', m.group(1), min(d[1] for d in ds))
+        P.num('claim 3 largest map effect', m.group(2), max(d[1] for d in ds))
+        P.verdicts('claim 3 map effect', ds, ['excl'] * 3)
+    if P.find('claim 3, boxes without map', r'box effect on its own is not significant in (two) seeds of three'):
+        ds = [R.delta(a, b) for a, b in zip(seeds('l_pose_kin_s%d'), seeds('l_pose_agents_s%d'))]
+        n = sum(1 for _n, _m, lo, hi in ds if not (lo > 0 or hi < 0))
+        if n != 2:
+            problems.append('claim 3: boxes without the map span zero in %d seeds, README says two' % n)
+    m = P.find('claim 3, boxes with map', r'\*\*negative in all three\*\*: ' + SN + ', ' + SN + ', ' + SN
+               + ', every interval excluding zero')
+    if m:
+        ds = [R.delta(a, b) for a, b in zip(seeds('l_pose_map_s%d'), seeds('l_pose_map_agents_s%d'))]
+        for k, d in enumerate(ds):
+            P.num('claim 3 boxes with map, seed %d' % k, m.group(k + 1), d[1])
+        P.verdicts('claim 3 boxes with map', ds, ['excl'] * 3)
+
+    # 5. who draws the path, who paces it
+    speed = [R.delta('privmapkin', b) for b in seeds('l_ds_map_s%d')]
+    m = P.find('claim 5, learned speed', r'beats the hand speed law in every seed \(' + SN + ', ' + SN + ', '
+               + SN + r', all three intervals excluding zero\)')
+    if m:
+        for k, d in enumerate(speed):
+            P.num('claim 5 learned speed, seed %d' % k, m.group(k + 1), d[1])
+        P.verdicts('claim 5 learned speed', speed, ['excl'] * 3)
+    if P.find('claim 5, share of the human-speed gap', r'recovers about (two thirds) of the distance'):
+        share = sum(d[1] for d in speed) / len(speed) / R.delta('privmapkin', 'privmap_gtspd')[1]
+        if round(3 * share) != 2:
+            problems.append('claim 5: "about two thirds" but the learned speed recovers %.2f' % share)
+    m = P.find('claim 5, path swap at the learned speed',
+               r'the swap is ' + SN + r' \(interval spans zero\), ' + SN + ' and ' + SN
+               + r' -- the last two intervals both exclude zero and point opposite ways')
+    if m:
+        ds = [R.delta(a, b) for a, b in zip(seeds('l_ds_map_s%d'), seeds('l_pose_map_s%d'))]
+        for k, d in enumerate(ds):
+            P.num('claim 5 path swap at the learned speed, seed %d' % k, m.group(k + 1), d[1])
+        P.verdicts('claim 5 path swap at the learned speed', ds, ['spans', 'excl', 'excl'])
+        if not ds[1][1] * ds[2][1] < 0:
+            problems.append('claim 5: the two significant path swaps do not point opposite ways')
+    m = P.find('claim 5, path swap at the rule speed',
+               r'it is ' + SN + r' \(spans zero\), ' + SN + ' and ' + SN + r': two of three significantly '
+               r"positive, three-seed mean (0\.\d{3}) against the rule path's (0\.\d{3})")
+    if m:
+        ds = [R.delta('privmapkin', b) for b in seeds('l_pose_map_s%d_rs')]
+        for k, d in enumerate(ds):
+            P.num('claim 5 path swap at the rule speed, seed %d' % k, m.group(k + 1), d[1])
+        P.verdicts('claim 5 path swap at the rule speed', ds, ['spans', 'excl', 'excl'])
+        if not all(d[1] > 0 for d in ds[1:]):
+            problems.append('claim 5: the significant rule-speed path swaps are not positive')
+        P.num('claim 5 learned path, rule speed', m.group(4),
+              sum(R.mean(x) for x in seeds('l_pose_map_s%d_rs')) / len(SEEDS))
+        P.num('claim 5 rule path, rule speed', m.group(5), R.mean('privmapkin'))
+
+    # 6. regularisation, and the rank correlations
+    m = P.find('claim 6, opposite moves', r'move the score ' + SN + ' and ' + SN
+               + ', both intervals excluding zero')
+    if m:
+        ds = [R.delta('l_pose_map_s0', b) for b in ('l_reg_pose_map_wd1e-4_s0', 'l_reg_pose_map_do0.2_s0')]
+        P.num('claim 6 wd 1e-4', m.group(1), ds[0][1])
+        P.num('claim 6 dropout 0.2', m.group(2), ds[1][1])
+        P.verdicts('claim 6 regularisers', ds, ['excl', 'excl'])
+    # The three correlations are recomputed from openloop.csv by analyze_openloop_csv; this only
+    # marks them as covered, and folds that script's verdict in so one check covers the prose.
+    for name, pattern in (('claim 6, nine-run correlation', r'displacement error and PDMS is ' + SN),
+                          ('claim 6, drop-one correlation', r'Drop the worst run and the correlation is ' + SN),
+                          ('claim 6, seven-run correlation', r'the seven that remain give ' + SN)):
+        P.find(name, pattern)
+    problems.extend('open-loop: ' + p for p in ol.check_readme(ol.load_runs(), readme))
+
+    # What changed when the split changed (navtest column; the 563-scene column is make_summary's)
+    m = P.find('split table, map vs boxes', r'held, ' + SN + ' vs ' + SN + ', intervals tight')
+    if m:
+        P.num('split table map gain', m.group(1), R.delta('kin', 'privmapkin')[1])
+        P.num('split table box gain', m.group(2), R.delta('kin', 'privbrake')[1])
+    m = P.find('split table, learned speed', r'\| ' + SN + ' to ' + SN + r', significant in all seeds \|')
+    if m:
+        P.num('split table smallest learned-speed gain', m.group(1), min(d[1] for d in speed))
+        P.num('split table largest learned-speed gain', m.group(2), max(d[1] for d in speed))
+        P.verdicts('split table learned speed', speed, ['excl'] * 3)
+    P.find('split table, 563-scene learned speed', r'\| ' + SN + r', interval spanned zero \|')
+    P.uncovered()
+
+
 def check_readme(R, readme):
     """Verify the navtest numbers README quotes against the per-scene CSVs."""
     text = io.open(readme, encoding='utf-8').read()
@@ -394,6 +584,7 @@ def check_readme(R, readme):
     _check_path_speed(R, text, problems)
     _check_regularisation(R, text, problems)
     _check_train_samples(text, problems)
+    _check_prose(R, text, readme, problems)
     return problems
 
 

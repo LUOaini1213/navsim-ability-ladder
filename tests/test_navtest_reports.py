@@ -182,5 +182,49 @@ class HeadlineClaims(unittest.TestCase):
         self.assertLess(m_do, 0)
 
 
+class ReadmeProse(unittest.TestCase):
+    """check_readme covers the prose, not only the tables: a changed sign, a changed digit
+    or a new unchecked number in README's navtest sections is a mismatch. Each case edits
+    a scratch copy of README and expects the check to fail on exactly that edit."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.R = nav.Runs(PER_SCENE, '')
+        with io.open(os.path.join(ROOT, 'README.md'), encoding='utf-8') as f:
+            cls.text = f.read()
+
+    def _problems(self, old, new):
+        import tempfile
+        self.assertEqual(self.text.count(old), 1, old)
+        fd, path = tempfile.mkstemp(suffix='.md')
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(self.text.replace(old, new))
+            return nav.check_readme(self.R, path)
+        finally:
+            os.remove(path)
+
+    def test_claim_5_with_the_signs_main_used_to_quote_is_caught(self):
+        # Until this check existed, README quoted the learned-speed path swap as
+        # "-0.004 ..., +0.008, -0.022": each value is the negation of path_speed.md.
+        problems = self._problems(u'swap is +0.004 (interval spans zero),\n−0.008 and +0.022',
+                                  u'swap is −0.004 (interval spans zero),\n+0.008 and −0.022')
+        flagged = [p for p in problems if p.startswith('claim 5 path swap at the learned speed')]
+        self.assertEqual(len(flagged), 3, problems)
+
+    def test_a_flipped_interval_bound_is_caught(self):
+        problems = self._problems('**+0.296 [+0.288,', u'**+0.296 [−0.288,')
+        self.assertEqual(problems, ['claim 1 map gain CI low: README -0.288 vs CSV +0.2876'])
+
+    def test_a_wrong_verdict_is_caught(self):
+        problems = self._problems('box effect on its own is not significant in\ntwo seeds of three',
+                                  'box effect on its own is not significant in\none seeds of three')
+        self.assertTrue(any('claim 3, boxes without map' in p for p in problems), problems)
+
+    def test_an_unchecked_signed_number_is_caught(self):
+        problems = self._problems('Giving the speed model the GT', 'It moves +0.123. Giving the speed model the GT')
+        self.assertTrue(any('signed number +0.123 is not checked' in p for p in problems), problems)
+
+
 if __name__ == '__main__':
     unittest.main()

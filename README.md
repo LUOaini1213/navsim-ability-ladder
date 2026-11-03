@@ -63,7 +63,7 @@ and paired intervals in [`results/navtest/ladder.md`](results/navtest/ladder.md)
 
 **1. The map is worth about seven times what ground-truth boxes are worth.**
 On the kinematic rung, adding the on-route centerline is **+0.296 [+0.288,
-+0.305]**; adding ground-truth detection boxes and a brake is **+0.040 [+0.035,
++0.305]**; adding ground-truth detection boxes and a brake is **+0.040 [+0.034,
 +0.044]**. The map buys drivable-area compliance (DAC +0.295); the boxes buy
 collision avoidance (NC +0.065) and hand back progress (EP −0.042).
 
@@ -120,7 +120,7 @@ intervals: [`results/navtest/path_speed.md`](results/navtest/path_speed.md).
 **5. The speed effect reproduces across seeds; the path effect does not.** Every
 delta below is b − a, the convention used throughout
 [`results/navtest/path_speed.md`](results/navtest/path_speed.md). Pacing a
-hand-drawn line beats the hand speed law in every seed (+0.028, +0.034, +0.032,
+hand-drawn line beats the hand speed law in every seed (+0.028, +0.033, +0.032,
 all three intervals excluding zero) and recovers about two thirds of the distance
 to the human speed profile. Letting the model draw the line instead is unstable
 in direction. With the speed learned, the swap is +0.004 (interval spans zero),
@@ -173,7 +173,7 @@ which `analysis/analyze_openloop_csv.py` regenerates and the tests rebuild.
 |---|---|---|
 | map ≫ GT boxes | held, no intervals | held, +0.296 vs +0.040, intervals tight |
 | **a learned model given the map cannot use it** | **held: 0.527 vs hand rule 0.730** | **reversed: 0.823 vs 0.785** |
-| rule path + learned speed | +0.033, interval spanned zero | +0.028 to +0.034, significant in all seeds |
+| rule path + learned speed | +0.033, interval spanned zero | +0.028 to +0.033, significant in all seeds |
 | open-loop loss vs score | one anecdote | 7-point sweep: ranks broken models, not competitive ones |
 | dropping IDM, swapping the logged path | intervals spanned zero | both significant |
 | boxes × map interaction | not answerable | significantly negative, all seeds |
