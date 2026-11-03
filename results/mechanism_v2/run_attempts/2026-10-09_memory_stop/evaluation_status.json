@@ -6,32 +6,32 @@
     {
       "stage": "core_artifacts",
       "exit_code": 0,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\core_artifacts.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\core_artifacts.log"
     },
     {
       "stage": "input_controls",
       "exit_code": 0,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\input_controls.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\input_controls.log"
     },
     {
       "stage": "process_recovery",
       "exit_code": 0,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\process_recovery.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\process_recovery.log"
     },
     {
       "stage": "live_parity",
       "exit_code": 0,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\live_parity.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\live_parity.log"
     },
     {
       "stage": "cache_smoke",
       "exit_code": 0,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_smoke.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\cache_smoke.log"
     },
     {
       "stage": "cache_validation",
       "exit_code": 1,
-      "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log"
+      "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log"
     }
   ],
   "launch_source_and_policy_sha256": {
@@ -52,6 +52,6 @@
     "<repo>\\results\\mechanism_v2\\protocol\\followup_policy.json": "cd1e15965f43a09bd3d6044e35663a75692ab8726a7b57db0d76605708e9e94f"
   },
   "child_pid": 42968,
-  "log_path": "E:\\navsim_workspace\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log",
+  "log_path": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\evaluation_logs\\cache_validation.log",
   "exception": "RuntimeError('cache_validation failed; inspect E:\\\\navsim_workspace\\\\exp\\\\mechanism_v2\\\\evaluation_logs\\\\cache_validation.log; not silently skipping/restarting')"
 }

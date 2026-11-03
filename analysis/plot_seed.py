@@ -1,6 +1,7 @@
 """Source-rebuilt five-seed figures; synthetic layouts can never be paper results."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 import math
@@ -229,7 +230,7 @@ def write_figures(report, out, report_hash, renderer=render_figures, source_chec
 
 def main(argv=None):
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--report", type=Path)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--layout-smoke", action="store_true")

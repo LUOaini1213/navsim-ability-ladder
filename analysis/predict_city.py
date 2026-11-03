@@ -1,6 +1,7 @@
 """Separate same-city exporter: all 18 core and all six city models are required."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 from pathlib import Path
@@ -121,7 +122,7 @@ def main():
     ap.add_argument("--condition", choices=CONDITIONS, required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--split", choices=["validation", "confirmation", "navtest"], required=True)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
     results = ROOT / "results/mechanism_v2"

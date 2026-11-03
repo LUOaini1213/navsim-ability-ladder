@@ -2,7 +2,7 @@
   "status": "observed_component_tests_passed",
   "observation_date_utc": "2026-10-09",
   "scope": "Separate component and fixture tests only; not an updated full-suite run or auxiliary experimental outcome",
-  "python_executable": "E:/navsim_workspace/.venv/Scripts/python.exe",
+  "python_executable": "<NAVSIM_WORKSPACE>/.venv/Scripts/python.exe",
   "python_command_template": "-m unittest discover -s tests -p PATTERN -v",
   "python_results": [
     {"pattern": "test_followup_plot.py", "tests": 8, "failures": 0, "seconds": 0.005},
@@ -11,9 +11,9 @@
     {"pattern": "test_city_analysis.py", "tests": 5, "failures": 0, "seconds": 1.084}
   ],
   "node_results": {
-    "executable": "C:/Users/<user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe",
+    "executable": "<LOCAL_RUNTIME>/node/bin/node.exe",
     "command": "--test tests/test_svg_qa.cjs",
-    "environment": {"SVG_QA_NODE_MODULES": "C:/Users/<user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules"},
+    "environment": {"SVG_QA_NODE_MODULES": "<LOCAL_RUNTIME>/node/node_modules"},
     "tests": 4,
     "passes": 4,
     "failures": 0,

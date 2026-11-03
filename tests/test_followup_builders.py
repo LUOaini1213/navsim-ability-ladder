@@ -4,10 +4,15 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "analysis"))
-import analyze_city
-import analyze_mechanism_curves
+try:
+    import analyze_city
+    import analyze_mechanism_curves
+    AVAILABLE = True
+except ImportError:  # numpy is optional; CI runs the standard library only
+    AVAILABLE = False
 
 
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class FollowupBuilders(unittest.TestCase):
     def test_city_rebuild_requires_all_models_and_actual_trigger_before_features(self):
         core = {"fixture": "verified-core"}

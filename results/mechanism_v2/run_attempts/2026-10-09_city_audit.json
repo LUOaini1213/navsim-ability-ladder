@@ -1,6 +1,6 @@
 {
   "command": [
-    "E:\\navsim_workspace\\.venv\\Scripts\\python.exe",
+    "<NAVSIM_WORKSPACE>\\.venv\\Scripts\\python.exe",
     "-u",
     "analysis/audit_city_inputs.py"
   ],

@@ -14,7 +14,7 @@ from run_mechanism_evaluation import acquire
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--receipt", type=Path, required=True)
     ap.add_argument("--log", type=Path, help="Default: the receipt path with a .log extension")
     ap.add_argument("command", nargs=argparse.REMAINDER)

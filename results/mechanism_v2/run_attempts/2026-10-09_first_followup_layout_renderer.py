@@ -221,7 +221,7 @@ def main():
     ap.add_argument("--report", type=Path)
     ap.add_argument("--scores", type=Path)
     ap.add_argument("--predictions", type=Path)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path("<NAVSIM_WORKSPACE>"))
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--layout-smoke", action="store_true")

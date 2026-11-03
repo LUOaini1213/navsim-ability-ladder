@@ -1,6 +1,7 @@
 """Audit unchanged core scores plus twelve added runs; summarize five paired seeds."""
 from __future__ import annotations
 
+import os
 import argparse
 import csv
 import gzip
@@ -206,7 +207,7 @@ def render(report):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--split", choices=("validation", "confirmation", "navtest"), required=True)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()

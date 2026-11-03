@@ -12,8 +12,8 @@
     "manifest_sha256": "bf772763cf390fbaa679c085924b8eff416b2011409b43b996a2b08a9fa2bf42",
     "final_project_completed": false
   },
-  "build_command": "E:/navsim_workspace/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py build --out results/repro_snapshots/source_components_post_seed_20261009",
-  "separate_verification_command": "E:/navsim_workspace/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py verify results/repro_snapshots/source_components_post_seed_20261009",
+  "build_command": "<NAVSIM_WORKSPACE>/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py build --out results/repro_snapshots/source_components_post_seed_20261009",
+  "separate_verification_command": "<NAVSIM_WORKSPACE>/.venv/Scripts/python.exe -X utf8 -B analysis/repro_source_bundle.py verify results/repro_snapshots/source_components_post_seed_20261009",
   "historical_v1_archive_separately_reverified_and_preserved": {
     "folder": "results/repro_snapshots/source_components_20261009",
     "passed": true,

@@ -38,7 +38,7 @@ def prediction_matrix():
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--wait-for-cache", action="store_true")
     args = ap.parse_args()
     root = args.workspace / "exp/mechanism_v2"

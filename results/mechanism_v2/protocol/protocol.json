@@ -5,11 +5,11 @@
   "session_rule": "remove final _start_end numeric suffix from log_name",
   "sources": {
     "navtrain": {
-      "path": "E:\\navsim_workspace\\exp\\features\\features_navtrain.npz",
+      "path": "<NAVSIM_WORKSPACE>\\exp\\features\\features_navtrain.npz",
       "sha256": "f046a4b1644fd073922e9645b14eb7fcb702810f80913069b64a81a39b1cfb73"
     },
     "navtest": {
-      "path": "E:\\navsim_workspace\\exp\\features\\features_navtest.npz",
+      "path": "<NAVSIM_WORKSPACE>\\exp\\features\\features_navtest.npz",
       "sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b"
     }
   },

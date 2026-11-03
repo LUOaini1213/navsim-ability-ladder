@@ -1,6 +1,7 @@
 """Strict added-seed inference, gated by all eighteen core plus twelve added fits."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 from pathlib import Path
@@ -116,7 +117,7 @@ def export(config, seed, split, workspace, results, out):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--config", choices=CONFIGS, required=True)
     ap.add_argument("--seed", type=int, choices=(3, 4), required=True)
     ap.add_argument("--split", choices=SPLITS, required=True)

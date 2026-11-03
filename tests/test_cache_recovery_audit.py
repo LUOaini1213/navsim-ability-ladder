@@ -6,9 +6,14 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "analysis"))
-from audit_metric_cache_recovery import corrupt_bytes, owned_target
+try:
+    from audit_metric_cache_recovery import corrupt_bytes, owned_target
+    AVAILABLE = True
+except ImportError:  # numpy is optional; CI runs the standard library only
+    AVAILABLE = False
 
 
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class CacheRecoveryAudit(unittest.TestCase):
     def test_corruption_cannot_target_outside_trial(self):
         with tempfile.TemporaryDirectory() as temporary:

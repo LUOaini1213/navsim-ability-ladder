@@ -12,7 +12,7 @@
     "scope": "Local byte-exact source/instruction snapshot; experiments, data licenses, scores, final manuscript and completion audit remain separate",
     "final_project_completed": false
   },
-  "test_command": "E:/navsim_workspace/.venv/Scripts/python.exe -m unittest discover -s tests -p test_repro_source_bundle.py -v",
+  "test_command": "<NAVSIM_WORKSPACE>/.venv/Scripts/python.exe -m unittest discover -s tests -p test_repro_source_bundle.py -v",
   "tests": 9,
   "failures": 0,
   "observed_duration_seconds": 0.339,

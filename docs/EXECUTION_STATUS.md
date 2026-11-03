@@ -1,5 +1,18 @@
 # Paper-plan execution record
 
+> **Status, 2026-11-03: infrastructure only, no results.** The controlled mechanism,
+> learning-curve, same-city and added-seed studies (`results/mechanism_v2/`) never
+> produced a PDMS result. Core training finished (18 models); the evaluation, cache and
+> scoring controllers were all stopped on 2026-10-09 and nothing has run since. Every
+> "live", "waiting" or "currently" below describes the state recorded on 2026-10-09,
+> not a running process. Status JSON files such as `cache_resume_status.json`
+> (`waiting_for_memory`) and `scoring_status.json` (`waiting_for_cache_lock`) are the
+> last states written before those processes stopped. Workspace paths in tracked text
+> files read `<NAVSIM_WORKSPACE>`; the gated controllers re-hash the paths their
+> receipts name, so a new run has to start from a fresh attempt rather than resume
+> these. The zipped source snapshots under `results/repro_snapshots/` keep their
+> original bytes, including the original local paths.
+
 This is a living execution record, not a completion or publication claim.
 The original scope remains [the paper plan](PAPER_PLAN_2026-10-09.md).
 
@@ -172,14 +185,14 @@ The original scope remains [the paper plan](PAPER_PLAN_2026-10-09.md).
   existing dataloader patch, and refuse changes before later stages. This is a
   current-baseline check, not proof of historical/pre-training source immutability.
 
-## Active execution
+## Execution log (2026-10-09; nothing is running now)
 
 The 18-model core training runner has been launched with two CPU threads per
 child, serial jobs, below-normal child priority and a free-memory guard.
 Authoritative progress is the live process/tool session plus checkpoint hashes;
 `results/mechanism_v2/core_status.json` alone is only a progress record, not proof
 that a process is alive. Logs/checkpoints are under
-`E:/navsim_workspace/exp/mechanism_v2`.
+`<NAVSIM_WORKSPACE>/exp/mechanism_v2`.
 
 Core training is finished (18/18); the runner exited successfully and all
 artifacts were independently verified. This is a training milestone, not a new
@@ -780,7 +793,7 @@ controllers whose protocol path is fixed. No new-host end-to-end run is claimed.
 Historical examples from the repository with the NAVSIM environment:
 
 ```powershell
-. E:\navsim_workspace\env.ps1
+. <NAVSIM_WORKSPACE>\env.ps1
 & $env:NAVSIM_PYTHON analysis\audit_features.py --threads 2
 & $env:NAVSIM_PYTHON analysis\validate_score_path.py --scenes 32
 & $env:NAVSIM_PYTHON analysis\prepare_mechanism.py
@@ -794,7 +807,7 @@ machine. After core training, use `cache_mechanism.py --split validation`, then
 historical navtest cache. Prediction/score tools have explicit run/output paths.
 
 The reviewed isolated cache/score route is recorded below. Both matching
-controllers are currently live; do not launch duplicates after a polling timeout:
+controllers were live on 2026-10-09 and have since stopped; neither is running:
 
 ```powershell
 & $env:NAVSIM_PYTHON analysis\resume_mechanism_cache.py

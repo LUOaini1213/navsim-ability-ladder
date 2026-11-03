@@ -158,7 +158,7 @@ def render(report):
 def build_report(scores, models, protocol_path, draws=10000, workspace=None):
     """Recompute audited statistics for both report writing and figure preflight."""
     args = SimpleNamespace(scores=Path(scores), models=Path(models), protocol=Path(protocol_path), draws=draws)
-    workspace = Path(workspace or os.environ.get("NAVSIM_WORKSPACE", "E:/navsim_workspace"))
+    workspace = Path(workspace or os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace")
     policy_path = args.protocol.parent / "followup_policy.json"
     core, trained = verify_training(args.models, args.protocol, policy_path)
     results = ROOT / "results/mechanism_v2"
@@ -195,7 +195,7 @@ def build_report(scores, models, protocol_path, draws=10000, workspace=None):
 def main():
     ap = argparse.ArgumentParser(__doc__)
     ap.add_argument("--scores", type=Path, required=True)
-    ap.add_argument("--models", type=Path, default=Path("E:/navsim_workspace/exp/mechanism_v2/models"))
+    ap.add_argument("--models", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace") / "exp/mechanism_v2/models")
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--workspace", type=Path)
     ap.add_argument("--out", type=Path, required=True)

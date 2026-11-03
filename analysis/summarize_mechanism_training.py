@@ -1,6 +1,7 @@
 """Summarize verified training diagnostics; these are not driving-score findings."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 import math
@@ -75,7 +76,7 @@ def markdown(report):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--runs", type=Path, default=Path("E:/navsim_workspace/exp/mechanism_v2/models"))
+    ap.add_argument("--runs", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace") / "exp/mechanism_v2/models")
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--out", type=Path, default=ROOT / "results/mechanism_v2/training_diagnostics")
     args = ap.parse_args()

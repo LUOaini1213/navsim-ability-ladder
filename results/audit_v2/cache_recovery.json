@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "trial_root": "E:\\navsim_workspace\\exp\\mechanism_v2\\cache_recovery_trials\\isolated-h3xd80y3",
+  "trial_root": "<NAVSIM_WORKSPACE>\\exp\\mechanism_v2\\cache_recovery_trials\\isolated-h3xd80y3",
   "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
   "cache_builder_sha256": "dff30413b2299ff633675bcdec5872c5b3501dbed390842e36264a91d769fc69",
   "audit_source_sha256": "106431dda0f5044ddccd7d0658e1ee6e8997f1881dda0f5c9142f38a6754279b",

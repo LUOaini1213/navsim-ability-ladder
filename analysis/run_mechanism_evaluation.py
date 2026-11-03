@@ -62,7 +62,7 @@ def upstream_binding(workspace, snapshot_path):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--min-free-mb", type=int, default=2400)
     ap.add_argument("--critical-free-mb", type=int, default=1000)

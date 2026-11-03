@@ -1,6 +1,7 @@
 """Exercise three corrupt-cache recoveries in a newly created isolated smoke root."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 import lzma
@@ -44,7 +45,7 @@ def semantic_signature(cache):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--out", type=Path, default=ROOT / "results/audit_v2/cache_recovery.json")
     args = ap.parse_args()

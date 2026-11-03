@@ -1,6 +1,7 @@
 """Draw audited core-study figures, with explicitly ineligible layout smoke mode."""
 from __future__ import annotations
 
+import os
 import argparse
 import json
 from pathlib import Path
@@ -170,7 +171,7 @@ def main():
     ap = argparse.ArgumentParser(__doc__)
     ap.add_argument("--report", type=Path)
     ap.add_argument("--scores", type=Path)
-    ap.add_argument("--runs", type=Path, default=Path("E:/navsim_workspace/exp/mechanism_v2/models"))
+    ap.add_argument("--runs", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace") / "exp/mechanism_v2/models")
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--out", type=Path, required=True)
     modes = ap.add_mutually_exclusive_group()

@@ -3,11 +3,11 @@
   "python": "3.9.25",
   "torch": "2.0.1+cpu",
   "numpy": "1.23.4",
-  "workspace": "E:\\navsim_workspace",
+  "workspace": "<NAVSIM_WORKSPACE>",
   "agent_source": "<repo>\\agents",
   "features": {
     "navtrain": {
-      "path": "E:\\navsim_workspace\\exp\\features\\features_navtrain.npz",
+      "path": "<NAVSIM_WORKSPACE>\\exp\\features\\features_navtrain.npz",
       "sha256": "f046a4b1644fd073922e9645b14eb7fcb702810f80913069b64a81a39b1cfb73",
       "scenes": 103288,
       "logs": 1192,
@@ -28,7 +28,7 @@
       "loss_units": "Historical pose L1 mixes metres (x/y) and radians (heading); ds is metres."
     },
     "navtest": {
-      "path": "E:\\navsim_workspace\\exp\\features\\features_navtest.npz",
+      "path": "<NAVSIM_WORKSPACE>\\exp\\features\\features_navtest.npz",
       "sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b",
       "scenes": 12146,
       "logs": 136,
@@ -308,8 +308,8 @@
     "<repo>\\agents\\ladder_features.py": "f70c4d7f225fc6527a779aad5b164ab2113366465e780b1525ca67e7124f9f7c",
     "<repo>\\agents\\ladder_mlp_agent.py": "467efc0309fd3a61499b3f62f819f801825080bc8d1abbae6dddb5e41f6ab917",
     "<repo>\\agents\\centerline_util.py": "4e018ab7c8d67ac457a1bc2adf8fbfbe9ed2dbfe461f16e5e4d023238f5aa584",
-    "E:\\navsim_workspace\\navsim\\navsim\\common\\dataclasses.py": "803b2c610cd3aff62ba5514bbddefc58af2c09a5e7e800c859c11447617200d3",
-    "E:\\navsim_workspace\\navsim\\navsim\\planning\\scenario_builder\\navsim_scenario_utils.py": "4acf3d85d0a298bfae55fe84d6060824ea51f4b3677ec6327429d9d161899e2d"
+    "<NAVSIM_WORKSPACE>\\navsim\\navsim\\common\\dataclasses.py": "803b2c610cd3aff62ba5514bbddefc58af2c09a5e7e800c859c11447617200d3",
+    "<NAVSIM_WORKSPACE>\\navsim\\navsim\\planning\\scenario_builder\\navsim_scenario_utils.py": "4acf3d85d0a298bfae55fe84d6060824ea51f4b3677ec6327429d9d161899e2d"
   },
   "devkit_revision": "3e8291bfa89ff247231e0227778840cd0a036896",
   "token_overlap": 0,

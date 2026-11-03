@@ -6,14 +6,18 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import numpy as np
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "analysis"))
-from analyze_city import METRICS, read_scores, summarize, tags
-from verify_mechanism_core import digest
+try:
+    import numpy as np
+    from analyze_city import METRICS, read_scores, summarize, tags
+    from verify_mechanism_core import digest
+    AVAILABLE = True
+except ImportError:  # numpy is optional; CI runs the standard library only
+    AVAILABLE = False
 
 
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class CityAnalysis(unittest.TestCase):
     def fixture(self, folder):
         # These tiny files are fixture provenance only, not training/scientific evidence.

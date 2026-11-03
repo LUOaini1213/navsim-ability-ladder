@@ -1,5 +1,18 @@
 # Controlled-study reproducibility instructions
 
+> **Status, 2026-11-03: infrastructure only, no results.** The controlled mechanism,
+> learning-curve, same-city and added-seed studies (`results/mechanism_v2/`) never
+> produced a PDMS result. Core training finished (18 models); the evaluation, cache and
+> scoring controllers were all stopped on 2026-10-09 and nothing has run since. Every
+> "live", "waiting" or "currently" below describes the state recorded on 2026-10-09,
+> not a running process. Status JSON files such as `cache_resume_status.json`
+> (`waiting_for_memory`) and `scoring_status.json` (`waiting_for_cache_lock`) are the
+> last states written before those processes stopped. Workspace paths in tracked text
+> files read `<NAVSIM_WORKSPACE>`; the gated controllers re-hash the paths their
+> receipts name, so a new run has to start from a fresh attempt rather than resume
+> these. The zipped source snapshots under `results/repro_snapshots/` keep their
+> original bytes, including the original local paths.
+
 This document describes current local commands. It is not yet a complete final
 release: scoring, applicable extensions, scientific figures, manuscript and the
 row-by-row [completion audit](COMPLETION_REQUIREMENTS.md) remain outstanding.
@@ -35,7 +48,7 @@ runtime. Keep the 16-GB-machine heavy jobs serial. Do not duplicate an already
 live evaluator/curve runner and do not terminate unrelated user jobs.
 
 ```powershell
-$env:NAVSIM_WORKSPACE = 'E:\navsim_workspace'
+$env:NAVSIM_WORKSPACE = '<NAVSIM_WORKSPACE>'
 . .\scripts\env.ps1
 ```
 
@@ -159,17 +172,17 @@ controllers. Do not execute another copy while either matching controller exists
 For the applicable learning-curve branch, after the existing core scorer finishes:
 
 ```powershell
-& $env:NAVSIM_PYTHON analysis\run_mechanism_curves.py --workspace E:\navsim_workspace --threads 2
+& $env:NAVSIM_PYTHON analysis\run_mechanism_curves.py --workspace <NAVSIM_WORKSPACE> --threads 2
 # Only after a triggered branch verifies all twenty-four registered-budget artifacts.
-& $env:NAVSIM_PYTHON analysis\run_mechanism_curve_evaluation.py --workspace E:\navsim_workspace
+& $env:NAVSIM_PYTHON analysis\run_mechanism_curve_evaluation.py --workspace <NAVSIM_WORKSPACE>
 ```
 
 For the applicable same-city branch, after core scoring and its frozen input audit:
 
 ```powershell
-& $env:NAVSIM_PYTHON analysis\run_city_training.py --workspace E:\navsim_workspace
+& $env:NAVSIM_PYTHON analysis\run_city_training.py --workspace <NAVSIM_WORKSPACE>
 # Only after the actual trigger and six auxiliary model receipts pass.
-& $env:NAVSIM_PYTHON analysis\run_city_evaluation.py --workspace E:\navsim_workspace
+& $env:NAVSIM_PYTHON analysis\run_city_evaluation.py --workspace <NAVSIM_WORKSPACE>
 ```
 
 If a training branch records no trigger, retain that gate and its claim/omission
@@ -196,7 +209,7 @@ This command refuses a busy heavy-job lock by default. Explicit
 matching task is live. A no-trigger result produces no added fits. A triggered
 run preserves the original protocol and donors, creates a separate `seed_protocol/active`
 copy and fits seeds 3/4 for all six conditions under
-`E:/navsim_workspace/exp/mechanism_v2/seed_models`, reusing the unchanged trainer.
+`<NAVSIM_WORKSPACE>/exp/mechanism_v2/seed_models`, reusing the unchanged trainer.
 All twelve full-budget artifacts and original-normalizer parity must pass before
 an eventual evaluator accesses their confirmation predictions.
 
@@ -239,7 +252,7 @@ After an actual triggered extension finishes all thirty-model audited reports,
 use the dedicated guarded graphics runner (not a concurrent direct renderer):
 
 ```powershell
-& $env:NAVSIM_PYTHON analysis\run_seed_figures.py --workspace E:\navsim_workspace
+& $env:NAVSIM_PYTHON analysis\run_seed_figures.py --workspace <NAVSIM_WORKSPACE>
 ```
 
 It requires `seed_evaluation_completed` with its real attempt/source bindings,
@@ -271,7 +284,7 @@ not rendered images, score-engine execution or full experimental reproduction.
 
 ## Results, failure recovery and boundaries
 
-- Trained models/logs/predictions/cache: `E:/navsim_workspace/exp/mechanism_v2`.
+- Trained models/logs/predictions/cache: `<NAVSIM_WORKSPACE>/exp/mechanism_v2`.
 - Immutable core inputs/policies: `results/mechanism_v2/protocol`.
 - Actual audits: `results/audit_v2`; driving scores/analyses/cases are separate
   subfolders under `results/mechanism_v2` when completed.
@@ -383,7 +396,7 @@ dependencies. Obtain that runtime path from workspace dependencies on another
 host. For this host, the following command was actually used with a fresh output:
 
 ```powershell
-$draftDocumentPython = 'C:\Users\<user>\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$draftDocumentPython = '<LOCAL_RUNTIME>\python\python.exe'
 & $draftDocumentPython -X utf8 -B analysis\render_manuscript_draft.py --out output\pdf\navsim_controlled_study_draft_20261009_r2.pdf
 ```
 

@@ -1,6 +1,7 @@
 """Audit the distinct 12-cell same-city follow-up on identical eligible coverage."""
 from __future__ import annotations
 
+import os
 import argparse
 import csv
 import gzip
@@ -203,7 +204,7 @@ def build_report(scores, predictions, workspace, draws=10000):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--scores", type=Path, required=True)
     ap.add_argument("--predictions", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)

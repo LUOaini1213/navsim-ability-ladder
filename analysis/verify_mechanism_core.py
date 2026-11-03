@@ -1,6 +1,7 @@
 """Verify all full-budget core artifacts without loading Torch or feature arrays."""
 from __future__ import annotations
 
+import os
 import argparse
 import hashlib
 import json
@@ -68,7 +69,7 @@ def verify(root, protocol_path):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--runs", type=Path, default=Path("E:/navsim_workspace/exp/mechanism_v2/models"))
+    ap.add_argument("--runs", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace") / "exp/mechanism_v2/models")
     ap.add_argument("--protocol", type=Path, default=ROOT / "results/mechanism_v2/protocol/protocol.json")
     ap.add_argument("--out", type=Path, default=ROOT / "results/audit_v2/core_manifest.json")
     args = ap.parse_args()

@@ -5,6 +5,7 @@ scoring, training, protocol mutation or archive extraction is performed.
 """
 from __future__ import annotations
 
+import os
 import argparse
 import hashlib
 import json
@@ -403,7 +404,7 @@ def render(output, facts):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
     if any(path.is_symlink() for path in (args.out, *args.out.parents)):

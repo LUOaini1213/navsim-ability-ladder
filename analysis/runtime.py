@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def configure(workspace=None):
-    workspace = Path(workspace or os.environ.get("NAVSIM_WORKSPACE", "E:/navsim_workspace"))
+    workspace = Path(workspace or os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace")
     defaults = {
         "NAVSIM_WORKSPACE": workspace,
         "NAVSIM_DEVKIT_ROOT": workspace / "navsim",

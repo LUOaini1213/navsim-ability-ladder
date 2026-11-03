@@ -1,4 +1,5 @@
 import copy
+import importlib.util
 import json
 import sys
 import tempfile
@@ -12,6 +13,11 @@ from seed_models import write_new_json
 from verify_mechanism_core import CONFIGS, digest
 
 
+# The fixtures build .npz archives; numpy is optional and CI runs the standard library only.
+AVAILABLE = importlib.util.find_spec("numpy") is not None
+
+
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class SeedPredictions(unittest.TestCase):
     def archive(self, folder, meta=None, tokens=None, logs=None, poses=None):
         import numpy as np

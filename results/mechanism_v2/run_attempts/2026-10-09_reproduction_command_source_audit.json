@@ -145,7 +145,7 @@
     {
       "argv": [
         "--workspace",
-        "E:\\navsim_workspace",
+        "<NAVSIM_WORKSPACE>",
         "--threads",
         "2"
       ],
@@ -159,7 +159,7 @@
     {
       "argv": [
         "--workspace",
-        "E:\\navsim_workspace"
+        "<NAVSIM_WORKSPACE>"
       ],
       "block": 7,
       "forwarded_command_not_executed": [],
@@ -171,7 +171,7 @@
     {
       "argv": [
         "--workspace",
-        "E:\\navsim_workspace"
+        "<NAVSIM_WORKSPACE>"
       ],
       "block": 8,
       "forwarded_command_not_executed": [],
@@ -183,7 +183,7 @@
     {
       "argv": [
         "--workspace",
-        "E:\\navsim_workspace"
+        "<NAVSIM_WORKSPACE>"
       ],
       "block": 8,
       "forwarded_command_not_executed": [],
@@ -213,7 +213,7 @@
     {
       "argv": [
         "--workspace",
-        "E:\\navsim_workspace"
+        "<NAVSIM_WORKSPACE>"
       ],
       "block": 11,
       "forwarded_command_not_executed": [],

@@ -1,4 +1,5 @@
 import copy
+import importlib.util
 import csv
 import gzip
 import json
@@ -19,6 +20,11 @@ def write_json(path, value):
     path.write_text(json.dumps(value), encoding="utf-8")
 
 
+# The fixtures build .npz archives; numpy is optional and CI runs the standard library only.
+AVAILABLE = importlib.util.find_spec("numpy") is not None
+
+
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class SeedAnalysis(unittest.TestCase):
     def fixture(self, folder):
         import numpy as np

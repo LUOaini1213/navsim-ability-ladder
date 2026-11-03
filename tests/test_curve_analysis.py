@@ -7,17 +7,21 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import numpy as np
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "analysis"))
-from analyze_mechanism import METRICS
-from analyze_mechanism_curves import read_archives, summarize, tag_for, verify_training
-from run_mechanism_curves import matrix
-from verify_mechanism_core import digest
-import test_mechanism_manifest as manifest_fixtures
+try:
+    import numpy as np
+    from analyze_mechanism import METRICS
+    from analyze_mechanism_curves import read_archives, summarize, tag_for, verify_training
+    from run_mechanism_curves import matrix
+    from verify_mechanism_core import digest
+    import test_mechanism_manifest as manifest_fixtures
+    AVAILABLE = True
+except ImportError:  # numpy is optional; CI runs the standard library only
+    AVAILABLE = False
 
 
+@unittest.skipUnless(AVAILABLE, "Requires optional numpy")
 class CurveAnalysis(unittest.TestCase):
     def training_fixture(self, folder):
         models, protocol_path = manifest_fixtures.MechanismManifest().fixture(folder)

@@ -47,7 +47,7 @@ def verify_prior_attempt(path):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--previous-attempt", type=Path, default=ROOT / "results/mechanism_v2/run_attempts/2026-10-09_memory_stop/evaluation_status.json")
     args = ap.parse_args()
     root = args.workspace / "exp/mechanism_v2"

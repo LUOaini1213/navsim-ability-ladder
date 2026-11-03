@@ -5,6 +5,7 @@ No credentials, environment-variable dumps, dataset content or host name are sav
 """
 from __future__ import annotations
 
+import os
 import argparse
 import importlib.metadata
 import json
@@ -24,7 +25,7 @@ def git(directory, *arguments):
 
 def main():
     ap = argparse.ArgumentParser(__doc__)
-    ap.add_argument("--workspace", type=Path, default=Path("E:/navsim_workspace"))
+    ap.add_argument("--workspace", type=Path, default=Path(os.environ.get("NAVSIM_WORKSPACE") or Path.home() / "navsim_workspace"))
     ap.add_argument("--out", type=Path, default=ROOT / "results/mechanism_v2/runtime_snapshot")
     args = ap.parse_args()
     devkit = args.workspace / "navsim"

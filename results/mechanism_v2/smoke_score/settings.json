@@ -17,7 +17,7 @@
     }
   },
   "split": "navtest",
-  "cache_root": "E:\\navsim_workspace\\exp\\metric_cache_navtest",
+  "cache_root": "<NAVSIM_WORKSPACE>\\exp\\metric_cache_navtest",
   "limit": 3,
   "scoring_config_sha256": "df133a7b556cbb521d409504e58a395ee149c27b3a753235aa83ee148f91e5fc"
 }
