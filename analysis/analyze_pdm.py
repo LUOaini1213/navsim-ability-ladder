@@ -10,6 +10,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ladder_io import csv_path  # noqa: E402
+
 ROOT = Path(os.environ.get('NAVSIM_WORKSPACE', '.'))
 EXP = ROOT / "exp"
 OUT = EXP / "analysis"
@@ -48,26 +51,22 @@ AGENTS = {
 }
 
 
-def _latest_csv(folder: Path) -> Path | None:
+def _canonical_csv(folder: Path) -> Path | None:
+    """The run pinned in results/per_scene/MANIFEST.md, else the first run.
+
+    This used to take the best-scoring run when an agent had several -- the luckiest of
+    repeated runs. For privileged_brake_mini that was the run the current agent code does
+    not reproduce (results/brake_rerun_diff.md)."""
     if not folder.exists():
         return None
-    csvs = [p for p in folder.rglob("*.csv") if p.stat().st_size > 0]
-    if not csvs:
+    try:
+        return Path(csv_path(str(folder.parent), folder.name))
+    except SystemExit:
         return None
-
-    def _mean_score(path: Path) -> float:
-        try:
-            df = pd.read_csv(path)
-            df = df[df["token"].notna() & (df["token"].astype(str) != "average")]
-            return float(df["score"].mean()) if len(df) else -1.0
-        except Exception:
-            return -1.0
-
-    return max(csvs, key=_mean_score)
 
 
 def _load(name: str, folder: Path) -> pd.DataFrame | None:
-    csv = _latest_csv(folder)
+    csv = _canonical_csv(folder)
     if csv is None:
         print(f"skip {name}: no csv under {folder}")
         return None

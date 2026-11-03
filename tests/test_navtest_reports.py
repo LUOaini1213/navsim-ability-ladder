@@ -17,10 +17,12 @@ ANALYSIS = os.path.join(ROOT, 'analysis')
 sys.path.insert(0, ANALYSIS)
 
 import analyze_navtest as nav  # noqa: E402
+import analyze_openloop_csv as ol  # noqa: E402
 
 PER_SCENE = nav.PER_SCENE
 N_SCENES = 12146
 N_LOGS = 136
+N_OPENLOOP_RUNS = 45
 
 
 class Archive(unittest.TestCase):
@@ -81,9 +83,56 @@ class ReportsReproduce(unittest.TestCase):
     def test_regularisation_regenerates_byte_for_byte(self):
         self._same('regularisation.md', nav.regularisation_md)
 
+    def test_openloop_summary_regenerates_byte_for_byte(self):
+        committed = io.open(os.path.join(nav.OUT, ol.REPORT), encoding='utf-8').read()
+        self.assertEqual(ol.report(ol.load_runs()), committed,
+                         ol.REPORT + ' is not what openloop.csv gives')
+
     def test_readme_navtest_numbers_match_the_csvs(self):
         problems = nav.check_readme(self.R, os.path.join(ROOT, 'README.md'))
         self.assertEqual(problems, [], '\n'.join(problems))
+
+    def test_readme_openloop_numbers_match_the_csv(self):
+        problems = ol.check_readme(ol.load_runs(), os.path.join(ROOT, 'README.md'))
+        self.assertEqual(problems, [], '\n'.join(problems))
+
+
+class OpenLoopArchive(unittest.TestCase):
+    """openloop.csv is one row per run; two of its columns must agree with the rest.
+
+    The displacement errors in that CSV come from the training runs and cannot be
+    rebuilt here, but the score and the validation loss can be, so they are: if the
+    file were stale or hand-edited, these would catch it.
+    """
+
+    def setUp(self):
+        self.rows = ol.load_runs()
+        self.R = nav.Runs(PER_SCENE, '')
+
+    def test_one_row_per_scored_run(self):
+        self.assertEqual(len(self.rows), N_OPENLOOP_RUNS)
+        self.assertEqual(len({r['run'] for r in self.rows}), N_OPENLOOP_RUNS)
+
+    def test_pdms_column_is_the_per_scene_mean(self):
+        for r in self.rows:
+            with self.subTest(run=r['run']):
+                self.assertEqual(int(r['n']), N_SCENES)
+                self.assertAlmostEqual(self.R.mean('l_' + r['run']), float(r['PDMS']), places=6)
+
+    def test_val_l1_column_matches_cells_csv(self):
+        cells = nav.load_cells()
+        for r in self.rows:
+            stem = r['run'][:-3] if r['run'].endswith('_rs') else r['run']
+            with self.subTest(run=r['run']):
+                # a _rs run re-times the same checkpoint, so it shares the cell's loss
+                self.assertAlmostEqual(cells['l_' + stem], float(r['val_l1_navtrain']), places=5)
+
+    def test_spearman_matches_a_known_case(self):
+        # rank correlation of two exactly opposed orderings is -1, of two equal ones +1
+        self.assertAlmostEqual(ol.spearman([1, 2, 3, 4], [4, 3, 2, 1]), -1.0)
+        self.assertAlmostEqual(ol.spearman([1, 2, 3, 4], [10, 20, 30, 40]), 1.0)
+        # ties take the average rank: 1, 2.5, 2.5, 4
+        self.assertEqual(ol.ranks([5, 6, 6, 7]), [1.0, 2.5, 2.5, 4.0])
 
 
 class HeadlineClaims(unittest.TestCase):
@@ -113,6 +162,27 @@ class HeadlineClaims(unittest.TestCase):
                 self.assertGreater(mean, 0)
                 self.assertGreater(lo, 0)
 
+    def test_comfort_neutral_rebuilds_pdms_from_its_sub_scores(self):
+        """comfort_neutral assumes PDMS = NC * DAC * (5 TTC + 2 C + 5 EP) / 12. Check that on
+        the three rungs claim 2 compares, then that the as-scored and comfort-neutral
+        logged-path swaps are what README's claim 2 says they are: one clearly smaller than
+        the human-speed swap, the other not."""
+        worst = 0.0
+        for stem in ('privmapkin', 'privgtpath_kin', 'privmap_gtspd'):
+            for r in self.R[stem].values():
+                rebuilt = (r['no_at_fault_collisions'] * r['drivable_area_compliance']
+                           * (5 * r['time_to_collision_within_bound'] + 2 * r['comfort']
+                              + 5 * r['ego_progress']) / 12)
+                worst = max(worst, abs(rebuilt - r['score']))
+        self.assertLess(worst, 1e-5)
+        _n, path, _lo, path_hi = self.R.delta('privmapkin', 'privgtpath_kin')
+        _n, speed, speed_lo, _hi = self.R.delta('privmapkin', 'privmap_gtspd')
+        self.assertLess(path_hi, speed_lo, 'as scored, the logged path is worth less')
+        _n, _m, cpath_lo, cpath_hi = nav.delta_comfort_neutral(self.R, 'privmapkin', 'privgtpath_kin')
+        _n, _m, cspeed_lo, cspeed_hi = nav.delta_comfort_neutral(self.R, 'privmapkin', 'privmap_gtspd')
+        self.assertTrue(cpath_lo <= cspeed_hi and cspeed_lo <= cpath_hi,
+                        'with comfort neutralised the two intervals overlap')
+
     def test_equal_open_loop_gains_move_the_score_in_opposite_directions(self):
         """wd 1e-4 and dropout 0.2 improve the validation L1 by comparable amounts,
         and the simulation score goes up for one and down for the other."""
@@ -131,6 +201,63 @@ class HeadlineClaims(unittest.TestCase):
         self.assertLess(hi_do, 0, 'dropout 0.2 should be a significant loss')
         self.assertGreater(m_wd, 0)
         self.assertLess(m_do, 0)
+
+
+class ReadmeProse(unittest.TestCase):
+    """check_readme covers the prose, not only the tables: a changed sign, a changed digit
+    or a new unchecked number in README's navtest sections is a mismatch. Each case edits
+    a scratch copy of README and expects the check to fail on exactly that edit."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.R = nav.Runs(PER_SCENE, '')
+        with io.open(os.path.join(ROOT, 'README.md'), encoding='utf-8') as f:
+            cls.text = f.read()
+
+    def _problems(self, old, new):
+        import tempfile
+        self.assertEqual(self.text.count(old), 1, old)
+        fd, path = tempfile.mkstemp(suffix='.md')
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(self.text.replace(old, new))
+            return nav.check_readme(self.R, path)
+        finally:
+            os.remove(path)
+
+    def test_claim_5_with_the_signs_main_used_to_quote_is_caught(self):
+        # Until this check existed, README quoted the learned-speed path swap as
+        # "-0.004 ..., +0.008, -0.022": each value is the negation of path_speed.md.
+        problems = self._problems(u'swap is +0.004 (interval spans zero),\n−0.008 and +0.022',
+                                  u'swap is −0.004 (interval spans zero),\n+0.008 and −0.022')
+        flagged = [p for p in problems if p.startswith('claim 5 path swap at the learned speed')]
+        self.assertEqual(len(flagged), 3, problems)
+
+    def test_a_flipped_interval_bound_is_caught(self):
+        problems = self._problems('**+0.296 [+0.288,', u'**+0.296 [−0.288,')
+        self.assertEqual(problems, ['claim 1 map gain CI low: README -0.288 vs CSV +0.2876'])
+
+    def test_a_wrong_verdict_is_caught(self):
+        problems = self._problems('box effect on its own is not significant in\ntwo seeds of three',
+                                  'box effect on its own is not significant in\none seeds of three')
+        self.assertTrue(any('claim 3, boxes without map' in p for p in problems), problems)
+
+    def test_an_unchecked_signed_number_is_caught(self):
+        problems = self._problems('Giving the speed model the GT', 'It moves +0.123. Giving the speed model the GT')
+        self.assertTrue(any('signed number +0.123 is not checked' in p for p in problems), problems)
+
+    def test_a_log_cluster_quote_needs_its_file(self):
+        # The controlled-study branch (#2) quotes log-cluster intervals from
+        # results/navtest/clustered.json. Here that file does not exist yet, so the
+        # quote is a mismatch instead of passing unchecked.
+        problems = self._problems('Giving the speed model the GT',
+                                  u'Averaged over the seeds and resampled by log, rule path minus learned path '
+                                  u'is −0.006 [−0.018, +0.006]. Giving the speed model the GT')
+        if os.path.exists(os.path.join(ROOT, 'results', 'navtest', 'clustered.json')):
+            self.assertEqual(problems, [])
+        else:
+            self.assertEqual(problems, ['README quotes results/navtest/clustered.json, '
+                                        'which is not in this checkout'])
 
 
 if __name__ == '__main__':

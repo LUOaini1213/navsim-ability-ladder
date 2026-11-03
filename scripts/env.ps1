@@ -1,5 +1,5 @@
 # NAVSIM workspace environment. Set NAVSIM_WORKSPACE first, then dot-source:
-#   $env:NAVSIM_WORKSPACE = "E:\navsim_workspace"; . .\scripts\env.ps1
+#   $env:NAVSIM_WORKSPACE = "D:\path\to\navsim_workspace"; . .\scripts\env.ps1
 if (-not $env:NAVSIM_WORKSPACE) { $env:NAVSIM_WORKSPACE = "$env:USERPROFILE\navsim_workspace" }
 $env:NAVSIM_DEVKIT_ROOT   = "$env:NAVSIM_WORKSPACE\navsim"
 $env:OPENSCENE_DATA_ROOT  = "$env:NAVSIM_WORKSPACE\dataset"

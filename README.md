@@ -11,21 +11,28 @@ the open-loop loss you train on tell you which model to ship*.
 The study now runs on the full **`navtest` split: 12,146 scenes, 136 logs**, with
 the learned models trained on **navtrain (103,288 scenes, 1,192 logs)**, three
 seeds per cell. An earlier version used the 563-scene `warmup_test_e2e` split;
-it is kept below, because one of its conclusions **reversed** when the sample
-size grew, and that reversal is itself a result.
+it is kept below, because one of its conclusions **reversed** once both the
+training data and the evaluation split grew, and that reversal is itself a result.
 
-Every number comes from per-scene CSVs written by NAVSIM's own
-`run_pdm_score.py`. The analysis scripts only read those CSVs — they never re-run
-an evaluation, so nothing here can drift from the raw output. **The CSVs are in
-this repository**, so every table and confidence interval reproduces from a plain
-clone with no dataset, no devkit and no GPU:
+Every simulation score comes from per-scene CSVs written by NAVSIM's own
+`run_pdm_score.py`; the open-loop training losses come from the training runs and
+are archived next to them in `results/navtest/cells.csv` and
+`results/navtest/openloop.csv`. The analysis scripts only read those files — they
+never re-run an evaluation, so nothing here can drift from the raw output. The CSVs
+were checked the other way as well: every agent on the 563-scene split was scored
+again from the code in this repository and reproduces its file ([re-running every
+agent](#re-running-every-agent)). **All of it is in this repository**, so every
+table and confidence interval reproduces from a plain clone with no dataset, no
+devkit and no GPU:
 
 ```bash
 python -m unittest discover -s tests -v              # regenerates every report and compares byte for byte
 python analysis/analyze_navtest.py                   # -> results/navtest/*.md   (12,146 scenes, 56 runs)
+python analysis/analyze_openloop_csv.py              # -> results/navtest/openloop_summary.md
 python analysis/analyze_ci.py                        # -> results/ci_report.md   (the 563-scene study)
 python analysis/analyze_navtest.py --check README.md # the navtest numbers below, recomputed
 python analysis/make_summary.py --check README.md    # the 563-scene numbers below, recomputed
+python analysis/analyze_openloop_csv.py --check README.md   # the rank correlations below, recomputed
 ```
 
 **The pipeline reproduces the published baselines.** On the same cache, in
@@ -56,15 +63,21 @@ and paired intervals in [`results/navtest/ladder.md`](results/navtest/ladder.md)
 
 **1. The map is worth about seven times what ground-truth boxes are worth.**
 On the kinematic rung, adding the on-route centerline is **+0.296 [+0.288,
-+0.305]**; adding ground-truth detection boxes and a brake is **+0.040 [+0.035,
++0.305]**; adding ground-truth detection boxes and a brake is **+0.040 [+0.034,
 +0.044]**. The map buys drivable-area compliance (DAC +0.295); the boxes buy
 collision avoidance (NC +0.065) and hand back progress (EP −0.042).
 
-**2. The remaining headroom is speed, not geometry.** With the path fixed to the
-centerline, swapping the rule speed law for the human speed profile is **+0.049
-[+0.045, +0.053]**. With the speed fixed, swapping the centerline for the logged
-path is **+0.010 [+0.003, +0.017]**. Where to go is close to solved by the map;
-how fast to go is not.
+**2. Past the map, speed and path headroom look comparable; the as-scored gap is
+mostly a comfort artefact.** With the path fixed to the centerline, swapping the
+rule speed law for the human speed profile is **+0.049 [+0.045, +0.053]**. With
+the speed fixed, swapping the centerline for the logged path is **+0.010 [+0.003,
++0.017]** as scored, but `PrivGTPathKin` resamples the logged poses at the wrong
+timing and loses comfort (0.761 against 0.972 for PrivMapKin), which carries 2/12
+of the score. Scoring comfort as perfect on both sides of each swap, the logged
+path is worth +0.047 [+0.040, +0.054] and the human speed +0.049 [+0.045, +0.053]
+(both rows in [`ladder.md`](results/navtest/ladder.md)). The intervals overlap, so
+this ladder does not show that the remaining headroom is speed rather than
+geometry; fixing the resampling and rescoring `PrivGTPathKin` would settle it.
 
 ## What a learned trajectory model is allowed to see
 
@@ -89,11 +102,15 @@ The open-loop loss barely moves (0.290 → 0.295), so this is invisible to the
 training objective. Eighty-eight dimensions of perfect perception cost this model
 capacity it needed elsewhere.
 
-**4. With the map, a small MLP matches a sensor-fusion planner.** `kin+map`
-averages 0.823 and its best variant reaches 0.841, against TransFuser's published
-0.839 — from an 88-dimensional input and three hidden layers. The claim is not
-that the MLP is better; it is that **most of what the sensor stack has to deliver
-for this score is the on-route centerline**.
+**4. The ground-truth centerline alone puts a small MLP in TransFuser's range
+(a privileged upper bound).** `kin+map` is given the ground-truth on-route
+centerline, so like the `Priv*` rungs it is an upper bound, not a result. With the
+fixed recipe it averages 0.823 over three seeds, against TransFuser's published
+0.839 (quoted, not reproduced) — from an 88-dimensional input and three hidden
+layers. The best of the seven regularisation settings reaches 0.841, but all seven
+were scored on navtest itself, so that number is a test-set selection, not an
+estimate. The claim is not that the MLP is better; it is that, for this score, a
+ground-truth centerline gets a planner without any sensor input most of the way.
 
 ## Who draws the path, who paces it
 
@@ -110,12 +127,20 @@ intervals: [`results/navtest/path_speed.md`](results/navtest/path_speed.md).
 | learned (sees map) | learned | 0.823 |
 | rule (map centerline) | human (upper bound) | 0.835 |
 
-**5. The learned component earns its place in the speed profile and nowhere
-else.** Pacing a hand-drawn line beats the hand speed law in every seed (+0.028,
-+0.034, +0.032) and recovers about two thirds of the distance to the human speed
-profile. Letting the model draw the line instead is not separable from the rule
-(−0.004 with the interval spanning zero, +0.008, −0.022 across seeds). Giving the
-speed model the GT boxes as well changes nothing or hurts slightly.
+**5. The speed effect reproduces across seeds; the path effect does not.** Every
+delta below is b − a, the convention used throughout
+[`results/navtest/path_speed.md`](results/navtest/path_speed.md). Pacing a
+hand-drawn line beats the hand speed law in every seed (+0.028, +0.033, +0.032,
+all three intervals excluding zero) and recovers about two thirds of the distance
+to the human speed profile. Letting the model draw the line instead is unstable
+in direction. With the speed learned, the swap is +0.004 (interval spans zero),
+−0.008 and +0.022 — the last two intervals both exclude zero and point opposite
+ways. With the speed held to the rule, the only comparison in which nothing but
+the path changes, it is +0.002 (spans zero), +0.021 and +0.039: two of three
+significantly positive, three-seed mean 0.806 against the rule path's 0.785. So
+the honest reading is that one seed's path result does not survive the next
+seed's, not that the learned path cannot help. Giving the speed model the GT
+boxes as well changes nothing or hurts slightly.
 
 ## How far can you trust the open-loop loss?
 
@@ -138,15 +163,19 @@ selection would see. [`results/navtest/regularisation.md`](results/navtest/regul
 **6. The open-loop loss is a coarse filter, not a selection criterion.** It is
 not useless: over the nine map-conditioned runs, rank correlation between navtest
 displacement error and PDMS is −0.83, and it correctly flags the models that
-heavy regularisation broke. It fails where a leaderboard lives. Among the seven
-runs that are actually competitive (ADE 0.70–0.82, PDMS 0.805–0.841) the rank
-correlation falls to −0.64 and inverts in places: dropout 0.2 fits better than
-the unregularised baseline (ADE 0.768 vs 0.820) and scores worse (0.805 vs
-0.818). Two regularisers that improve validation L1 by comparable amounts —
-wd 1e-4 by 0.032, dropout 0.2 by 0.024 — move the score +0.024 and −0.012, both
-intervals excluding zero. And *within* a run the per-scene correlation between
-displacement error and PDMS never exceeds 0.38 in magnitude, so the loss does not
-tell you which scenes will fail either.
+heavy regularisation broke. Flagging them is most of what it does. Drop the worst
+run and the correlation is −0.76; drop the two that heavy regularisation broke and
+the seven that remain give −0.64, weakening monotonically as the broken runs go.
+Among those seven (ADE 0.70–0.82, PDMS 0.805–0.841) it also inverts in places:
+dropout 0.2 fits better than the unregularised baseline (ADE 0.768 vs 0.820) and
+scores worse (0.805 vs 0.818). Two regularisers that improve validation L1 by
+comparable amounts — wd 1e-4 by 0.032, dropout 0.2 by 0.024 — move the score
++0.024 and −0.012, both intervals excluding zero. And *within* a run the per-scene
+correlation between displacement error and PDMS never exceeds 0.38 in magnitude,
+so the loss does not tell you which scenes will fail either. Every figure in this
+paragraph is recomputed from the committed CSV in
+[`results/navtest/openloop_summary.md`](results/navtest/openloop_summary.md),
+which `analysis/analyze_openloop_csv.py` regenerates and the tests rebuild.
 
 ## What changed when the split changed
 
@@ -154,16 +183,19 @@ tell you which scenes will fail either.
 |---|---|---|
 | map ≫ GT boxes | held, no intervals | held, +0.296 vs +0.040, intervals tight |
 | **a learned model given the map cannot use it** | **held: 0.527 vs hand rule 0.730** | **reversed: 0.823 vs 0.785** |
-| rule path + learned speed | +0.033, interval spanned zero | +0.028 to +0.034, significant in all seeds |
+| rule path + learned speed | +0.033, interval spanned zero | +0.028 to +0.033, significant in all seeds |
 | open-loop loss vs score | one anecdote | 7-point sweep: ranks broken models, not competitive ones |
 | dropping IDM, swapping the logged path | intervals spanned zero | both significant |
 | boxes × map interaction | not answerable | significantly negative, all seeds |
 
 The reversal is the honest headline. On 563 scenes with ~3,000 training samples,
 the learned map model lost to the hand-written follower by 0.203 and the write-up
-concluded that the bottleneck was inductive bias. With 103,288 training samples
-and the same architecture, the same model beats that follower by 0.038. The old
-conclusion was a statement about the sample size, stated as if it were a
+concluded that the bottleneck was inductive bias. With 98,318 training samples —
+the navtrain split is 103,288 scenes, of which 4,970 are held out for validation
+(`results/navtest/cells.csv`, columns `n_train` / `n_val`) — and the same
+architecture, the same model beats that follower by 0.038. Training data and
+evaluation split changed together, so the reversal is not attributed to either
+one; what it does show is that the old conclusion was stated as if it were a
 statement about the method.
 
 ## Scope and limitations
@@ -178,7 +210,8 @@ statement about the method.
 - The learned models are MLPs. The official EgoStatusMLP (0.664 mean) beats our
   matching `kin` cell (0.642); the training recipes differ and we did not tune.
 - `PrivGTPathKin` scores comfort 0.761 — an artefact of resampling logged poses
-  at the wrong timing, not a property of the logged path.
+  at the wrong timing, not a property of the logged path. Claim 2 therefore
+  quotes the path and speed swaps with comfort neutralised as well.
 - Single benchmark, NAVSIM v1.1. EPDMS and the v2 two-stage splits are not run.
 - The scoring formula was never modified. Windows portability fixes (packaging
   scope, POSIX file locks, cache-path splitting, subnormal floats) touched
@@ -200,7 +233,7 @@ conclusion.
 |---|---|---|---:|---:|
 | ConstantVelocity | speed only | yes | 0.233 | 0.643 |
 | Kinematic | v, a, driving command | yes | 0.580 | 0.737 |
-| PrivBrake | GT boxes, no map | no | 0.602 | 0.766 |
+| PrivBrake | GT boxes, no map | no | 0.593 | 0.785 |
 | EgoStatusMLP | learned, blind | yes | 0.640 | 0.806 |
 | MapMLP | learned, sees centerline | no | 0.548 | 0.798 |
 | PrivMap | map centerline + IDM | no | 0.786 | 0.934 |
@@ -221,16 +254,18 @@ Adding acceleration and command yaw alone moves PDMS 0.233 → 0.580 and cuts th
 NC failure rate from 39% to 12%. Fix the motion model before reaching for a net.
 
 **Perception boxes do not close the gap; the map does.**
-GT detection boxes plus a brake reach only 0.602 with DAC stuck at 0.766.
-Swapping in the on-route lane centerline moves DAC 0.737 → 0.950. *(This one held
-on navtest, with much tighter intervals.)*
+GT detection boxes plus a brake reach only 0.593 (DAC 0.785), +0.013 over the
+kinematic rule with an interval that spans zero. Swapping in the on-route lane
+centerline moves DAC 0.737 → 0.950. *(This one held on navtest, with much tighter
+intervals.)*
 
 **Giving a learned model the map is not the same as it using the map.**
 `MapMLP` is trained on the *identical* centerline features the hand-written
 follower consumes, and asked to regress the whole trajectory. On the clean split
 it scores 0.527 against the hand rule's 0.730 — **+0.203, 95% CI [+0.118,
-+0.291]** in favour of the hand rule. *(This one reversed on navtrain-scale data:
-the bottleneck was the 3,000-sample training set, not the inductive bias.)*
++0.291]** in favour of the hand rule. *(This one reversed once the model was trained on
+navtrain and scored on navtest. Training data and test split changed together, so
+the reversal does not say which of the two was the bottleneck.)*
 
 **Open-loop imitation quality is not simulation safety.**
 The blind MLP has a low open-loop L1 and still gets zeroed by DAC on 90 of 563
@@ -283,24 +318,45 @@ non-learned agents have no training set, so this only changes what the learned
 rows mean — and it makes them directly comparable to the rest.
 
 **The cost is stated honestly.** At n=135 several effects that separated on 563
-scenes no longer do: GT boxes (+0.020), dropping IDM (+0.012), swapping in the
-logged path (+0.039), and the speed-vs-geometry difference-in-differences
-(+0.041) all have CIs spanning zero. They are reported as suggestive, not
-established. *(navtest has no such problem: navtrain and navtest share no logs.)*
+scenes no longer do: dropping IDM (+0.012), swapping in the logged path (+0.039),
+and the speed-vs-geometry difference-in-differences (+0.041) all have CIs spanning
+zero. They are reported as suggestive, not established. GT boxes go the other way:
++0.013 with an interval spanning zero on all 563 scenes, +0.058 [+0.024, +0.098]
+on the 135 held-out ones, so at this size the box effect is not settled in either
+direction. *(navtest has no such problem: navtrain and navtest share no logs, and
+there the boxes add +0.040 [+0.035, +0.044].)*
 
-## Known open issue
+## Re-running every agent
 
-`privileged_brake_mini` was run twice on the warmup split and produced different
-results (PDMS 0.602 / DAC 0.766, then 0.593 / 0.785). Every report here uses the
-first run for consistency. Both per-scene CSVs are committed
-(`results/per_scene/privileged_brake_mini*.csv`) and `python analysis/brake_rerun_diff.py`
-characterizes the gap ([results/brake_rerun_diff.md](results/brake_rerun_diff.md)):
-the two runs came from identical code and configuration snapshots, yet 130 of 563
-scenes score differently, ego progress differs in 127 of them, and run 1 is the
-higher one in 96. So the trajectory itself changed between runs with no parameter
-change, which points at scene loading or the parallel scorer rather than at the
-agent. **The cause is still not pinned down**; that row should not be quoted as
-settled. The navtest runs were each executed once.
+On 2026-09-24 every agent on the 563-scene split was scored a second time from the
+code in this repository, with the exact hydra overrides of its canonical run
+([`results/rerun_check.md`](results/rerun_check.md)). Twelve of the 13 reproduce
+their committed per-scene CSV bit for bit. `SpeedMLP` matches in 562 of 563
+scenes; in the last one its ego progress differs by 8.3e-11, identically in two
+re-runs, with the agent, its checkpoint and every library unchanged since the
+original run: a float-level difference in the network's CPU inference, far below
+the three decimals anything here is reported to. `tests/test_rerun_check.py` holds
+every committed CSV to the fingerprint of those re-runs on each push.
+
+This settles the one discrepancy an earlier version of this README left open.
+`privileged_brake_mini` had been scored twice on 2026-08-20 with different results
+(PDMS 0.602 / DAC 0.766, then 0.593 / 0.785), and the reports used the first. The
+two runs did not come from identical code: hydra's `code/` folder, which had been
+read as a code snapshot, holds only the config files, and the agent file was saved
+at 12:54:58, after the first run wrote its CSV and before the second started. Both
+runs were sequential, so the parallel scorer was never involved. The current agent
+reproduces the second run in every scene, sequentially (twice), with a 6-thread
+pool and with a 6-process pool, so every report now uses it; the first is kept as
+`privileged_brake_mini_superseded.csv`
+([`results/brake_rerun_diff.md`](results/brake_rerun_diff.md)). Two statements
+about this split moved with it, both corrected above: on all 563 scenes the boxes'
+gain over the kinematic rule no longer separates from zero, and on the 135
+held-out scenes it does.
+
+The selection rules changed too. The workspace-side scripts used to take an
+agent's first run (`ladder_io`) or its best-scoring run (`analyze_pdm`); both now
+read the run pinned in `results/per_scene/MANIFEST.md`. The navtest runs were
+executed once each, on another machine, and are not covered by this check.
 
 ---
 
@@ -321,9 +377,11 @@ agents/     kinematic, privileged brake / centerline, MapMLP, SpeedMLP,
 configs/    matching hydra configs (paths via ${oc.env:NAVSIM_EXP_ROOT})
 analysis/   ladder_io.py (shared loading + bootstrap)
             analyze_navtest.py   navtest tables, from results/navtest/per_scene
+            analyze_openloop_csv.py   the rank correlations, from results/navtest/openloop.csv
             analyze_ci.py, analyze_clean_ladder.py, make_summary.py   the 563-scene study
             build_features.py, train_ladder.py   navtrain feature extraction and cell training
-            analyze_openloop.py, summarize_pdm.py, export_per_scene.py   workspace-side tools
+            analyze_openloop.py (writes that CSV in the workspace), summarize_pdm.py,
+            export_per_scene.py   workspace-side tools: they need the devkit and the features
 tests/      bootstrap sanity; every report regenerates byte for byte from the committed CSVs
 scripts/    bash runners for caching, scoring and training + env.sh; the older PowerShell runners
 results/    per_scene/ (563) and navtest/ (12,146): CSVs, reports, figures

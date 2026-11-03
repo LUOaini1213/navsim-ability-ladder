@@ -2,8 +2,10 @@
 
 One gzipped CSV per scoring run: 12,146 scenes, columns `token / valid / the six sub-scores /
 score`, floats rounded to six decimals. Written by `analysis/export_per_scene.py` from the
-workspace; every table under `results/navtest/` is recomputed from these files by
-`analysis/analyze_navtest.py`, and the tests compare the result byte for byte.
+workspace; `ladder.md`, `factorial.md`, `path_speed.md` and `regularisation.md` are recomputed
+from these files by `analysis/analyze_navtest.py`, and the tests compare the result byte for
+byte. `openloop_summary.md` is recomputed by `analysis/analyze_openloop_csv.py` from
+`../openloop.csv`, whose `PDMS` column the tests check against these files, run by run.
 `token_log.csv.gz` maps each scene token to its source log (136 logs), taken from the
 metric-cache directory layout.
 

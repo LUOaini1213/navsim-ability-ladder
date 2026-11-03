@@ -12,7 +12,7 @@ The mini dataset has 64 logs; **62 of them are the warmup_test_e2e logs**. Train
 |---|---|---|---:|---:|---:|
 | CV | speed only | yes | **0.181** | 0.250 | +0.069 |
 | Kinematic | v, a, command | yes | **0.310** | 0.665 | +0.355 |
-| PrivBrake | GT boxes, no map | no | **0.330** | 0.688 | +0.358 |
+| PrivBrake | GT boxes, no map | no | **0.368** | 0.663 | +0.295 |
 | MLP (learned) | learned kinematics, blind | yes | **0.475** | 0.692 | +0.216 |
 | MapMLP (learned+map) | learned, sees centerline | no | **0.527** | 0.555 | +0.028 |
 | MapMLP-reg (learned+map) | learned, sees centerline, regularized | no | **0.425** | 0.674 | +0.249 |
@@ -33,7 +33,7 @@ Only the learned row should show a systematic train-overlap advantage; the eight
 |---|---:|---|---|
 | Add kinematics | +0.1290 | [+0.0525, +0.2058] | CI excludes 0 |
 | Learned blind planner vs hand rule | +0.1654 | [+0.0851, +0.2460] | CI excludes 0 |
-| Add GT boxes + brake | +0.0202 | [-0.0006, +0.0463] | CI spans 0 |
+| Add GT boxes + brake | +0.0583 | [+0.0235, +0.0977] | CI excludes 0 |
 | Add on-route map centerline | +0.2543 | [+0.1716, +0.3386] | CI excludes 0 |
 | Drop IDM on the centerline | +0.0117 | [-0.0177, +0.0426] | CI spans 0 |
 | Swap in human speed (geometry fixed) | +0.0795 | [+0.0390, +0.1254] | CI excludes 0 |
@@ -56,5 +56,5 @@ Only the learned row should show a systematic train-overlap advantage; the eight
 
 - n=135 is small; CIs are correspondingly wide. Effects that were significant on 563 scenes may not separate here — that is the honest cost of removing the contaminated scenes, not a defect of the analysis.
 - Priv* and Human are upper bounds, not deployable systems.
-- `privileged_brake_mini` has two runs (0.602 / 0.593 on the full split); the first is used everywhere for consistency and the discrepancy is unexplained.
+- `privileged_brake_mini` uses the run the current agent code reproduces; an earlier run, made before the agent file was last edited, is superseded (`brake_rerun_diff.md`).
 - `warmup_test_e2e` is not the official navtest leaderboard.

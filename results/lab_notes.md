@@ -2,6 +2,8 @@
 
 Last updated: 2026-08-20
 
+> **Erratum, 2026-09-24.** The PrivBrake row below came from a run made before the agent file was last edited. The current code gives PDMS 0.593 / DAC 0.785 ([brake_rerun_diff.md](brake_rerun_diff.md), [rerun_check.md](rerun_check.md)); point 3 below still holds (0.580 → 0.593). The rest of these notes is left as written on 2026-08-20.
+
 ## Ladder (same metric cache, same split)
 
 | agent | PDMS | vs CV | DAC | what it sees | deployable? |
