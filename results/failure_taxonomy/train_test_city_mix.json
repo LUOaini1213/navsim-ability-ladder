@@ -1,0 +1,64 @@
+{
+  "navtest": {
+    "archive": "E:\\navsim_workspace\\exp\\features\\features_navtest.npz",
+    "cities": {
+      "boston": {
+        "logs": 51,
+        "scenes": 3731,
+        "sessions": 11,
+        "share": 0.3072
+      },
+      "pittsburgh": {
+        "logs": 22,
+        "scenes": 2437,
+        "sessions": 11,
+        "share": 0.2006
+      },
+      "singapore": {
+        "logs": 13,
+        "scenes": 1914,
+        "sessions": 2,
+        "share": 0.1576
+      },
+      "vegas": {
+        "logs": 50,
+        "scenes": 4064,
+        "sessions": 20,
+        "share": 0.3346
+      }
+    },
+    "scenes": 12146,
+    "sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b"
+  },
+  "navtrain": {
+    "archive": "E:\\navsim_workspace\\exp\\features\\features_navtrain.npz",
+    "cities": {
+      "boston": {
+        "logs": 229,
+        "scenes": 12954,
+        "sessions": 32,
+        "share": 0.1254
+      },
+      "pittsburgh": {
+        "logs": 120,
+        "scenes": 10821,
+        "sessions": 28,
+        "share": 0.1048
+      },
+      "singapore": {
+        "logs": 96,
+        "scenes": 11830,
+        "sessions": 14,
+        "share": 0.1145
+      },
+      "vegas": {
+        "logs": 747,
+        "scenes": 67683,
+        "sessions": 88,
+        "share": 0.6553
+      }
+    },
+    "scenes": 103288,
+    "sha256": "f046a4b1644fd073922e9645b14eb7fcb702810f80913069b64a81a39b1cfb73"
+  }
+}

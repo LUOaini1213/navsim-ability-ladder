@@ -1,0 +1,85 @@
+{
+  "S1": {
+    "candidate_logs": {
+      "None": 125
+    },
+    "candidates": {
+      "None": 4225
+    },
+    "label": "rule map-fixed",
+    "per_seed_requested": 24,
+    "selected": {
+      "None": 24
+    }
+  },
+  "S2": {
+    "candidate_logs": {
+      "0": 126,
+      "1": 122,
+      "2": 126
+    },
+    "candidates": {
+      "0": 2615,
+      "1": 2541,
+      "2": 3071
+    },
+    "label": "learned map-fixed",
+    "per_seed_requested": 8,
+    "selected": {
+      "0": 8,
+      "1": 8,
+      "2": 8
+    }
+  },
+  "S3": {
+    "candidate_logs": {
+      "0": 115,
+      "1": 112,
+      "2": 112
+    },
+    "candidates": {
+      "0": 1329,
+      "1": 1158,
+      "2": 1029
+    },
+    "label": "box-induced",
+    "per_seed_requested": 8,
+    "selected": {
+      "0": 8,
+      "1": 8,
+      "2": 8
+    }
+  },
+  "S4": {
+    "candidate_logs": {
+      "0": 109,
+      "1": 109,
+      "2": 111
+    },
+    "candidates": {
+      "0": 1371,
+      "1": 1504,
+      "2": 1162
+    },
+    "label": "learned residual",
+    "per_seed_requested": 8,
+    "selected": {
+      "0": 8,
+      "1": 8,
+      "2": 8
+    }
+  },
+  "S5": {
+    "candidate_logs": {
+      "None": 117
+    },
+    "candidates": {
+      "None": 1589
+    },
+    "label": "rule residual",
+    "per_seed_requested": 24,
+    "selected": {
+      "None": 24
+    }
+  }
+}

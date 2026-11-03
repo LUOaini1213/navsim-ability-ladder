@@ -1,0 +1,132 @@
+{
+  "available_mb_at_end": {
+    "commit": 1886.0234375,
+    "phys": 2051.140625
+  },
+  "category_counts": {
+    "city": {
+      "boston": 3731,
+      "pittsburgh": 2437,
+      "singapore": 1914,
+      "vegas": 4064
+    },
+    "command": {
+      "left": 2501,
+      "right": 1575,
+      "straight": 8070
+    },
+    "curvature": {
+      "bend": 1640,
+      "straight": 7606,
+      "turn": 2900
+    },
+    "junction": {
+      "in": 4147,
+      "near": 4669,
+      "none": 3330
+    },
+    "lane_change": {
+      "n/a": 12,
+      "no": 10874,
+      "yes": 1260
+    },
+    "lead": {
+      "close": 2876,
+      "far": 1682,
+      "mid": 3224,
+      "none": 4364
+    },
+    "speed": {
+      "fast": 968,
+      "medium": 5181,
+      "slow": 5149,
+      "stopped": 848
+    },
+    "stop_go": {
+      "moving": 10029,
+      "starting": 1209,
+      "stationary": 7,
+      "stopping": 901
+    }
+  },
+  "command_vs_logged_heading_sign": {
+    "left": {
+      "flat": 121,
+      "left(+)": 2354,
+      "right(-)": 26
+    },
+    "right": {
+      "flat": 158,
+      "left(+)": 10,
+      "right(-)": 1407
+    },
+    "straight": {
+      "flat": 6121,
+      "left(+)": 1057,
+      "right(-)": 892
+    }
+  },
+  "consistency_with_archive": {
+    "all_zero_command": 0,
+    "command_mismatch": 0,
+    "lead_gap_abs_diff_max": 1.9052949937758967e-06,
+    "lead_presence_mismatch": 0,
+    "logged_heading_abs_diff_max": 5.952879944537415e-08,
+    "logged_xy_abs_diff_max": 1.9049764432566008e-06,
+    "missing_in_archive": 0,
+    "speed_abs_diff_max": 9.41325730252629e-07,
+    "window_incomplete": 0
+  },
+  "expected_scenes": 12146,
+  "finished_utc": "2026-10-27T17:36:50Z",
+  "inputs": {
+    "feature_archive": {
+      "path": "E:\\navsim_workspace\\exp\\features\\features_navtest.npz",
+      "scenes": 12146,
+      "sha256": "2abc272f6a95c56cc030119e87f86c35a46b0ab37d97c98c71da83013f3aea1b"
+    },
+    "maps": {
+      "sg-one-north": {
+        "gpkg": "E:\\navsim_workspace\\dataset\\maps\\sg-one-north\\9.17.1964\\map.gpkg",
+        "intersections": 385,
+        "projected_crs": "epsg:32648"
+      },
+      "us-ma-boston": {
+        "gpkg": "E:\\navsim_workspace\\dataset\\maps\\us-ma-boston\\9.12.1817\\map.gpkg",
+        "intersections": 369,
+        "projected_crs": "epsg:32619"
+      },
+      "us-nv-las-vegas-strip": {
+        "gpkg": "E:\\navsim_workspace\\dataset\\maps\\us-nv-las-vegas-strip\\9.15.1915\\map.gpkg",
+        "intersections": 522,
+        "projected_crs": "epsg:32611"
+      },
+      "us-pa-pittsburgh-hazelwood": {
+        "gpkg": "E:\\navsim_workspace\\dataset\\maps\\us-pa-pittsburgh-hazelwood\\9.17.1937\\map.gpkg",
+        "intersections": 145,
+        "projected_crs": "epsg:32617"
+      }
+    },
+    "raw_logs": {
+      "files_read": 136,
+      "path": "E:\\navsim_workspace\\dataset\\navsim_logs\\test"
+    },
+    "token_log": {
+      "path": "results/navtest/per_scene/token_log.csv.gz",
+      "sha256": "bd82f16618a36c8659f977638fef680ce2a4b836be738f0e63ac24d128360a88"
+    }
+  },
+  "logs": 136,
+  "memory_waits": [],
+  "preregistration": "docs/FAILURE_TAXONOMY.md",
+  "runtime_s": 21.5,
+  "scenes": 12146,
+  "script": "analysis/failure_taxonomy_features.py",
+  "sessions": 44,
+  "threads": 1,
+  "versions": {
+    "numpy": "1.23.4",
+    "python": "3.9.25",
+    "shapely": "2.0.7"
+  }
+}
