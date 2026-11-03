@@ -1,0 +1,11 @@
+{
+  "status": "PNG visually inspected and accepted",
+  "inspection_date_utc": "2026-10-09",
+  "scope": "Training diagnostics only; not PDMS or driving safety evidence",
+  "render_receipt_sha256": "49b7d283ba435dc02f18c3a2ed3e8f3f6955c8c54947aeea478ee0b9514ada4a",
+  "renderer_sha256": "e47bb722aa0a2d8e6380e5716437f00fb4150d614e8608d031024f761b994053",
+  "inspected_png_sha256": "c70fa5bcac1779f2d6d472a9552ce57b361ef2cb40419995d6cfd67294864cd0",
+  "checks": ["four panels readable", "axes and units complete", "legend and title not clipped", "three-seed min/max explicitly not a confidence band", "fixed update budget displayed"],
+  "associated_svg_sha256": "53c6440bf21cd942e900afeca7f72716edf7d0daef0eae8a2f2134e19d81ea75",
+  "svg_scope": "Generated from same Matplotlib figure; independent vector rasterization not inspected"
+}

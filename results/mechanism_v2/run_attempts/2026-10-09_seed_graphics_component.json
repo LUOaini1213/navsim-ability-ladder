@@ -1,0 +1,65 @@
+{
+  "kind": "five-seed-graphics-lightweight-component-v1",
+  "captured_utc": "2026-10-09T11:34:53.4133626Z",
+  "source_sha256": {
+    "analysis/plot_seed.py": "763176a5fafbfd03a9659d69863485b93839640c78fb0bda678a8bb7ef362198",
+    "analysis/run_seed_figures.py": "64a05753218794aa162ac6db0474a9dc604fd410852eacc12874021bec883dd6",
+    "tests/test_seed_plot.py": "68ee02e31c490a6dc4ed97607f21537f403ac12e3765073c953aaa94e0a59251"
+  },
+  "document_sha256": {
+    "docs/COMPLETION_REQUIREMENTS.md": "46e104db3b3434327d0ea0ccf932c8941a523253e05d5021a005110a1d473980",
+    "docs/EXECUTION_STATUS.md": "8aa1baa390256455c52ccdcdd9123f0447e455c16babff080d81b0ee688ae03d",
+    "docs/REPRODUCIBILITY.md": "e53d19dcf03176d582f272ce512a6979f4c83adb2c8705020c18177d604caf34"
+  },
+  "tests_log_sha256": "bcda07c4ed6e9d0930ca3948ab63ee14504bcfd34d913a48112fa50942b54ef7",
+  "actual_scoped_tests": {
+    "new_tests": 23,
+    "existing_followup_regression_tests": 8,
+    "total": 31,
+    "seconds": 0.13,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "heavy_modules_imported": [],
+  "cache_frozen_bindings_verified_unchanged": 185,
+  "prior_seed_source_and_registration_bindings_verified_unchanged": 13,
+  "expected_figure_types": [
+    "five_seed_contrasts",
+    "seed_extension_diagnostics",
+    "five_seed_strata",
+    "five_seed_submetrics"
+  ],
+  "actual_renderer_function_executed": false,
+  "actual_image_formats_or_layouts_verified": false,
+  "actual_five_seed_source_rebuild_executed": false,
+  "test_source_rebuild_callbacks_mocked": true,
+  "test_runner_dispatch_mocked": true,
+  "test_images_are_placeholder_bytes": true,
+  "scientific_figure_runner_implemented": true,
+  "scientific_figure_runner_launched": false,
+  "actual_added_models_complete": 0,
+  "actual_added_official_scores_complete": false,
+  "actual_scientific_figures_rendered": false,
+  "synthetic_layout_rendered": false,
+  "scientific_png_svg_visual_qa_complete": false,
+  "full_updated_test_suite_executed": false,
+  "git_diff_check_exit_code": 0,
+  "live_wait_observation": {
+    "process_ids": [
+      30252,
+      37152
+    ],
+    "tool_sessions": [
+      94130,
+      27613
+    ],
+    "available_mb": 2241.2,
+    "cache_status": "waiting_for_memory",
+    "cache_jobs": 0,
+    "score_status": "waiting_for_cache_lock",
+    "score_jobs": 0
+  },
+  "project_complete": false,
+  "disclosure": "31 actual lightweight component tests, with mocked rebuild/runner dispatch and placeholder bytes in temporary directories; no NumPy/Torch/Matplotlib imports, real images, 30-model reproduction, official engine, scientific findings or final visual QA. Four dedicated figures and the guarded three-split runner are implemented but not executed. Waiting controllers were confirmed by the same live tool handles and OS processes; no unrelated jobs ended and no duplicate scientific process launched."
+}

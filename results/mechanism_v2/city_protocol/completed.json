@@ -1,0 +1,54 @@
+{
+  "protocol_sha256": "138795fe48b84c2fdd6a96151f5be1251db0522307e9154f468d20ecfa3e7c2f",
+  "donors_sha256": "42c14d3980ff554fd81ec845099a2333c03ed96406fff9aae3ff56a8be4cf82b",
+  "generator_sha256": "7a5e0edc4b14595bc704e920c4d83a3168c0d460bff7c173bda0f2ae9bfcc9bd",
+  "design_sha256": "a499b00e4463ecf3db1b158318b55f9f8ead1c7a44eb1b5a61cd87d3c97eda1a",
+  "outcomes_read": false,
+  "status": "inputs frozen; no auxiliary training/evaluation performed",
+  "coverage": {
+    "train": {
+      "base_scenes": 83099,
+      "eligible_scenes": 83099,
+      "eligible_sessions": 130,
+      "omitted_cities": {},
+      "eligible_token_order_sha256": "26529658eeb04964a3c37d34133e236883fe545230e63bb27a408033fb2a4e7e"
+    },
+    "validation": {
+      "base_scenes": 11074,
+      "eligible_scenes": 10312,
+      "eligible_sessions": 15,
+      "omitted_cities": {
+        "sg-one-north": {
+          "sessions": [
+            "2021.10.05.06.57.40_veh-50"
+          ],
+          "n_scenes": 762,
+          "reason": "No same-city different-session donor in this partition"
+        }
+      },
+      "eligible_token_order_sha256": "62e8fbbb60f1c015575117b9c4ee18b59f2a57ebbebfb1b8344007eefbc3c62a"
+    },
+    "confirmation": {
+      "base_scenes": 9115,
+      "eligible_scenes": 8379,
+      "eligible_sessions": 15,
+      "omitted_cities": {
+        "sg-one-north": {
+          "sessions": [
+            "2021.10.05.07.38.12_veh-50"
+          ],
+          "n_scenes": 736,
+          "reason": "No same-city different-session donor in this partition"
+        }
+      },
+      "eligible_token_order_sha256": "b9d289aa6780da924ae4ddc000c383523209d815ed614d14a386be2ec6c1771b"
+    },
+    "navtest": {
+      "base_scenes": 12146,
+      "eligible_scenes": 12146,
+      "eligible_sessions": 44,
+      "omitted_cities": {},
+      "eligible_token_order_sha256": "bf365bbb3b3d0596ed230decdec18e552da6245a3616bbd938310c26665279fe"
+    }
+  }
+}

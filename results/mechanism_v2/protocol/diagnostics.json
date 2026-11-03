@@ -1,0 +1,27 @@
+{
+  "schema": "dynamic-object-diagnostics-v1",
+  "protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "freeze_scope": "Fixed before any complete controlled 18-cell PDMS comparison; core training was already in progress. Historical ladder scores and one ineligible 3-scene smoke score were already known.",
+  "contrasts": ["M1-M0", "M4-M1", "M4-M5"],
+  "seeds": [0, 1, 2],
+  "case_selection": {
+    "effect": "Mean of three paired per-seed scene PDMS differences, never a trajectory ensemble",
+    "positive_min": 0.05,
+    "negative_max": -0.05,
+    "neutral_absolute_max": 0.01,
+    "per_bin": 2,
+    "maximum_per_original_session_per_contrast": 1,
+    "bin_order": ["negative", "positive", "neutral"],
+    "rank": "ascending SHA256(salt|split|contrast|bin|token), with token as tie-breaker",
+    "salt": "navsim-dynamic-cases-20261009-v1",
+    "shortfall": "Report candidate/selected counts and empty bins; never relax effect thresholds or the session restriction",
+    "disclosure": "Outcome-conditioned diagnostic cases, not representative prevalence estimates or independent confirmation; intermediate-effect scenes are not in these three bins"
+  },
+  "plot": {
+    "trajectories": "Display all three seeds individually with fixed seed 0 emphasized; no best-seed selection",
+    "coordinates": "Current ego frame, metres; reference centerline is not a drivable-area boundary",
+    "objects": "Display privileged current boxes; show donor boxes separately for shuffled conditions",
+    "expert": "Logged future ego trajectory is evaluation-only and was not a model input",
+    "simulation": "Plans and current inputs only, not a rendering of the official simulated ego rollout or collision determination"
+  }
+}

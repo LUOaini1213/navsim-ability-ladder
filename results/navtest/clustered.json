@@ -1,0 +1,186 @@
+{
+  "draws": 10000,
+  "seed": 12345,
+  "cluster": "log",
+  "estimand": "scene-weighted mean",
+  "rows": [
+    {
+      "comparison": "rule: add map",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.2963394053186234,
+      "low": 0.25859736839902925,
+      "high": 0.3355653447190154,
+      "weights": {
+        "kin": -1,
+        "privmapkin": 1
+      }
+    },
+    {
+      "comparison": "rule: add boxes + brake",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.03952185139140458,
+      "low": 0.029372241788782213,
+      "high": 0.04937409220973194,
+      "weights": {
+        "kin": -1,
+        "privbrake": 1
+      }
+    },
+    {
+      "comparison": "pose: add map, no boxes",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.1811490872989736,
+      "low": 0.16210495019671814,
+      "high": 0.19987471581304223,
+      "weights": {
+        "l_pose_kin_s0": -0.3333333333333333,
+        "l_pose_kin_s1": -0.3333333333333333,
+        "l_pose_kin_s2": -0.3333333333333333,
+        "l_pose_map_s0": 0.3333333333333333,
+        "l_pose_map_s1": 0.3333333333333333,
+        "l_pose_map_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "pose: add boxes, no map",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.017437404879521376,
+      "low": 0.0021828832436740376,
+      "high": 0.03201610818318318,
+      "weights": {
+        "l_pose_kin_s0": -0.3333333333333333,
+        "l_pose_kin_s1": -0.3333333333333333,
+        "l_pose_kin_s2": -0.3333333333333333,
+        "l_pose_agents_s0": 0.3333333333333333,
+        "l_pose_agents_s1": 0.3333333333333333,
+        "l_pose_agents_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "pose: add boxes, with map",
+      "n": 12146,
+      "logs": 136,
+      "delta": -0.04066650049398979,
+      "low": -0.057549066042641706,
+      "high": -0.024915790258416073,
+      "weights": {
+        "l_pose_map_s0": -0.3333333333333333,
+        "l_pose_map_s1": -0.3333333333333333,
+        "l_pose_map_s2": -0.3333333333333333,
+        "l_pose_map_agents_s0": 0.3333333333333333,
+        "l_pose_map_agents_s1": 0.3333333333333333,
+        "l_pose_map_agents_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "pose: map x boxes interaction",
+      "n": 12146,
+      "logs": 136,
+      "delta": -0.058103905373511164,
+      "low": -0.07042716894183834,
+      "high": -0.04650827482780385,
+      "weights": {
+        "l_pose_kin_s0": 0.3333333333333333,
+        "l_pose_kin_s1": 0.3333333333333333,
+        "l_pose_kin_s2": 0.3333333333333333,
+        "l_pose_agents_s0": -0.3333333333333333,
+        "l_pose_agents_s1": -0.3333333333333333,
+        "l_pose_agents_s2": -0.3333333333333333,
+        "l_pose_map_s0": -0.3333333333333333,
+        "l_pose_map_s1": -0.3333333333333333,
+        "l_pose_map_s2": -0.3333333333333333,
+        "l_pose_map_agents_s0": 0.3333333333333333,
+        "l_pose_map_agents_s1": 0.3333333333333333,
+        "l_pose_map_agents_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "rule path: learn speed from ego",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.01937230709698662,
+      "low": 0.014736438631742578,
+      "high": 0.023941274331403327,
+      "weights": {
+        "privmapkin": -1,
+        "l_ds_kin_s0": 0.3333333333333333,
+        "l_ds_kin_s1": 0.3333333333333333,
+        "l_ds_kin_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "rule path: learn speed from ego + map",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.03133434757670559,
+      "low": 0.02487133273529827,
+      "high": 0.03816210851607532,
+      "weights": {
+        "privmapkin": -1,
+        "l_ds_map_s0": 0.3333333333333333,
+        "l_ds_map_s1": 0.3333333333333333,
+        "l_ds_map_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "rule path: add boxes to speed model",
+      "n": 12146,
+      "logs": 136,
+      "delta": -0.00465428418134914,
+      "low": -0.008130332632861274,
+      "high": -0.0015261455891425041,
+      "weights": {
+        "l_ds_map_s0": -0.3333333333333333,
+        "l_ds_map_s1": -0.3333333333333333,
+        "l_ds_map_s2": -0.3333333333333333,
+        "l_ds_map_agents_s0": 0.3333333333333333,
+        "l_ds_map_agents_s1": 0.3333333333333333,
+        "l_ds_map_agents_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "map input: rule path vs full pose",
+      "n": 12146,
+      "logs": 136,
+      "delta": -0.0060293529831494585,
+      "low": -0.017577894272350188,
+      "high": 0.006089395578720348,
+      "weights": {
+        "l_pose_map_s0": -0.3333333333333333,
+        "l_pose_map_s1": -0.3333333333333333,
+        "l_pose_map_s2": -0.3333333333333333,
+        "l_ds_map_s0": 0.3333333333333333,
+        "l_ds_map_s1": 0.3333333333333333,
+        "l_ds_map_s2": 0.3333333333333333
+      }
+    },
+    {
+      "comparison": "pose seed 0: dropout 0.2",
+      "n": 12146,
+      "logs": 136,
+      "delta": -0.012437490367199077,
+      "low": -0.029744037700134087,
+      "high": 0.003174268089578789,
+      "weights": {
+        "l_pose_map_s0": -1,
+        "l_reg_pose_map_do0.2_s0": 1
+      }
+    },
+    {
+      "comparison": "pose seed 0: weight decay 1e-4",
+      "n": 12146,
+      "logs": 136,
+      "delta": 0.023605056479499426,
+      "low": 0.013449500076300929,
+      "high": 0.03435313153629617,
+      "weights": {
+        "l_pose_map_s0": -1,
+        "l_reg_pose_map_wd1e-4_s0": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "runner_pid": 15120,
+  "scope": "Training/artifacts only; driving-score curves and goal completion remain separate",
+  "jobs": [],
+  "status": "failed_or_interrupted",
+  "exception": "FileNotFoundError(2, 'No such file or directory')"
+}

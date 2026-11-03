@@ -1,0 +1,18 @@
+{
+  "kind": "same-city-cross-session-negative-control-v1",
+  "base_protocol_sha256": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+  "generator_sha256": "7a5e0edc4b14595bc704e920c4d83a3168c0d460bff7c173bda0f2ae9bfcc9bd",
+  "input_helpers_sha256": {
+    "mechanism_data.py": "2b26c96e21b007e788bdb9b655f880570f05e9e91e42ab42a8586ebb9b2d363e",
+    "audit_mechanism_inputs.py": "dbd817483a8c223d8f039464457c9f837f55af9a580c9e5eca46c3ead9ac34b3"
+  },
+  "outcomes_used_for_design": false,
+  "known_prior_evidence": "Historical ladder outcomes and an ineligible smoke score were already known",
+  "city_and_session_constraints": "Same city and different original session; never relaxed",
+  "coverage": "Exclude unsupported partition-city cells; unchanged training cohort required for real-anchor reuse",
+  "training": "Three seeds; full-data fixed-update M2/M5 auxiliary runs; reuse matched M1/M4 anchors",
+  "selection": "Input-only matching; same frozen count/speed/command fallback; no future arrays",
+  "scope": "Pre-outcome auxiliary design binding, not completed donor preparation, training or evaluation",
+  "captured_utc": "2026-10-09T06:57:46.055233+00:00",
+  "complete_core_reports_present_at_binding": []
+}

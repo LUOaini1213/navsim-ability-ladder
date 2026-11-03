@@ -1,0 +1,36 @@
+{
+  "kind": "five-seed-prediction-score-analysis-component-v1",
+  "captured_utc": "2026-10-09T11:05:01.275276+00:00",
+  "passed": true,
+  "source_sha256": {
+    "analysis/predict_seed.py": "6cdbd4c0e7bad3d4d0e41b7d4e1b12f4c7601ab1981f93e553eb511ec0406a3b",
+    "analysis/analyze_seed.py": "3ffbb0a0464adf95ea3c045c7332b45505bbe4c72f36f207399f0a46c399a5c6",
+    "analysis/run_seed_evaluation.py": "8a3abf4d8e9d8de81fd363e493af3aaee629d5107438937e3fb71c4fe089f41a",
+    "tests/test_seed_predictions.py": "6a333405e740d7682db91a57ed45924c48ec97936195f676df5b5fbf76406198",
+    "tests/test_seed_analysis.py": "8c4dcc2d07bb7dd9a7370ca668b36125c04241e6081382c5fd355e51b7d9f333",
+    "tests/test_seed_evaluation.py": "ad8cd6c56a59b7e60f4eb7ad0bfb0fae8643a02567638984547a2298a2532aa7"
+  },
+  "tests_log_sha256": "7b9b81a9ba190a1361c9d06c4d5db8c3a3702b166180e886bebeab0501a7d5ba",
+  "actual_scoped_tests": {
+    "run": 50,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "registration_and_previous_training_components_unchanged": true,
+  "cache_bound_analysis_hashes_verified_unchanged": 14,
+  "prediction_runner_implemented": true,
+  "added_seed_official_score_runner_implemented": true,
+  "thirty_run_five_seed_source_rebuilt_analysis_implemented": true,
+  "real_small_npz_and_seven_metric_csv_audits_tested": true,
+  "synthetic_thirty_run_report_builder_tested": true,
+  "synthetic_builder_model_artifact_layer_mocked": true,
+  "actual_net_inference_or_official_engine_execution": false,
+  "actual_protocol_activated": false,
+  "actual_added_models_complete": 0,
+  "actual_added_official_scores_complete": false,
+  "scientific_five_seed_figures_implemented": false,
+  "full_updated_test_suite_executed": false,
+  "project_complete": false,
+  "disclosure": "Fifty actual scoped tests, including small real NPZ/receipt/CSV fixtures and tiny owned stdlib subprocesses. NumPy was imported for array/statistics checks, Torch was not. The thirty-run synthetic builder mocks only the separately tested model-audit layer; it is not a real NAVSIM fit, inference, official scoring, five-seed result or end-to-end experimental reproduction. No new scientific runner launched."
+}

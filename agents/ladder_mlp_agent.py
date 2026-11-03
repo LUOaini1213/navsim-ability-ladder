@@ -16,6 +16,7 @@ and GT boxes) -> not deployable, not leaderboard-legal.
 from __future__ import annotations
 
 import json
+from collections import Counter
 
 import numpy as np
 import torch
@@ -60,12 +61,16 @@ class LadderMLPAgent(AbstractAgent):
         trajectory_sampling: TrajectorySampling = TrajectorySampling(time_horizon=4, interval_length=0.5),
         run_dir: str = "",
         speed_mode: str = "learned",
+        strict: bool = False,
     ):
         super().__init__(requires_scene=True)
         self._trajectory_sampling = trajectory_sampling
         self._run_dir = run_dir
         self._speed_mode = speed_mode
         self._model = None
+        self._strict = strict
+        self.diagnostic_counts = Counter()
+        self.last_diagnostic = None
 
     def name(self) -> str:
         return self.__class__.__name__
@@ -79,28 +84,48 @@ class LadderMLPAgent(AbstractAgent):
     def get_sensor_config(self) -> SensorConfig:
         return SensorConfig.build_no_sensors()
 
-    def _fallback(self, agent_input: AgentInput) -> Trajectory:
+    def _record(self, reason, error=None, **details):
+        self.last_diagnostic = {"reason": reason, **details}
+        if error is not None:
+            self.last_diagnostic.update(exception_type=type(error).__name__, exception=str(error))
+        self.diagnostic_counts[reason] += 1
+
+    def _fallback(self, agent_input: AgentInput, reason="unknown", error=None) -> Trajectory:
+        self._record(reason, error, used_fallback=True)
+        if self._strict:
+            raise RuntimeError("Ladder inference failed: " + reason) from error
         return KinematicAgent(trajectory_sampling=self._trajectory_sampling).compute_trajectory(agent_input)
 
     def compute_trajectory(self, agent_input: AgentInput, scene: Scene) -> Trajectory:
         try:
-            blocks = scene_blocks(scene)
+            blocks = scene_blocks(scene, see_map=self._see_map, see_agents=self._see_agents,
+                                  require_path=self._target == "ds", agent_input=agent_input)
             if blocks is None:
-                return self._fallback(agent_input)
+                return self._fallback(agent_input, "missing_route")
             x = assemble(blocks["ego"], blocks["cl"], blocks["agents"], blocks["lead"], self._see_map, self._see_agents)
             x = (x - self._mu) / self._sd
             with torch.no_grad():
                 out = self._model(torch.tensor(x)[None, :]).numpy()[0].astype(np.float64)
             n, dt = self._trajectory_sampling.num_poses, float(self._trajectory_sampling.interval_length)
             if self._target == "ds":
+                remaining = max(float(blocks["path"].length) - blocks["s0"] - 0.5, 0.0)
+                clipped = bool(np.any(out[:n] > remaining))
                 poses = poses_from_progress(blocks["path"], blocks["ego_pose"], blocks["s0"], out[:n])
             else:
+                clipped = False
                 poses = out.reshape(-1, 3)[:n].astype(np.float32)
                 if self._speed_mode == "rule":
                     a_long = float(blocks["ego"][2])
-                    poses = retime_polyline(poses, kinematic_progress(blocks["speed"], a_long, n, dt))
+                    progress = kinematic_progress(blocks["speed"], a_long, n, dt)
+                    extent = np.linalg.norm(np.diff(np.vstack([np.zeros((1, 3)), poses])[:, :2], axis=0), axis=1).sum()
+                    clipped = bool(np.any(progress > extent))
+                    poses = retime_polyline(poses, progress)
             if poses.shape == (n, 3) and np.all(np.isfinite(poses)):
+                self._record("model", used_fallback=False, endpoint_clipped=clipped)
                 return Trajectory(poses.astype(np.float32), self._trajectory_sampling)
-        except Exception:
-            pass
-        return self._fallback(agent_input)
+            return self._fallback(agent_input, "invalid_output")
+        except Exception as error:
+            if self._strict:
+                self._record("exception", error, used_fallback=False)
+                raise
+            return self._fallback(agent_input, "exception", error)

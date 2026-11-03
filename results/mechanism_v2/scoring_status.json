@@ -1,0 +1,9 @@
+{
+  "status": "waiting_for_cache_lock",
+  "runner_pid": 37152,
+  "jobs": [],
+  "memory_events": [],
+  "scope": "Core predictions, official scores, paired analysis, cases, gates and figures only; conditional follow-ups, manuscript, reproducibility and final audit remain",
+  "attempt_receipt": "<repo>\\results\\mechanism_v2\\run_attempts\\core_scoring_20261009T085658Z_37152.json",
+  "started_utc": "2026-10-09T08:56:58.345264+00:00"
+}

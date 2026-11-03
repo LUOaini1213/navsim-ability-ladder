@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Read-only current method-count/artifact lineage verification; reused raw/city audit receipts not rerun or overwritten; no driving-score finding",
+  "core_runs": 18,
+  "updates_per_run": 13000,
+  "parameter_ratio": 1.0772575755497331,
+  "raw_selected_scene_counts": {
+    "navtrain": 103288,
+    "navtest": 12146
+  },
+  "same_city_eligible_scenes": {
+    "train": 83099,
+    "validation": 10312,
+    "confirmation": 8379,
+    "navtest": 12146
+  },
+  "core_score_reports_present": [],
+  "bindings_sha256": {
+    "docs/CONTROLLED_METHODS.md": "b7e84ff4f4d951114dea4383e268b649a235d99150a37440882184fec18d10c5",
+    "results/audit_v2/input_controls.json": "bb31c48f9dcde3ff12dddefe7d4f66d217a4f28eb27189272f54136dea7fe12b",
+    "results/mechanism_v2/protocol/protocol.json": "e462d494ab197a7edd4e60a844f64b003b041c5b0f4bcba2c4f940f7b53f4b4e",
+    "results/mechanism_v2/city_protocol/protocol.json": "138795fe48b84c2fdd6a96151f5be1251db0522307e9154f468d20ecfa3e7c2f",
+    "results/audit_v2/city_inputs.json": "a031322b985f08954f8fa6e36c369b843dc54b3eb2209736189ddc8f2b54dabc",
+    "results/mechanism_v2/city_protocol/execution_policy.json": "79acfa197e6635e4f024e4cf44c7adef3dfd42cad6f57c76d6b5cc55c3d993b9",
+    "results/audit_v2/core_manifest.json": "edfb38b2b613530376494256ed7fdf43c31c4e3a3b809a88dc9c221da3c66064"
+  },
+  "observation_date_utc": "2026-10-09",
+  "status": "method_note_refreshed_against_current_artifacts",
+  "limitations": [
+    "This is a methods-note update, not the final manuscript or statistical result",
+    "Raw/city audit receipts were reused read-only; their original measurement scope and historical-fallback limits remain",
+    "No complete official core score report or conditional gate decision exists yet",
+    "Full updated tests, applicable experimental follow-ups, scientific figures/cases and final reproduction audit remain"
+  ]
+}

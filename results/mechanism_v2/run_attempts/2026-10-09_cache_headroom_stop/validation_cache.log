@@ -1,0 +1,54 @@
+
+ATTEMPT 1 2026-10-09T07:57:00.935098+00:00
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 53.57it/s]
+validation cached 97 / 11074 elapsed 32 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 14.31it/s]
+validation cached 154 / 11074 elapsed 67 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 12.23it/s]
+validation cached 301 / 11074 elapsed 108 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 18.59it/s]
+validation cached 373 / 11074 elapsed 137 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 42.81it/s]
+validation cached 398 / 11074 elapsed 162 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 26.60it/s]
+validation cached 432 / 11074 elapsed 188 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 49.85it/s]
+validation cached 471 / 11074 elapsed 212 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 31.00it/s]
+validation cached 519 / 11074 elapsed 238 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 18.39it/s]
+validation cached 623 / 11074 elapsed 270 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 25.51it/s]
+validation cached 737 / 11074 elapsed 309 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 10.47it/s]
+validation cached 839 / 11074 elapsed 349 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 25.72it/s]
+validation cached 847 / 11074 elapsed 372 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 35.09it/s]
+validation cached 853 / 11074 elapsed 396 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 46.37it/s]
+validation cached 873 / 11074 elapsed 422 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  7.71it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  7.71it/s]
+validation cached 1002 / 11074 elapsed 463 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 46.05it/s]
+validation cached 1034 / 11074 elapsed 489 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 17.42it/s]
+validation cached 1173 / 11074 elapsed 526 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 13.47it/s]
+validation cached 1271 / 11074 elapsed 560 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 34.59it/s]
+validation cached 1307 / 11074 elapsed 586 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 21.93it/s]
+validation cached 1426 / 11074 elapsed 621 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 33.14it/s]
+validation cached 1456 / 11074 elapsed 646 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  2.48it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  2.48it/s]
+validation cached 1475 / 11074 elapsed 671 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 42.30it/s]
+validation cached 1493 / 11074 elapsed 706 s
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  8.63it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00,  8.63it/s]
+
+ATTEMPT 2 2026-10-09T08:46:46.958827+00:00
+
+ATTEMPT 3 2026-10-09T08:48:18.858841+00:00
+Loading logs:   0%|          | 0/1 [00:00<?, ?it/s]Loading logs: 100%|¢i¢i¢i¢i¢i¢i¢i¢i¢i¢i| 1/1 [00:00<00:00, 26.81it/s]

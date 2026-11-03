@@ -1,0 +1,104 @@
+{
+  "train": {
+    "n": 83099,
+    "different_session_fraction": 1.0,
+    "original_sessions_by_city": {
+      "sg-one-north": 12,
+      "us-ma-boston": 26,
+      "us-nv-las-vegas-strip": 70,
+      "us-pa-pittsburgh-hazelwood": 22
+    },
+    "same_city_fraction": 1.0,
+    "same_command_fraction": 1.0,
+    "same_speed_bin_fraction": 0.9999879661608443,
+    "same_count_bin_fraction": 0.9995186464337718,
+    "exact_object_count_fraction": 0.904884535313301,
+    "median_absolute_speed_difference_mps": 0.8799870610237122,
+    "p95_absolute_speed_difference_mps": 2.959547233581542,
+    "empty_to_nonempty_count": 14,
+    "nonempty_to_empty_count": 0,
+    "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals",
+    "matching_levels": {
+      "0": 83059,
+      "1": 39,
+      "2": 1
+    },
+    "seed": 20261910
+  },
+  "validation": {
+    "n": 10312,
+    "different_session_fraction": 1.0,
+    "original_sessions_by_city": {
+      "us-ma-boston": 3,
+      "us-nv-las-vegas-strip": 9,
+      "us-pa-pittsburgh-hazelwood": 3
+    },
+    "same_city_fraction": 1.0,
+    "same_command_fraction": 1.0,
+    "same_speed_bin_fraction": 0.9995151280062063,
+    "same_count_bin_fraction": 0.9939875872769589,
+    "exact_object_count_fraction": 0.9647982932505819,
+    "median_absolute_speed_difference_mps": 0.8727309107780457,
+    "p95_absolute_speed_difference_mps": 2.975182795524595,
+    "empty_to_nonempty_count": 7,
+    "nonempty_to_empty_count": 0,
+    "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals",
+    "matching_levels": {
+      "0": 10245,
+      "1": 62,
+      "2": 5
+    },
+    "seed": 20261911
+  },
+  "confirmation": {
+    "n": 8379,
+    "different_session_fraction": 1.0,
+    "original_sessions_by_city": {
+      "us-ma-boston": 3,
+      "us-nv-las-vegas-strip": 9,
+      "us-pa-pittsburgh-hazelwood": 3
+    },
+    "same_city_fraction": 1.0,
+    "same_command_fraction": 1.0,
+    "same_speed_bin_fraction": 0.9979711182718701,
+    "same_count_bin_fraction": 0.9935553168635876,
+    "exact_object_count_fraction": 0.9170545411146915,
+    "median_absolute_speed_difference_mps": 0.8895454406738281,
+    "p95_absolute_speed_difference_mps": 2.9421702861785857,
+    "empty_to_nonempty_count": 16,
+    "nonempty_to_empty_count": 0,
+    "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals",
+    "matching_levels": {
+      "0": 8321,
+      "1": 41,
+      "2": 17
+    },
+    "seed": 20261912
+  },
+  "navtest": {
+    "n": 12146,
+    "different_session_fraction": 1.0,
+    "original_sessions_by_city": {
+      "sg-one-north": 2,
+      "us-ma-boston": 11,
+      "us-nv-las-vegas-strip": 20,
+      "us-pa-pittsburgh-hazelwood": 11
+    },
+    "same_city_fraction": 1.0,
+    "same_command_fraction": 1.0,
+    "same_speed_bin_fraction": 0.9996706734727482,
+    "same_count_bin_fraction": 0.9902848674460728,
+    "exact_object_count_fraction": 0.8439815577144739,
+    "median_absolute_speed_difference_mps": 0.9287538528442383,
+    "p95_absolute_speed_difference_mps": 3.1560229063034058,
+    "empty_to_nonempty_count": 43,
+    "nonempty_to_empty_count": 8,
+    "limitation": "Matching does not constrain city, route geometry, traffic handedness or actor interactions; controls are distribution-matched only on the declared bins, not physically valid counterfactuals",
+    "matching_levels": {
+      "0": 12024,
+      "1": 118,
+      "2": 4
+    },
+    "seed": 20261913
+  }
+}

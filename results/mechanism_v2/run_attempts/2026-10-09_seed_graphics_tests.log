@@ -1,0 +1,28 @@
+test_all_seven_cell_metrics_and_five_seed_metrics_required (test_seed_plot.SeedPlot) ... ok
+test_all_three_split_commands_and_fresh_output_version (test_seed_plot.SeedPlot) ... ok
+test_changed_render_source_or_figure_bytes_are_not_overwritten (test_seed_plot.SeedPlot) ... ok
+test_completed_byte_receipt_reuses_without_rerender (test_seed_plot.SeedPlot) ... ok
+test_descriptive_subset_means_do_not_drop_added_seed (test_seed_plot.SeedPlot) ... ok
+test_empty_and_single_session_groups_are_retained (test_seed_plot.SeedPlot) ... ok
+test_exact_four_figure_scope_and_all_five_seed_effects (test_seed_plot.SeedPlot) ... ok
+test_labels_do_not_show_signed_zero (test_seed_plot.SeedPlot) ... ok
+test_memory_guard_precedes_scientific_import_rebuild_and_output (test_seed_plot.SeedPlot) ... ok
+test_mocked_runner_dispatches_exact_three_guarded_stages_without_claiming_qa (test_seed_plot.SeedPlot) ... ok
+test_nonempty_unrelated_folder_and_unbound_report_rejected (test_seed_plot.SeedPlot) ... ok
+test_nonfinite_statistic_rejected_before_any_rebuild (test_seed_plot.SeedPlot) ... ok
+test_original_protocol_must_not_be_relabelled (test_seed_plot.SeedPlot) ... ok
+test_owned_lock_failure_cannot_read_prerequisites_or_render (test_seed_plot.SeedPlot) ... ok
+test_partial_cells_seeds_gate_and_coverage_rejected_early (test_seed_plot.SeedPlot) ... ok
+test_partial_render_kept_and_not_retried_automatically (test_seed_plot.SeedPlot) ... ok
+test_primary_adjusted_family_and_secondary_identity_not_changed (test_seed_plot.SeedPlot) ... ok
+test_runner_requires_actual_completed_evaluation_before_any_stage (test_seed_plot.SeedPlot) ... ok
+test_smoke_cannot_consume_scientific_report_or_escape_tmp (test_seed_plot.SeedPlot) ... ok
+test_source_changed_during_render_has_no_completion_receipt (test_seed_plot.SeedPlot) ... ok
+test_source_rebuild_is_mandatory_and_failure_propagates (test_seed_plot.SeedPlot) ... ok
+test_stale_statistics_rejected_even_with_complete_provenance (test_seed_plot.SeedPlot) ... ok
+test_synthetic_layout_rejected_before_source_rebuild (test_seed_plot.SeedPlot) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.128s
+
+OK

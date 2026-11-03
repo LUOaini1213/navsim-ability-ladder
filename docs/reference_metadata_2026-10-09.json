@@ -1,0 +1,175 @@
+{
+  "schema": "selected-reference-metadata-audit-v1",
+  "observation_date_utc": "2026-10-09",
+  "status": "ten_primary_reference_metadata_records_checked",
+  "manuscript_citation_audit_complete": false,
+  "scope": "Titles, named author lists, paper IDs, version URLs and publication metadata checked online now; substantive selected-text review scopes remain those documented in CLOSEST_PRIOR_REVIEW.md, not a new full-text read of all ten sources",
+  "selected_text_scope_document": "docs/CLOSEST_PRIOR_REVIEW.md",
+  "references": [
+    {
+      "key": "dauner2023pdm",
+      "title": "Parting with Misconceptions about Learning-based Vehicle Motion Planning",
+      "eprint": "2306.07962",
+      "year": 2023,
+      "entry_type": "inproceedings",
+      "author_count": 4,
+      "bibliography_url": "https://arxiv.org/abs/2306.07962v2",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/2306.07962v2",
+        "https://proceedings.mlr.press/v229/dauner23a.html"
+      ]
+    },
+    {
+      "key": "dauner2024navsim",
+      "title": "NAVSIM: Data-Driven Non-Reactive Autonomous Vehicle Simulation and Benchmarking",
+      "eprint": "2406.15349",
+      "year": 2024,
+      "entry_type": "inproceedings",
+      "author_count": 12,
+      "bibliography_url": "https://arxiv.org/abs/2406.15349v2",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/2406.15349v2",
+        "https://proceedings.neurips.cc/paper_files/paper/2024/hash/32768f7faf1995026ef9821c696f3404-Abstract-Datasets_and_Benchmarks_Track.html"
+      ]
+    },
+    {
+      "key": "zaheer2017deepsets",
+      "title": "Deep Sets",
+      "eprint": "1703.06114",
+      "year": 2017,
+      "entry_type": "inproceedings",
+      "author_count": 6,
+      "bibliography_url": "https://arxiv.org/abs/1703.06114v3",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/1703.06114v3",
+        "https://proceedings.neurips.cc/paper_files/paper/2017/hash/f22e4747da1aa27e363d86d40ff442fe-Abstract.html"
+      ]
+    },
+    {
+      "key": "cheng2023plantf",
+      "title": "Rethinking Imitation-based Planner for Autonomous Driving",
+      "eprint": "2309.10443",
+      "year": 2023,
+      "entry_type": "misc",
+      "author_count": 6,
+      "bibliography_url": "https://arxiv.org/abs/2309.10443v1",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/2309.10443v1",
+        "https://ieeexplore.ieee.org/document/10611364/",
+        "https://jchengai.github.io/planTF/"
+      ]
+    },
+    {
+      "key": "li2024egostatus",
+      "title": "Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving?",
+      "eprint": "2312.03031",
+      "year": 2024,
+      "entry_type": "inproceedings",
+      "author_count": 7,
+      "bibliography_url": "https://arxiv.org/abs/2312.03031v2",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/2312.03031v2",
+        "https://openaccess.thecvf.com/content/CVPR2024/html/Li_Is_Ego_Status_All_You_Need_for_Open-Loop_End-to-End_Autonomous_CVPR_2024_paper.html"
+      ]
+    },
+    {
+      "key": "loewens2026memory",
+      "title": "Driving on Memory",
+      "eprint": "2608.31029",
+      "year": 2026,
+      "entry_type": "misc",
+      "author_count": 3,
+      "bibliography_url": "https://arxiv.org/abs/2608.31029v1",
+      "review_scope": "selected_text_review",
+      "primary_sources": [
+        "https://arxiv.org/abs/2608.31029v1"
+      ]
+    },
+    {
+      "key": "cao2025pseudosim",
+      "title": "Pseudo-Simulation for Autonomous Driving",
+      "eprint": "2506.04218",
+      "year": 2025,
+      "entry_type": "inproceedings",
+      "author_count": 14,
+      "bibliography_url": "https://proceedings.mlr.press/v305/cao25a.html",
+      "review_scope": "selected_text_review",
+      "text_review_scope": "All 15 arXiv v3 PDF pages: main text pp. 1-10 and references pp. 11-15; all rendered pages visually inspected. Separate supplement not read: publisher OpenReview link returned a browser-verification challenge. No baseline reproduction or benchmark-v2 feasibility run.",
+      "reviewed_pdf_url": "https://arxiv.org/pdf/2506.04218v3",
+      "reviewed_pdf_sha256": "a8431697ffa276068375c937cc2f90a2c8059a17b285fba0f0c8ba41eb877e81",
+      "review_receipt": "results/mechanism_v2/run_attempts/2026-10-09_pseudosim_main_review.json",
+      "primary_sources": [
+        "https://arxiv.org/abs/2506.04218v3",
+        "https://proceedings.mlr.press/v305/cao25a.html"
+      ]
+    },
+    {
+      "key": "lee2019settransformer",
+      "title": "Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks",
+      "eprint": "1810.00825",
+      "year": 2019,
+      "entry_type": "inproceedings",
+      "author_count": 6,
+      "bibliography_url": "https://proceedings.mlr.press/v97/lee19d.html",
+      "review_scope": "selected_text_review",
+      "text_review_scope": "All ten publisher PDF pages (main pp. 1-8, references pp. 9-10) and all seven publisher supplement pages; every rendered page visually inspected, including main Figures 1-5/Tables 1-5 and supplement Tables 1-10/Figure 1/theoretical statements. Current mean/max model source read-only checked; no author-code execution, numerical replication or independent proof verification.",
+      "reviewed_pdf_url": "https://proceedings.mlr.press/v97/lee19d/lee19d.pdf",
+      "reviewed_pdf_sha256": "965aee34a80935c775156bf96c059e74a226282cbcaee69eb6f9cf6f2603525d",
+      "reviewed_supplement_url": "https://proceedings.mlr.press/v97/lee19d/lee19d-supp.pdf",
+      "reviewed_supplement_sha256": "52906103fb14cc0ac5e080f0d3e8e251a517872ba093ec57aee5f1c9240bc1c3",
+      "review_receipt": "results/mechanism_v2/run_attempts/2026-10-09_set_transformer_review.json",
+      "primary_sources": [
+        "https://arxiv.org/abs/1810.00825v3",
+        "https://proceedings.mlr.press/v97/lee19d.html"
+      ]
+    },
+    {
+      "key": "wang2026crossbenchmark",
+      "title": "Do Open-Loop Metrics Predict Closed-Loop Driving? A Cross-Benchmark Correlation Study of NAVSIM and Bench2Drive",
+      "eprint": "2605.00066",
+      "year": 2026,
+      "entry_type": "misc",
+      "author_count": 7,
+      "bibliography_url": "https://arxiv.org/abs/2605.00066v1",
+      "review_scope": "selected_text_review",
+      "text_review_scope": "All ten arXiv v1 PDF pages, main text pp. 1-8 and references pp. 8-10; all rendered pages visually inspected, including Figures 1-3, Tables 1-5 and Equations 1-5. Published Tables 3-4 rank arithmetic independently checked; underlying papers/checkpoint configurations and benchmark runs not reproduced.",
+      "reviewed_pdf_url": "https://arxiv.org/pdf/2605.00066v1",
+      "reviewed_pdf_sha256": "dd033c92d2ecfb97a4776483f4a3fcad51fbb52812398b9946b49e5212394040",
+      "review_receipt": "results/mechanism_v2/run_attempts/2026-10-09_crossbenchmark_review.json",
+      "primary_sources": [
+        "https://arxiv.org/abs/2605.00066v1"
+      ]
+    },
+    {
+      "key": "zhang2026trafficelements",
+      "title": "Plug-and-Play Traffic Element Awareness for End-to-End Autonomous Driving",
+      "eprint": "2608.18035",
+      "year": 2026,
+      "entry_type": "misc",
+      "author_count": 11,
+      "bibliography_url": "https://arxiv.org/abs/2608.18035v1",
+      "review_scope": "selected_text_review",
+      "text_review_scope": "Main pp. 1-15 and selected appendix pp. 26-39 and 45-50, plus Appendix F opening on p. 40; 35 full selected pages visually inspected, including Tables 1-7 and A.1-A.6. References, extended related work and the additional qualitative gallery are outside the selected scope; not a full 50-page read or benchmark reproduction. Original recoverable PDF syntax/font warnings retained.",
+      "reviewed_pdf_url": "https://arxiv.org/pdf/2608.18035v1",
+      "reviewed_pdf_sha256": "341fed86bcd4c6f5e5dad359a90006746b5b570a4ed0f7d3cb44cc2b2178938a",
+      "review_receipt": "results/mechanism_v2/run_attempts/2026-10-09_traffic_elements_review.json",
+      "primary_sources": [
+        "https://arxiv.org/abs/2608.18035v1"
+      ]
+    }
+  ],
+  "qualifications": [
+    "All ten references now have selected-text reviews with individually documented limits, not metadata/abstract-only records; Deep Sets review is selected main/theory/architecture sections, not all application appendices; Pseudo-Simulation review includes main text and references but not its separate supplement; Cross-Benchmark Correlation review does not audit or reproduce its underlying cited model/configuration lineage; Traffic Element Awareness review excludes references, extended related work and the additional qualitative gallery, not all 50 PDF pages; Set Transformer includes all publisher main/supplement pages but not author-code execution or independent proof verification",
+    "PlanTF bibliography retains the reviewed arXiv v1 title/year; its verified ICRA 2024 publisher title is plural Planners and DOI 10.1109/ICRA57147.2024.10611364",
+    "Pseudo-Simulation is published in CoRL 2025/PMLR 305; arXiv v3 was updated in 2026, not a NAVSIM benchmark-version identifier",
+    "Traffic Element Awareness authors report ECCV 2026 acceptance in arXiv; official proceedings were not independently checked, so no proceedings fields were fabricated",
+    "Cross-benchmark correlation main tables use eight complete PDMS/DS pairs, not eight complete EPDMS pairs; reproduced rank-table arithmetic is not validation of this project's models or independent reproduction of the underlying benchmark experiments",
+    "CVF direct open transiently failed; the official indexed paper page and its publisher-supplied BibTeX were retrieved through the official-domain search result",
+    "Metadata agreement is not a novelty certificate, exhaustive related-work search, reproduced baseline, scientific finding, or final manuscript citation audit"
+  ]
+}

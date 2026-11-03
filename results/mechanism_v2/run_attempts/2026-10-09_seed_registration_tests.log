@@ -1,0 +1,20 @@
+test_changed_csv_is_rejected (test_seed_followup.SeedFollowup) ... ok
+test_confirmation_only_discordance_is_not_ignored (test_seed_followup.SeedFollowup) ... ok
+test_core_cannot_replace_or_duplicate_one_of_eighteen_identities (test_seed_followup.SeedFollowup) ... ok
+test_matrix_refuses_replaced_seeds_and_contrasts (test_seed_followup.SeedFollowup) ... ok
+test_nan_effect_cannot_bypass_difference_comparison (test_seed_followup.SeedFollowup) ... ok
+test_no_discordance_does_not_manufacture_added_jobs (test_seed_followup.SeedFollowup) ... ok
+test_paired_csv_trigger_not_training_completion (test_seed_followup.SeedFollowup) ... ok
+test_prospective_registration_refuses_existing_reports (test_seed_followup.SeedFollowup) ... ok
+test_real_design_has_exact_twelve_full_budget_jobs (test_seed_followup.SeedFollowup) ... ok
+test_recipe_changes_only_seed_registration_not_cohorts_or_settings (test_seed_followup.SeedFollowup) ... ok
+test_recipe_refuses_post_registration_seed_selection (test_seed_followup.SeedFollowup) ... ok
+test_registration_idempotent_and_binds_donors (test_seed_followup.SeedFollowup) ... ok
+test_requires_both_reports_and_never_creates_missing_registration (test_seed_followup.SeedFollowup) ... ok
+test_resealed_report_cannot_replace_actual_paired_effect (test_seed_followup.SeedFollowup) ... ok
+test_smoke_archive_and_changed_gate_are_rejected (test_seed_followup.SeedFollowup) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 7.148s
+
+OK

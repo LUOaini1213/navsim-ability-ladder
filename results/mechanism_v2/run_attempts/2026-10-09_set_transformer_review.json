@@ -1,0 +1,160 @@
+{
+  "kind": "set-transformer-pmlr97-main-supplement-primary-review-v1",
+  "captured_utc": "2026-10-09T12:20:47.4232164Z",
+  "publisher_url": "https://proceedings.mlr.press/v97/lee19d.html",
+  "publisher_verified_venue": "ICML 2019 / PMLR 97:3744-3753",
+  "source_pdfs": [
+    {
+      "path": "tmp/pdfs/set_transformer_pmlr97_2019_20261009/main.pdf",
+      "primary_url": "https://proceedings.mlr.press/v97/lee19d/lee19d.pdf",
+      "bytes": 4877237,
+      "sha256": "965aee34a80935c775156bf96c059e74a226282cbcaee69eb6f9cf6f2603525d",
+      "pdfinfo_page_count": 10,
+      "manual_text_read_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_visual_review_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "scope": "All publisher main PDF pages: main pp. 1-8, references pp. 9-10."
+    },
+    {
+      "path": "tmp/pdfs/set_transformer_pmlr97_2019_20261009/supplement.pdf",
+      "primary_url": "https://proceedings.mlr.press/v97/lee19d/lee19d-supp.pdf",
+      "bytes": 246987,
+      "sha256": "52906103fb14cc0ac5e080f0d3e8e251a517872ba093ec57aee5f1c9240bc1c3",
+      "pdfinfo_page_count": 7,
+      "manual_text_read_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "manual_visual_review_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "scope": "All seven publisher-hosted supplement pages, including proof statements, experiment details, tables, runtime and references."
+    }
+  ],
+  "pdfinfo_exit_codes": [
+    0,
+    0
+  ],
+  "poppler_render_exit_codes": [
+    0,
+    0
+  ],
+  "poppler_render_settings": "-r 110 -scale-to 1500 -png; full main 1-10 and full supplement 1-7",
+  "parser_or_font_warnings_observed": [],
+  "rendered_page_sha256": {
+    "main-01.png": "a77b0ca3cac4ed25e2c426cf73881f104c7abfab20891c4cd82de742493f09f9",
+    "main-02.png": "ac857bbedfab1ea769ddc919f70e98443928387899edc0ec31140737ff5f9d19",
+    "main-03.png": "abec2ce4ddefa9f8be1cdff10006507b806d7e7d26275304afe11f34deeffec5",
+    "main-04.png": "3131496e9c858dd2469d1d90ce202c09bfd260f9382cd8089bf231e2b9c20912",
+    "main-05.png": "c01dad4978df3f308bbdfe450f6dcf413ebeaf2fdb59fd81047667ad9a6857b1",
+    "main-06.png": "de2275d205e4d93895d435eee9ca3cacfb97fb237ea64f645dae175b7b64ec28",
+    "main-07.png": "ba2961458132990c65bf68972abcc98cc113f28fe1207a385b9fe890ef976307",
+    "main-08.png": "dc87aed6869411adb2ccc29a8d8d39aa12922714b3492acc0f709ebda66edd63",
+    "main-09.png": "4c24839dece6532111a7aaa0f93fe278fd8f3e15fd3389e0514eafb2abac4eab",
+    "main-10.png": "2e61caf7642cf1bb22f3c0b73e58c566b07e243b814b0939a3784574f8c96e6f",
+    "supplement-1.png": "0362b0a67a4d0674a805da6f08a8077caf5291914d176de939debdc7432e6be1",
+    "supplement-2.png": "1e5ec4817af4536f010167ffc2c38c47f5032432fa1f75c677be12f2cbd3ac9d",
+    "supplement-3.png": "4128775121c88acd2fc77eb3c729b008ed6d0a707f728dd8ac1998e225d1a151",
+    "supplement-4.png": "89300552994b7881021f61f7f041dd45b515ce59cdea2daf4b49b6e121674165",
+    "supplement-5.png": "826a7978e716eab03168511b9aea8dc9fe8d2056e935b48394f008b43b2476c3",
+    "supplement-6.png": "1318105eb3157bf02fa2579541ee64e9f7541ef4a2d7955e8a39c1dda4df92d3",
+    "supplement-7.png": "4680c926daea97c4544998ec157b822646c13d3e88e66e885cbd7f5ce6a64df8"
+  },
+  "visually_checked_material": "Main Figures 1-5, Tables 1-5, Equations 1-18/propositions; supplement Tables 1-10/Figure 1/theoretical statements. All seventeen complete rendered pages inspected and readable.",
+  "initial_image_lookup_failure": "One main-1.png lookup failed because the actual main names use zero-padding; rg --files located main-01.png, and every actual main/supplement page was then visually inspected. No source PDF or experimental job affected.",
+  "source_limits": {
+    "author_code_executed": false,
+    "numerical_results_replicated": false,
+    "theoretical_proofs_independently_verified": false,
+    "source_main_supplement_character_counting_values_reconciled": false,
+    "example_observed_difference": "Main Table 2 rFF+Pooling 0.4382 versus supplement Table 2 0.4366; no checkpoint/configuration explanation inferred.",
+    "all_underlying_cited_papers_reviewed": false,
+    "arxiv_v3_pdf_equivalence_to_publisher_pdf_verified": false
+  },
+  "model_source_readonly_checked": {
+    "path": "agents/mechanism_model.py",
+    "sha256": "a2769dfe8107aff47250b193a877d541b35a9e6aa21c4d2a47c80eb9e0aff510",
+    "actual_set_branch": "Shared row-wise MLP, presence mask, masked mean/max; no SAB/ISAB/PMA. Frozen source read only; no training/inference execution in this review.",
+    "new_architecture_or_attention_ablation_added": false
+  },
+  "actual_current_reference_scope": {
+    "selected_text_review": 10,
+    "metadata_abstract_only": 0,
+    "total": 10
+  },
+  "document_sha256": {
+    "docs/CLOSEST_PRIOR_REVIEW.md": "bb83e14f9e2c1f3758e07022974ad19a77bf4b750ef7a78287e406bba264ac95",
+    "docs/reference_metadata_2026-10-09.json": "eaabd90e5316bcd21f388bc744e1e945169012a666944ae5671b27841c58658f",
+    "docs/COMPLETION_REQUIREMENTS.md": "3f9a9e18dd3d67149c6ec0f4a0a21833083f19ec9e08357b4fc5e1df135c63a5",
+    "docs/PAPER_PLAN_2026-10-09.md": "4554db473f2ee05353820cd7d1ee8f7aaf6f2591fc616ab3bda2c623430a09e3",
+    "docs/EXECUTION_STATUS.md": "6036d0fe35daf12571ace9b41d7079528fe44228474f93878310d166ca2344c0"
+  },
+  "cache_frozen_bindings_verified_unchanged": 185,
+  "cache_binding_receipt_sha256": "c00bdc30c73c9060cafd23dda4ccb9ea3d51fc993560ccd3c41b143b1b822f4b",
+  "previous_graphics_sources_verified_unchanged": 3,
+  "previous_traffic_review_receipt_sha256": "eccfe3544e87803753c57fece5ccc10dad67fda7eac4ba7598b90aae59ed4dfb",
+  "historical_reference_and_review_receipts_preserved": true,
+  "git_diff_check_exit_code": 0,
+  "explicit_untracked_document_whitespace_checks": {
+    "documents": 5,
+    "no_index_exit_codes": 1,
+    "whitespace_messages": 0,
+    "disclosure": "New-file comparisons against NUL returned exit 1 for differences, no whitespace messages; tracked diff emitted existing CRLF/LF conversion warnings."
+  },
+  "live_wait_observation": {
+    "observed_utc": "2026-10-09T12:20:47.4232164Z",
+    "process_ids": [
+      30252,
+      37152
+    ],
+    "tool_sessions": [
+      94130,
+      27613
+    ],
+    "available_mb": 1974.5,
+    "cache_status": "waiting_for_memory",
+    "cache_jobs": 0,
+    "score_status": "waiting_for_cache_lock",
+    "score_jobs": 0,
+    "same_tool_handles_polled_for_seconds": 30,
+    "user_direction": "Wait for other tasks to release memory; do not terminate unrelated tasks or lower the 6000 MB/stable-30-second launch policy."
+  },
+  "actual_scientific_runner_launched": false,
+  "actual_model_score_input_metric_or_frozen_gate_changed": false,
+  "full_updated_test_suite_executed": false,
+  "manuscript_pdf_authored": false,
+  "project_complete": false,
+  "disclosure": "Primary-paper main/supplement read, visual inspection, source-identity comparison and documentation only. No author experiment/theorem reproduction, novel architecture, independent interaction result, scientific score, exhaustive novelty certification, final citation audit or project-completion claim. All ten references now have individually bounded selected-text comparisons; pending full scoring and applicable paper-plan requirements remain."
+}

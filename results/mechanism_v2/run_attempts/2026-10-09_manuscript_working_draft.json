@@ -1,0 +1,52 @@
+{
+  "accepted_pdf": "output/pdf/navsim_controlled_study_draft_20261009_r2.pdf",
+  "compilation_python": "3.9.25 (main, Oct 31 2025, 22:56:13) [MSC v.1929 64 bit (AMD64)]",
+  "controlled_driving_scores_included": false,
+  "current_document_sha256": {
+    "docs/COMPLETION_REQUIREMENTS.md": "86b2148a2e4c3815fe8412c99c8dfe2bd30e7c95bec015b4ec0d30de2d21adb6",
+    "docs/EXECUTION_STATUS.md": "cc2df4c61e49e2bbe6b6b62de47ad8a5804684acfb0d2f477c467961ad4b191d",
+    "docs/REPRODUCIBILITY.md": "b598bc2232306d9da02e1b41cffe1634814a5a98f48640b1430dcab9cdd20aa6",
+    "docs/references.bib": "a0aa4b5a7a653438995615424a38ac6eb0aa833252ecfc392485337cd82a712b"
+  },
+  "experimental_reproduction_completed": false,
+  "final_project_completed": false,
+  "first_pdf_preserved_not_delivered": true,
+  "heavy_modules_imported": [],
+  "intentional_postcapture_bookkeeping_documents": [
+    "docs/COMPLETION_REQUIREMENTS.md"
+  ],
+  "observation_utc": "2026-10-09T13:17:59.754104+00:00",
+  "output_target_refusal_checks": [
+    {
+      "existing_pdf_preserved": true,
+      "exit_code": 1,
+      "expected_refusal": true,
+      "target": "output\\pdf\\navsim_controlled_study_draft_20261009_r2.pdf"
+    },
+    {
+      "existing_pdf_preserved": true,
+      "exit_code": 1,
+      "expected_refusal": true,
+      "target": "results/mechanism_v2/protocol/forbidden.pdf"
+    },
+    {
+      "existing_pdf_preserved": true,
+      "exit_code": 1,
+      "expected_refusal": true,
+      "target": "output/pdf/forbidden.txt"
+    }
+  ],
+  "pages_visually_inspected": 7,
+  "pdf_sha256": "cdca774e2ccc4b8a0cb9ba79c1ee53dcd6d65d0181f69a4ec73e70e2d9e4eb8f",
+  "publication_authorized": false,
+  "render_receipt_sha256": "c81c5229de8e1fa4d474171c1211d23482ee5551b743463655987881bca30ed8",
+  "scientific_frozen_bindings": 185,
+  "scientific_manuscript_completed": false,
+  "scope": "Seven-page working draft with bounded evidence and actual PDF QA; no complete scientific results, final citation audit or experimental reproduction",
+  "source_compiled_without_imports": true,
+  "source_lineage_mismatches": [],
+  "status": "working_manuscript_render_and_visual_qa_verified",
+  "updated_full_suite_passed": false,
+  "visual_receipt_sha256": "483c7dfcf94bad4ed3395959df51ec23a7c554860f49b1d60050800c1d1547ff",
+  "working_draft_only": true
+}

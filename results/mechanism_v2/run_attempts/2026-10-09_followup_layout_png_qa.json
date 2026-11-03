@@ -1,0 +1,41 @@
+{
+  "status": "seven_corrected_fixture_pngs_visually_inspected_and_accepted",
+  "inspection_date_utc": "2026-10-09",
+  "eligible_for_paper": false,
+  "scope": "Synthetic layout fixtures only; not scientific scores, intervals or completed auxiliary experiments",
+  "generation_tool_session": 53169,
+  "observed_generation_exit_code": 0,
+  "renderer_source_sha256": "c809f1cc735ebaa29d0024a6d3b3b596fb37bf0d4693323464624c8b51e18a7b",
+  "groups": {
+    "city": {
+      "directory": "tmp/followup_layout_smoke_city_20261009_v2",
+      "scientific_ineligible_render_receipt_sha256": "33a4e7b11bffb555da673c5e6e5eb27be319eaa2a3c8e96538330009f05aa5aa",
+      "inspected_png_sha256": {
+        "city_contrasts.png": "efc549296a354aea8958d18d43430960a45c41f82d1bcad517228c4cc7a21e3c",
+        "city_strata.png": "3ca7bbc2051024648036a437a7c51a430d1bd7265aa4a60a0ef7bec598f63be7",
+        "city_submetrics.png": "8b53d6c1524cfaf4b030718c91b3e1a896bbff6f066702ff7ada9bd6dc381cdb"
+      }
+    },
+    "curves": {
+      "directory": "tmp/followup_layout_smoke_curves_20261009_v2",
+      "scientific_ineligible_render_receipt_sha256": "4ab65b98f5fab66bdaf4706d5117c28f04f0bd45309221b015201b6287a15926",
+      "inspected_png_sha256": {
+        "learning_curves.png": "9668f79547f51b640cfa62c0c45be912c500dcdc784bb29ebce55dc1ef3f6554",
+        "encoder_curves.png": "d7999526fca37e9d7253577df260eb3123dc0f1cbcbc89d77f83e2842e939bad",
+        "budget_interactions.png": "79503d2d20b0a95d70ed8180fe5e979f1d2329cd5db6f5febaf7d524a4827220",
+        "curve_submetrics.png": "2b0a2f48140fe3ebbe2dce6e36a914147b5a0a0761c9325686028e1593d639dc"
+      }
+    }
+  },
+  "checks": [
+    "All seven full PNGs inspected; encoder_curves additionally viewed alone at original detail",
+    "Titles, axes, legends, captions and synthetic-data warnings readable and not clipped",
+    "Adjusted fixture intervals visibly extend beyond ordinary intervals in both contrast forests",
+    "Rounded zero heatmap annotations display 0.000, not -0.000",
+    "Empty strata retained; one-session intervals marked unavailable rather than invented",
+    "Repeated full-data anchor identified as reused, not independent replication",
+    "DDC zero-weight diagnostic and fitted-seed-conditional uncertainty boundaries visible"
+  ],
+  "vector_qa": "Independent SVG rasterization queued separately in guarded session 67570; no vector visual acceptance claimed by this PNG record",
+  "source_modification": "Original render receipts retained unchanged; inspection stored separately"
+}

@@ -1,0 +1,9 @@
+{
+  "runner_pid": 40316,
+  "scope": "Training/artifacts only; driving-score curves and goal completion remain separate",
+  "jobs": [],
+  "attempts": [],
+  "memory_events": [],
+  "status": "failed_or_interrupted",
+  "exception": "FileNotFoundError(2, 'No such file or directory')"
+}

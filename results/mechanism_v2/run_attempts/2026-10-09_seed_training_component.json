@@ -1,0 +1,30 @@
+{
+  "kind": "guarded-five-seed-training-component-v1",
+  "captured_utc": "2026-10-09T10:46:44.261307+00:00",
+  "passed": true,
+  "source_sha256": {
+    "analysis/seed_models.py": "273c733d9256e543d8a0e1aada2e22e17b57335b589330e88bf37c6ac55c0570",
+    "analysis/run_seed_training.py": "d8fc31689e26c729ce95ec2d9b3fcc643f57d0c0032414ee3aa7aa44479c276b",
+    "tests/test_seed_models.py": "b16b8e87388b75551a2b92402c8628395721878da5fbe58138aa383d052e482f",
+    "tests/test_seed_training.py": "267fd4c94e9b17c152b844f84394ac96276eddeec3de64ff5838e234bf4ee063"
+  },
+  "registration_sha256": "7a2930183f1dc0d7b65b4c3ffb3caf3be1eb4d317736e1e4bfbd7a8383d3f197",
+  "tests_log_sha256": "17d0504991c29e027f3bf2d770605d815b75461da4c7a940d9fcb7ce61dd2b0a",
+  "actual_scoped_tests": {
+    "run": 30,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "cache_bound_analysis_hashes_verified_unchanged": 14,
+  "python_syntax_checked_files": 4,
+  "original_core_and_registration_sources_changed": false,
+  "actual_trigger_decision": null,
+  "actual_protocol_activated": false,
+  "actual_added_models_complete": 0,
+  "training_runner_implemented": true,
+  "prediction_scoring_and_five_seed_analysis_implemented": false,
+  "full_updated_suite_executed": false,
+  "project_complete": false,
+  "disclosure": "Actual low-memory component tests with synthetic temporary artifacts and tiny owned standard-library child processes, not twelve fitted NAVSIM models or an experimental follow-up. No additional scientific runner was launched."
+}

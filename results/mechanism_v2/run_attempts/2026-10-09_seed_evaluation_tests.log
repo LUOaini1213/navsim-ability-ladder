@@ -1,0 +1,55 @@
+test_changed_prediction_or_receipt_rejected (test_seed_analysis.SeedAnalysis) ... ok
+test_core_and_added_protocols_are_not_mixed_into_one_score_batch (test_seed_analysis.SeedAnalysis) ... ok
+test_metadata_source_separators_normalized_but_identity_not_relaxed (test_seed_analysis.SeedAnalysis) ... ok
+test_real_npz_receipts_and_all_seven_metrics_audited (test_seed_analysis.SeedAnalysis) ... ok
+test_registered_builder_rejects_draw_tuning_before_data_access (test_seed_analysis.SeedAnalysis) ... ok
+test_resealed_csv_cannot_replace_cohort_or_nonfinite_submetric (test_seed_analysis.SeedAnalysis) ... ok
+test_smoke_wrapper_yaml_cache_and_nan_summary_rejected (test_seed_analysis.SeedAnalysis) ... ok
+test_source_rebuilt_report_cannot_relabel_original_scores_as_added_protocol (test_seed_analysis.SeedAnalysis) ... ok
+test_source_rebuilt_thirty_run_report_retains_two_protocols_and_all_seeds (test_seed_analysis.SeedAnalysis) ... ok
+test_summary_uses_all_five_paired_seeds_and_all_metrics (test_seed_analysis.SeedAnalysis) ... ok
+test_exact_thirty_six_added_exports_no_seed_selection_or_core_relabel (test_seed_evaluation.SeedEvaluation) ... ok
+test_generic_official_scorer_has_no_smoke_limit_and_separate_outputs (test_seed_evaluation.SeedEvaluation) ... ok
+test_missing_duplicate_core_seed_or_mixed_split_batch_rejected (test_seed_evaluation.SeedEvaluation) ... ok
+test_changed_csv_is_rejected (test_seed_followup.SeedFollowup) ... ok
+test_confirmation_only_discordance_is_not_ignored (test_seed_followup.SeedFollowup) ... ok
+test_core_cannot_replace_or_duplicate_one_of_eighteen_identities (test_seed_followup.SeedFollowup) ... ok
+test_matrix_refuses_replaced_seeds_and_contrasts (test_seed_followup.SeedFollowup) ... ok
+test_nan_effect_cannot_bypass_difference_comparison (test_seed_followup.SeedFollowup) ... ok
+test_no_discordance_does_not_manufacture_added_jobs (test_seed_followup.SeedFollowup) ... ok
+test_paired_csv_trigger_not_training_completion (test_seed_followup.SeedFollowup) ... ok
+test_prospective_registration_refuses_existing_reports (test_seed_followup.SeedFollowup) ... ok
+test_real_design_has_exact_twelve_full_budget_jobs (test_seed_followup.SeedFollowup) ... ok
+test_recipe_changes_only_seed_registration_not_cohorts_or_settings (test_seed_followup.SeedFollowup) ... ok
+test_recipe_refuses_post_registration_seed_selection (test_seed_followup.SeedFollowup) ... ok
+test_registration_idempotent_and_binds_donors (test_seed_followup.SeedFollowup) ... ok
+test_requires_both_reports_and_never_creates_missing_registration (test_seed_followup.SeedFollowup) ... ok
+test_resealed_report_cannot_replace_actual_paired_effect (test_seed_followup.SeedFollowup) ... ok
+test_smoke_archive_and_changed_gate_are_rejected (test_seed_followup.SeedFollowup) ... ok
+test_actual_gated_copy_preserves_base_protocol_and_donors (test_seed_models.SeedModels) ... ok
+test_all_twelve_artifacts_required_for_confirmation_boundary (test_seed_models.SeedModels) ... ok
+test_changed_activation_or_donor_copy_is_rejected (test_seed_models.SeedModels) ... ok
+test_checkpoint_and_resealed_normalizer_change_refused (test_seed_models.SeedModels) ... ok
+test_no_trigger_materializes_nothing (test_seed_models.SeedModels) ... ok
+test_partial_activation_is_preserved_not_overwritten (test_seed_models.SeedModels) ... ok
+test_smoke_wrong_budget_seed_and_nonfinite_metrics_refused (test_seed_models.SeedModels) ... ok
+test_source_and_settings_hash_changes_refused (test_seed_models.SeedModels) ... ok
+test_actual_npz_existing_prediction_is_verified_without_rewriting (test_seed_predictions.SeedPredictions) ... ok
+test_changed_meta_and_bytes_are_rejected (test_seed_predictions.SeedPredictions) ... ok
+test_metadata_retains_distinct_base_and_extension_training_identity (test_seed_predictions.SeedPredictions) ... ok
+test_missing_thirtieth_model_blocks_confirmation_before_feature_loading (test_seed_predictions.SeedPredictions) ... ok
+test_partial_receipt_or_archive_is_preserved (test_seed_predictions.SeedPredictions) ... ok
+test_resealed_archive_cannot_replace_token_log_shape_or_finite_output (test_seed_predictions.SeedPredictions) ... ok
+test_unknown_or_core_seed_refused_before_dependencies_and_guard (test_seed_predictions.SeedPredictions) ... ok
+test_command_uses_isolated_outputs_frozen_trainer_and_fixed_budget (test_seed_training.SeedTraining) ... ok
+test_no_resumable_auto_retry_or_log_traversal (test_seed_training.SeedTraining) ... ok
+test_ordinary_failure_not_skipped_or_retried (test_seed_training.SeedTraining) ... ok
+test_owned_memory_interruption_is_recorded_and_never_retried (test_seed_training.SeedTraining) ... ok
+test_post_launch_status_failure_cleans_up_owned_child (test_seed_training.SeedTraining) ... ok
+test_real_tiny_child_logged_with_conservative_policy (test_seed_training.SeedTraining) ... ok
+test_source_change_while_waiting_prevents_launch (test_seed_training.SeedTraining) ... ok
+
+----------------------------------------------------------------------
+Ran 50 tests in 17.280s
+
+OK

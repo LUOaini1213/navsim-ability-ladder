@@ -1,0 +1,13 @@
+{
+  "status": "corrected synthetic PNG layouts visually inspected and accepted",
+  "eligible_for_paper": false,
+  "purpose": "layout smoke only, not scientific results",
+  "renderer_sha256": "e47bb722aa0a2d8e6380e5716437f00fb4150d614e8608d031024f761b994053",
+  "inspected_png_sha256": {
+    "primary_contrasts.png": "3b2f53d9d68618abb1b8915265c14802d61611961859ec19403ed5e2f855e341",
+    "subgroup_effects.png": "8ed8a5c90853dcfc84aec3f3cc251c1c93a3f18cdd5623a877fa50247e325147",
+    "metric_progress.png": "e8383a3aa4c9f3f111040c23b73463d1221dc2403bc76f781b3b1030afc70f69"
+  },
+  "checks": ["watermark separated from axes/captions/legend", "empty and one-session strata not clipped", "all three conditions and per-seed markers readable", "synthetic limitation clearly visible"],
+  "scope": "PNG layout inspection only; real PDMS figures must be rendered and inspected after complete score archives"
+}

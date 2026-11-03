@@ -1,0 +1,29 @@
+{
+  "event": "manual_owned_cache_memory_protection",
+  "observed_at_utc": "2026-10-09T07:05:18Z",
+  "timestamp_scope": "clock observation immediately after termination, not exact kill time",
+  "free_memory_samples_mb": [392, 284, 346],
+  "verified_owned_processes": {
+    "controller_pid": 26060,
+    "cache_shim_pid": 42968,
+    "cache_python_pid": 40148,
+    "termination_root_pid": 42968
+  },
+  "termination_command": ["taskkill.exe", "/PID", "42968", "/T", "/F"],
+  "unrelated_processes_terminated": false,
+  "material_files_deleted": false,
+  "evaluation_session": {"id": 71587, "exit_code": 1, "stage": "cache_validation"},
+  "curve_training_session": {
+    "id": 20056,
+    "exit_code": 1,
+    "reason": "Required validation analysis/report.json absent; dependency gate prevented training",
+    "jobs_executed": 0
+  },
+  "preserved_core_models": 18,
+  "partial_cache_inventory_at_2026_10_09T07_11_10Z": {
+    "files": 1489,
+    "size_mb_rounded": 592.1,
+    "scope": "file presence only; not proof each partial file is valid or full coverage"
+  },
+  "resumption_requirement": "Validate and reuse existing new-cache files; regenerate corrupt own files only; no scoring until full split cache completion and provenance checks"
+}

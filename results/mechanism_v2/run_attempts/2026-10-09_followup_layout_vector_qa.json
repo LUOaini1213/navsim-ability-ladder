@@ -1,0 +1,95 @@
+{
+  "status": "seven_independently_rasterized_fixture_svgs_visually_inspected_and_accepted",
+  "inspection_date_utc": "2026-10-09",
+  "eligible_for_paper": false,
+  "scope": "Synthetic fixture vector-layout QA only; no actual auxiliary scores, statistical findings, or scientific-figure completion",
+  "generation_tool_session": 67570,
+  "observed_generation_exit_code": 0,
+  "renderer": "sharp 0.35.5 / libvips 8.18.7 / librsvg 2.63.2",
+  "supersedes_pending_vector_status_in": "results/mechanism_v2/run_attempts/2026-10-09_followup_layout_png_qa.json",
+  "checks": [
+    "All seven independent SVG rasters actually viewed; encoder_curves additionally viewed alone",
+    "Full titles, captions, legends and axes readable and not clipped",
+    "Ordinary/adjusted fixture intervals visible as thick/thin distinct widths",
+    "Heatmap rounded zeros display 0.000 without false negative signs",
+    "Empty/single-session strata and the reused full-data anchor explicitly disclosed",
+    "Every source SVG, fixture receipt, independent render receipt and raster hash actually rechecked after inspection",
+    "No original SVG, render receipt or scientific output modified"
+  ],
+  "binding_audit": {
+    "passed": true,
+    "renderer_source_sha256": "29f3b5d3b3f95555c5bc6926172df0bad06a6043357fa8c0dfe47d673ce0e444",
+    "figures": [
+      {
+        "directory": "tmp/followup_layout_smoke_city_20261009_v2",
+        "figure": "city_contrasts",
+        "svg_sha256": "178b95842cc30f31dabfe15aefad8f5c0f59f5991e250fea57d180ecacdcaac8",
+        "fixture_render_receipt_sha256": "33a4e7b11bffb555da673c5e6e5eb27be319eaa2a3c8e96538330009f05aa5aa",
+        "independent_render_receipt_sha256": "ba8f5f05f88819bdc94ac945ed092602905335e2575a2bec37c32ebd71e36517",
+        "inspected_raster_sha256": "b94cd061a212844631f29eef24172be1c1a58f75391e03636068518c9e0fdc12",
+        "width": 2914,
+        "height": 1378
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_city_20261009_v2",
+        "figure": "city_strata",
+        "svg_sha256": "7dc2d7289fd72623017433285b1066259d7ab89980374666305a18938c1c20da",
+        "fixture_render_receipt_sha256": "33a4e7b11bffb555da673c5e6e5eb27be319eaa2a3c8e96538330009f05aa5aa",
+        "independent_render_receipt_sha256": "7533dbe07f300db44907e56922595783dedcec3fd488827e5e8797fc5f8ad3ed",
+        "inspected_raster_sha256": "4612553a28f729360144cbf32e64e4553975cbf07c1101a470cab7a6bc36e094",
+        "width": 4642,
+        "height": 1540
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_city_20261009_v2",
+        "figure": "city_submetrics",
+        "svg_sha256": "b9735755de62a95d29f3b36687ca845d6f39a22976d45f340735b128d88ca60c",
+        "fixture_render_receipt_sha256": "33a4e7b11bffb555da673c5e6e5eb27be319eaa2a3c8e96538330009f05aa5aa",
+        "independent_render_receipt_sha256": "411c8c1d3a638e3516d6727b32cc905ca6b777969c8f61fffcb07b7e5cee4b12",
+        "inspected_raster_sha256": "315c7ce2e3848f9fc50f68349d822969ef6c682538c5cd685e73965de8d4f3cb",
+        "width": 3195,
+        "height": 1282
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_curves_20261009_v2",
+        "figure": "learning_curves",
+        "svg_sha256": "cb6a49b80996e6f965ac41c97f87a7a93ab09c6aac2f450f6d85a12a07f1174c",
+        "fixture_render_receipt_sha256": "4ab65b98f5fab66bdaf4706d5117c28f04f0bd45309221b015201b6287a15926",
+        "independent_render_receipt_sha256": "7841861e22eba82758a0f90e26a90ef1143db33d0f7132191ac38dc911821001",
+        "inspected_raster_sha256": "94a622f9760495417d6d4fd824316e2a57f314f7526ba33f1f85d349e116cdb0",
+        "width": 3490,
+        "height": 1604
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_curves_20261009_v2",
+        "figure": "encoder_curves",
+        "svg_sha256": "ed3603d0f1ecfc691338b9961a3f6dc3b5c5d054663fc337db805d2702cbca90",
+        "fixture_render_receipt_sha256": "4ab65b98f5fab66bdaf4706d5117c28f04f0bd45309221b015201b6287a15926",
+        "independent_render_receipt_sha256": "5ba64bb31cf329fdeb883de6ac8aafc35d427c6cc1294e0fdcf6e1a7dcf8b4be",
+        "inspected_raster_sha256": "f951ea3893111511df8aa4c960b915bc6ba38ca580208bbe314fd66cda5f45cc",
+        "width": 3490,
+        "height": 1604
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_curves_20261009_v2",
+        "figure": "budget_interactions",
+        "svg_sha256": "664d8fbf78156819c7f0ec9b7af073966652d58d440d8a65724c3ad0fc0b2c60",
+        "fixture_render_receipt_sha256": "4ab65b98f5fab66bdaf4706d5117c28f04f0bd45309221b015201b6287a15926",
+        "independent_render_receipt_sha256": "531d8e097be9d51285c59ee163d98a678d932d7ffc1cd6005e1d79b041b64a1d",
+        "inspected_raster_sha256": "2968ca91c3f09dd1e43ef7c1afb8b51b202b49d83cc64e4c2f28943423cc874d",
+        "width": 3202,
+        "height": 1540
+      },
+      {
+        "directory": "tmp/followup_layout_smoke_curves_20261009_v2",
+        "figure": "curve_submetrics",
+        "svg_sha256": "cead3803560f0bf79ece4f22c62a2b3e7037e175fedecca5b4938745052daa3b",
+        "fixture_render_receipt_sha256": "4ab65b98f5fab66bdaf4706d5117c28f04f0bd45309221b015201b6287a15926",
+        "independent_render_receipt_sha256": "11ee51b1ffd60ca6734d6099785e5cb3c10654170ee95fbca2cdc4cefe996409",
+        "inspected_raster_sha256": "cf033c5f9c325fbc90bc572c361c417bd27f7f8b745fef817ae180908fcd78b4",
+        "width": 3195,
+        "height": 1282
+      }
+    ]
+  }
+}
