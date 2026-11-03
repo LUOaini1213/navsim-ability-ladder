@@ -518,6 +518,16 @@ def _check_prose(R, text, readme, problems):
             P.num('claim 3 boxes with map, seed %d' % k, m.group(k + 1), d[1])
         P.verdicts('claim 3 boxes with map', ds, ['excl'] * 3)
 
+    # 4. the privileged-map MLP next to TransFuser's published score
+    m = P.find('claim 4, fixed recipe', r'With the fixed recipe it averages (0\.\d{3}) over three seeds')
+    if m:
+        P.num('claim 4 kin+map mean', m.group(1), sum(R.mean(x) for x in seeds('l_pose_map_s%d')) / len(SEEDS))
+    m = P.find('claim 4, best of seven', r'The best of the (seven) regularisation settings reaches (0\.\d{3})')
+    if m:
+        P.num('claim 4 best regularisation setting', m.group(2), max(R.mean(st) for _l, st in REG_VARIANTS))
+        if len(REG_VARIANTS) != 7:
+            problems.append('claim 4: README says seven settings, REG_VARIANTS has %d' % len(REG_VARIANTS))
+
     # 5. who draws the path, who paces it
     speed = [R.delta('privmapkin', b) for b in seeds('l_ds_map_s%d')]
     m = P.find('claim 5, learned speed', r'beats the hand speed law in every seed \(' + SN + ', ' + SN + ', '

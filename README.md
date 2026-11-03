@@ -11,8 +11,8 @@ the open-loop loss you train on tell you which model to ship*.
 The study now runs on the full **`navtest` split: 12,146 scenes, 136 logs**, with
 the learned models trained on **navtrain (103,288 scenes, 1,192 logs)**, three
 seeds per cell. An earlier version used the 563-scene `warmup_test_e2e` split;
-it is kept below, because one of its conclusions **reversed** when the sample
-size grew, and that reversal is itself a result.
+it is kept below, because one of its conclusions **reversed** once both the
+training data and the evaluation split grew, and that reversal is itself a result.
 
 Every simulation score comes from per-scene CSVs written by NAVSIM's own
 `run_pdm_score.py`; the open-loop training losses come from the training runs and
@@ -102,11 +102,15 @@ The open-loop loss barely moves (0.290 → 0.295), so this is invisible to the
 training objective. Eighty-eight dimensions of perfect perception cost this model
 capacity it needed elsewhere.
 
-**4. With the map, a small MLP matches a sensor-fusion planner.** `kin+map`
-averages 0.823 and its best variant reaches 0.841, against TransFuser's published
-0.839 — from an 88-dimensional input and three hidden layers. The claim is not
-that the MLP is better; it is that **most of what the sensor stack has to deliver
-for this score is the on-route centerline**.
+**4. The ground-truth centerline alone puts a small MLP in TransFuser's range
+(a privileged upper bound).** `kin+map` is given the ground-truth on-route
+centerline, so like the `Priv*` rungs it is an upper bound, not a result. With the
+fixed recipe it averages 0.823 over three seeds, against TransFuser's published
+0.839 (quoted, not reproduced) — from an 88-dimensional input and three hidden
+layers. The best of the seven regularisation settings reaches 0.841, but all seven
+were scored on navtest itself, so that number is a test-set selection, not an
+estimate. The claim is not that the MLP is better; it is that, for this score, a
+ground-truth centerline gets a planner without any sensor input most of the way.
 
 ## Who draws the path, who paces it
 
@@ -189,8 +193,9 @@ the learned map model lost to the hand-written follower by 0.203 and the write-u
 concluded that the bottleneck was inductive bias. With 98,318 training samples —
 the navtrain split is 103,288 scenes, of which 4,970 are held out for validation
 (`results/navtest/cells.csv`, columns `n_train` / `n_val`) — and the same
-architecture, the same model beats that follower by 0.038. The old
-conclusion was a statement about the sample size, stated as if it were a
+architecture, the same model beats that follower by 0.038. Training data and
+evaluation split changed together, so the reversal is not attributed to either
+one; what it does show is that the old conclusion was stated as if it were a
 statement about the method.
 
 ## Scope and limitations
@@ -258,8 +263,9 @@ intervals.)*
 `MapMLP` is trained on the *identical* centerline features the hand-written
 follower consumes, and asked to regress the whole trajectory. On the clean split
 it scores 0.527 against the hand rule's 0.730 — **+0.203, 95% CI [+0.118,
-+0.291]** in favour of the hand rule. *(This one reversed on navtrain-scale data:
-the bottleneck was the 3,000-sample training set, not the inductive bias.)*
++0.291]** in favour of the hand rule. *(This one reversed once the model was trained on
+navtrain and scored on navtest. Training data and test split changed together, so
+the reversal does not say which of the two was the bottleneck.)*
 
 **Open-loop imitation quality is not simulation safety.**
 The blind MLP has a low open-loop L1 and still gets zeroed by DAC on 90 of 563
