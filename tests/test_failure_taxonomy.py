@@ -420,5 +420,58 @@ class RootCause(unittest.TestCase):
         self.assertEqual(len(single), 10)  # only ten logs exist
 
 
+class ReadmeNumbers(unittest.TestCase):
+    """README's "Where the planners fail" section and the taxonomy caveats of claim 3 are
+    recomputed from the committed outputs, and the check is shown to fail on a changed number."""
+
+    README = os.path.join(ROOT, 'README.md')
+
+    def _check(self, text=None):
+        import tempfile
+        import failure_taxonomy_verify as fv
+        if text is None:
+            return fv.check_readme(self.README)
+        fd, path = tempfile.mkstemp(suffix='.md')
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(text)
+            return fv.check_readme(path)
+        finally:
+            os.remove(path)
+
+    def _text(self):
+        import io
+        with io.open(self.README, encoding='utf-8') as f:
+            return f.read()
+
+    def test_committed_readme_passes(self):
+        self.assertEqual(self._check(), [])
+
+    def test_flipped_sign_is_caught(self):
+        text = self._text()
+        self.assertIn('(+3.3 points)', text)
+        self.assertTrue(self._check(text.replace('(+3.3 points)', '(−3.3 points)', 1)))
+
+    def test_unchecked_number_is_caught(self):
+        text = self._text().replace('Caveats: features', 'It is +0.123 here. Caveats: features', 1)
+        problems = self._check(text)
+        self.assertTrue(any('unchecked number +0.123' in p for p in problems), problems)
+
+
+class CompareOutputs(unittest.TestCase):
+    """The comparison CI runs on freshly regenerated outputs."""
+
+    def test_json_floats_within_tolerance_and_runtime_ignored(self):
+        import failure_taxonomy_verify as fv
+        out = []
+        fv._json_diff({'a': [0.1, 2], 'runtime_s': 1.0, 's': 'x'},
+                      {'a': [0.1 + 1e-12, 2], 'runtime_s': 9.0, 's': 'x'}, 'f', out)
+        self.assertEqual(out, [])
+        fv._json_diff({'a': [0.1, 2]}, {'a': [0.1 + 1e-6, 3]}, 'f', out)
+        self.assertEqual(len(out), 2)
+        fv._json_diff({'a': 1}, {'b': 1}, 'f', out)
+        self.assertIn('f: keys differ', out)
+
+
 if __name__ == '__main__':
     unittest.main()

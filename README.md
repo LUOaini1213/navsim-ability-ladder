@@ -26,6 +26,7 @@ python analysis/analyze_navtest.py                   # -> results/navtest/*.md  
 python analysis/analyze_ci.py                        # -> results/ci_report.md   (the 563-scene study)
 python analysis/analyze_navtest.py --check README.md # the navtest numbers below, recomputed
 python analysis/make_summary.py --check README.md    # the 563-scene numbers below, recomputed
+python analysis/failure_taxonomy_verify.py readme README.md   # the failure-taxonomy numbers below
 ```
 
 **The pipeline reproduces the published baselines.** On the same cache, in
@@ -91,8 +92,8 @@ Singapore's 1,914 scenes, from only two sessions, carry 54% of the penalty —
 without Singapore it is −0.022 and seed 1 is no longer significant. The
 open-loop loss barely moves (0.290 → 0.295), so this is invisible to the
 training objective. One reading is that eighty-eight dimensions of perfect
-perception cost this model capacity it needed elsewhere; the taxonomy shows the
-cost lands on path geometry (more drivable-area failures), not on braking.
+perception cost this model capacity it needed elsewhere; in the taxonomy the cost
+shows up as more drivable-area and TTC failures, not slower plans.
 
 **4. With the map, a small MLP matches a sensor-fusion planner.** `kin+map`
 averages 0.823 and its best variant reaches 0.841, against TransFuser's published
@@ -186,7 +187,8 @@ intervals.
   scenes it is +0.419. It is not larger on curved routes (pre-registered H1:
   +0.017 [−0.014, +0.048], not supported). It works through drivable-area
   compliance: the DAC failure rate drops by 16.3 points.
-- **The box penalty is geometric and concentrated.** Adding boxes to the map
+- **The box penalty shows up as more drivable-area and TTC failures, not slower
+  plans, and it is concentrated.** Adding boxes to the map
   model (−0.041) adds drivable-area failures (+3.3 points) and TTC failures
   (+2.3 points), but not slower plans (−0.2 points). Singapore's 1,914 scenes,
   from two sessions, carry 54% of it; without Singapore it is −0.022 and seed 1
@@ -362,7 +364,7 @@ analysis/   ladder_io.py (shared loading + bootstrap)
             analyze_ci.py, analyze_clean_ladder.py, make_summary.py   the 563-scene study
             build_features.py, train_ladder.py   navtrain feature extraction and cell training
             analyze_openloop.py, summarize_pdm.py, export_per_scene.py   workspace-side tools
-            failure_taxonomy_{core,features,analyze,cases}.py   the pre-registered failure taxonomy
+            failure_taxonomy_{core,features,analyze,cases,verify}.py   the pre-registered failure taxonomy
 tests/      bootstrap sanity; every report regenerates byte for byte from the committed CSVs
 scripts/    bash runners for caching, scoring and training + env.sh; the older PowerShell runners
 results/    per_scene/ (563), navtest/ (12,146) and failure_taxonomy/: CSVs, reports, figures

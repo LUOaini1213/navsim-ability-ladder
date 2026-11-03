@@ -109,9 +109,9 @@ sessions; "boxes hurt more once the map is there" does not.
 | H3b box penalty larger with a lead | +0.041 [+0.010, +0.073] / [+0.001, +0.069] | not supported: the sign is the opposite |
 
 The penalty is *smaller* where a lead object is present, so it is not explained by the model
-over-reacting to the lead input. Together with the mechanism above (sideways DAC failures,
-mostly in free flow and in Singapore) this points at the 88 box dimensions degrading path
-geometry rather than at the boxes being used for speed; that reading is exploratory.
+over-reacting to the lead input. Together with the mechanism above (more drivable-area and
+TTC failures, not slower plans; mostly in free flow and in Singapore) this suggests the 88 box
+dimensions degrade the plan rather than being used to slow down; that reading is exploratory.
 
 ## 4. Where clustering changes a conclusion (`clustering.md`, `hypotheses.md`)
 
@@ -167,6 +167,8 @@ rows (largest error 5e-07).
 python -m unittest tests.test_failure_taxonomy -v       # core rules, bootstrap replay, committed point estimates
 python analysis/failure_taxonomy_analyze.py --check     # every committed mean/contribution from the CSVs (stdlib)
 python analysis/failure_taxonomy_analyze.py --out FRESH  # all tables and intervals (numpy: ~2.5 min)
+python analysis/failure_taxonomy_verify.py compare FRESH  # diff them against the committed files (CI does this)
+python analysis/failure_taxonomy_verify.py readme README.md   # the numbers the top-level README quotes
 # with the NAVSIM workspace (raw logs, maps, metric cache, checkpoints), into fresh folders:
 python analysis/failure_taxonomy_features.py --out FRESH --threads 1
 python analysis/failure_taxonomy_cases.py select --out FRESH_CASES
