@@ -246,6 +246,19 @@ class ReadmeProse(unittest.TestCase):
         problems = self._problems('Giving the speed model the GT', 'It moves +0.123. Giving the speed model the GT')
         self.assertTrue(any('signed number +0.123 is not checked' in p for p in problems), problems)
 
+    def test_a_log_cluster_quote_needs_its_file(self):
+        # The controlled-study branch (#2) quotes log-cluster intervals from
+        # results/navtest/clustered.json. Here that file does not exist yet, so the
+        # quote is a mismatch instead of passing unchecked.
+        problems = self._problems('Giving the speed model the GT',
+                                  u'Averaged over the seeds and resampled by log, rule path minus learned path '
+                                  u'is −0.006 [−0.018, +0.006]. Giving the speed model the GT')
+        if os.path.exists(os.path.join(ROOT, 'results', 'navtest', 'clustered.json')):
+            self.assertEqual(problems, [])
+        else:
+            self.assertEqual(problems, ['README quotes results/navtest/clustered.json, '
+                                        'which is not in this checkout'])
+
 
 if __name__ == '__main__':
     unittest.main()

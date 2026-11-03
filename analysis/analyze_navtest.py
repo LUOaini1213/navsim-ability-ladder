@@ -417,6 +417,59 @@ def delta_comfort_neutral(R, a, b):
     return len(common), mean, lo, hi
 
 
+# Rules for sentences that the controlled-study branch (#2: log-cluster intervals) and the
+# failure-taxonomy branch (#3) add to these sections. They only apply once that text is in
+# README; when it is, the numbers are checked against the committed file the branch brings,
+# and a missing file is a mismatch.
+CLUSTERED_QUOTES = [
+    (r'rule path minus learned path is ' + IV, 'map input: rule path vs full pose'),
+    (r'keeps the weight-decay gain \(' + IV, 'pose seed 0: weight decay 1e-4'),
+    (r'but not the dropout loss \(' + IV, 'pose seed 0: dropout 0.2'),
+]
+
+
+def _check_merged_extras(P, problems):
+    def load(rel):
+        path = os.path.join(REPO, *rel.split('/'))
+        if not os.path.exists(path):
+            problems.append('README quotes %s, which is not in this checkout' % rel)
+            return None
+        with io.open(path, encoding='utf-8') as f:
+            import json
+            return json.load(f)
+
+    for pattern, label in CLUSTERED_QUOTES:
+        m = re.search(pattern, P.text)
+        if not m:
+            continue
+        P.covered += [m.span(i) for i in (1, 2, 3)]
+        data = load('results/navtest/clustered.json')
+        rows = {r['comparison']: r for r in data['rows']} if data else {}
+        if data is not None and label not in rows:
+            problems.append('clustered.json has no row "%s"' % label)
+        elif data is not None:
+            r = rows[label]
+            for k, (name, got) in enumerate((('', r['delta']), (' CI low', r['low']), (' CI high', r['high']))):
+                P.num('log-cluster "%s"%s' % (label, name), m.group(k + 1), got)
+
+    m = re.search(r"clustered by driving session, seed 1's interval reaches zero \(\[" + SN + ', ' + SN
+                  + r'\]\)', P.text)
+    if m:
+        P.covered += [m.span(1), m.span(2)]
+        data = load('results/failure_taxonomy/summary.json')
+        if data is not None:
+            lo, hi = data['overall']['E3_s1']['session']
+            P.num('claim 3 seed 1, session-clustered CI low', m.group(1), lo)
+            P.num('claim 3 seed 1, session-clustered CI high', m.group(2), hi)
+    m = re.search(r'carry \d+% of the penalty -- without Singapore it is ' + SN, P.text)
+    if m:
+        P.covered.append(m.span(1))
+        data = load('results/failure_taxonomy/city_sensitivity.json')
+        if data is not None:
+            got = [r['delta'] for r in data if r['without'] == 'singapore' and r['effect'] == 'E3_avg']
+            P.num('claim 3 box penalty without Singapore', m.group(1), got[0] if got else float('nan'))
+
+
 class _Prose(object):
     def __init__(self, text, problems):
         self.text, self.problems, self.covered = text, problems, []
@@ -473,7 +526,7 @@ def _check_prose(R, text, readme, problems):
         P.num('claim 1 map dDAC', m.group(1), R.dsub('kin', 'privmapkin', 'drivable_area_compliance'))
         P.num('claim 1 boxes dNC', m.group(2), R.dsub('kin', 'privbrake', 'no_at_fault_collisions'))
         P.num('claim 1 boxes dEP', m.group(3), R.dsub('kin', 'privbrake', 'ego_progress'))
-    if P.find('claim 1, ratio', r'about (seven) times'):
+    if P.find('claim 1, ratio', r'about seven times|roughly sevenfold'):
         ratio = R.delta('kin', 'privmapkin')[1] / R.delta('kin', 'privbrake')[1]
         if round(ratio) != 7:
             problems.append('claim 1: "about seven times" but the ratio is %.2f' % ratio)
@@ -511,7 +564,7 @@ def _check_prose(R, text, readme, problems):
         if n != 2:
             problems.append('claim 3: boxes without the map span zero in %d seeds, README says two' % n)
     m = P.find('claim 3, boxes with map', r'\*\*negative in all three\*\*: ' + SN + ', ' + SN + ', ' + SN
-               + ', every interval excluding zero')
+               + ', every (?:scene-level bootstrap )?interval excluding zero')
     if m:
         ds = [R.delta(a, b) for a, b in zip(seeds('l_pose_map_s%d'), seeds('l_pose_map_agents_s%d'))]
         for k, d in enumerate(ds):
@@ -566,7 +619,7 @@ def _check_prose(R, text, readme, problems):
 
     # 6. regularisation, and the rank correlations
     m = P.find('claim 6, opposite moves', r'move the score ' + SN + ' and ' + SN
-               + ', both intervals excluding zero')
+               + ', both (?:scene-level )?intervals excluding zero')
     if m:
         ds = [R.delta('l_pose_map_s0', b) for b in ('l_reg_pose_map_wd1e-4_s0', 'l_reg_pose_map_do0.2_s0')]
         P.num('claim 6 wd 1e-4', m.group(1), ds[0][1])
@@ -591,6 +644,7 @@ def _check_prose(R, text, readme, problems):
         P.num('split table largest learned-speed gain', m.group(2), max(d[1] for d in speed))
         P.verdicts('split table learned speed', speed, ['excl'] * 3)
     P.find('split table, 563-scene learned speed', r'\| ' + SN + r', interval spanned zero \|')
+    _check_merged_extras(P, problems)
     P.uncovered()
 
 
