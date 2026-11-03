@@ -7,7 +7,7 @@ result (exp/l_<tag>_navtest), compute on the frozen navtest features
 Writes exp/summary/openloop_navtest.md and openloop_navtest.csv, plus a scatter png
 (final val L1 on navtrain-val vs navtest PDMS) if matplotlib is available.
 
-Usage: python scripts/analyze_openloop.py [--split navtest]
+Usage: python analysis/analyze_openloop.py [--split navtest]
 """
 from __future__ import annotations
 
